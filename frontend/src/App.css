@@ -189,3 +189,11 @@
 .di-auth-login:hover { background: #1A0A08; color: #fff; }
 .di-auth-signup { background: #E8453C; color: #fff; }
 .di-auth-signup:hover { background: #c73530; }
+
+.di-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: 32px;
+  box-sizing: border-box;
+}

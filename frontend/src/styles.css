@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+:root{font-family:"DM Sans",Arial,sans-serif;color:#331817;background:#fff7f1}
+*{box-sizing:border-box}
+body{margin:0}
+
+/* ── App shell ── */
+.app{
+  height:100vh;
+  overflow:hidden;
+  display:grid;
+  /* FIX: middle column was minmax(690px,1fr) which forced overflow on narrower screens.
+     Changed to minmax(0,1fr) so it shrinks gracefully. */
+  grid-template-columns:328px minmax(0,1fr) 330px;
+  background:radial-gradient(circle at center,#fffdfa,#fff7f1)
+}
+
+h1,h2,h3,p{margin:0}
+button{font:inherit;border:0;background:none;cursor:pointer}
+
+/* ── Rails ── */
+.left-rail,.right-rail{background:#fff4ed;border:1px solid #f3d2c6}
+.left-rail{padding:27px 25px;position:relative;overflow:hidden}
+.brand h1{font:700 44px/1 "Playfair Display";color:#bd3036}
+.brand p{font-size:12px;margin-top:7px;color:#694945}
+.new-chat{width:100%;height:41px;background:#c82b31;color:white;border-radius:14px;margin:28px 0 35px;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:700}
+.left-rail h3{font:700 14px "Playfair Display";margin-bottom:12px}
+.left-rail h3 span{font-family:Arial;font-size:12px;color:#ed8c8f}
+.journey-item{display:flex;align-items:center;gap:13px;border:1px solid #f5d1c8;padding:9px 14px;margin:6px 0;border-radius:11px}
+.journey-item b{font-size:21px}
+.journey-item strong,.journey-item small{display:block;font-size:12px}
+.journey-item small{font-size:11px;color:#9a7770;margin-top:5px}
+.ask{border-top:1px solid #f1d4ca;margin-top:20px;padding-top:18px}
+.ask h3{display:flex;gap:6px}
+.ask button{display:flex;gap:9px;color:#51312f;align-items:center;border:1px solid #f2a7a4;border-radius:11px;width:100%;padding:8px 12px;margin:8px 0;font-size:11px}
+.ask svg{color:#f17c81}
+.beauty-art{position:absolute;bottom:25px;left:20px;width:270px;height:170px;color:#d6494d}
+.mirror{font-size:42px;display:grid;place-items:center;margin:28px auto;width:100px;height:100px;border:13px solid #d64e4f;border-radius:50%;background:#ffc7b6;transform:rotate(-20deg)}
+.beauty-art i{position:absolute;font-style:normal;font-size:18px}
+.beauty-art i:nth-child(2){left:30px;bottom:25px}
+.beauty-art i:nth-child(3){right:34px;bottom:50px}
+.beauty-art i:nth-child(4){right:6px;bottom:11px}
+
+/* ── Chat column ── */
+.chat{
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  padding:21px 39px
+}
+.chat-top{
+  height:103px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  border-bottom:1px solid #f1d9cf;
+  padding:0 6px
+}
+
+/* ── Avatars ── */
+.della-avatar,.mini-avatar,.photo{
+  display:grid;
+  place-items:center;
+  background:#f8c4b8;
+  border-radius:50%;
+  overflow:hidden;
+  flex-shrink:0
+}
+.della-avatar img,.mini-avatar img,.photo img{
+  display:block;width:100%;height:100%;object-fit:cover
+}
+.della-avatar{width:56px;height:56px;font-size:32px;border:1px solid #cf373b}
+.photo{height:65px;width:65px;font-size:34px}
+
+.chat-top h2{font:700 22px "Playfair Display";display:flex;align-items:center;gap:8px}
+.chat-top p{font-size:12px;color:#99736b;margin-top:7px}
+.chat-top button{margin-left:auto;border:1px solid #efa7a2;border-radius:22px;padding:9px 17px;display:flex;gap:9px;align-items:center;color:#bd2e33;font-size:12px}
+
+/* ── Conversation ── */
+.conversation{padding-top:19px;flex:1;min-height:0;overflow-y:auto}
+.user-msg{
+  margin-left:auto;
+  background:linear-gradient(100deg,#fac6c2,#f8baba);
+  /* FIX: was fixed 307px which overflowed on small screens */
+  width:min(307px,82%);
+  padding:15px 21px;
+  border-radius:11px 11px 0 11px;
+  font-size:14px
+}
+.time{display:flex;justify-content:flex-end;align-items:center;gap:7px;color:#93726e;font-size:11px;margin:7px 8px 16px}
+.answer{display:flex;gap:11px}
+.mini-avatar{width:39px;height:39px;font-size:21px;border:1px solid #e68480;flex:none}
+.answer-content{width:100%;min-width:0}
+.answer-content>p{display:inline-flex;gap:13px;align-items:center;border:1px solid #f1c9be;padding:15px 21px;font-size:13px;line-height:1.6;border-radius:14px}
+.answer-content>p svg{color:#ed7a7c}
+.answer-content h2{font:700 15px "Playfair Display";margin:17px 0 15px;display:flex;gap:7px}
+.answer-content h2 svg,.why>svg{color:#e97164}
+
+/* ── Products grid ── */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.product-card{
+  border:1px solid #f1c2b7;border-radius:13px;padding:14px 16px 15px;
+  position:relative;min-width:0;
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease,background .18s ease
+}
+.product-card:hover{
+  border:2px solid #c9272e;
+  box-shadow:0 8px 22px rgba(201,39,46,.08);
+  background:linear-gradient(145deg,rgba(255,255,255,.76),rgba(255,232,231,.4));
+  transform:translateY(-4px);
+  box-shadow:0 16px 32px rgba(180,74,76,.18),inset 0 1px 0 rgba(255,255,255,.95)
+}
+.card-heart{color:#c6282e;position:absolute;right:14px;top:15px}
+.tag{position:absolute;background:#ed8581;color:white;border-radius:15px;padding:5px 8px;font-size:9px}
+.product-art{height:145px;position:relative;display:flex;align-items:center;justify-content:center}
+.swatch{position:absolute;width:140px;height:55px;border-radius:50%;opacity:.68;transform:rotate(-14deg)}
+.bottle{position:relative;background:linear-gradient(90deg,#d49173,#ffd2b6,#d69278);width:42px;height:100px;border-radius:0 0 4px 4px;border:1px solid #c98771;display:grid;place-items:center}
+.bottle:before{content:"";position:absolute;top:-31px;width:40px;height:33px;background:#241e1d;border-radius:2px}
+.bottle span{font:700 9px "Playfair Display";color:#fff}
+.product-card h3{font:700 15px/1.15 "Playfair Display";min-height:36px}
+.rating{font-size:12px;display:flex;gap:5px;align-items:center;margin:5px 0 10px}
+.rating svg{color:#ea5559}
+.score{display:inline-block;background:linear-gradient(90deg,#fac1ba,#f59a9c);padding:6px 13px;border-radius:18px;font-size:11px}
+.product-card ul{list-style:none;padding:0;margin:10px 0 15px}
+.product-card li{font-size:11px;margin:8px 0}
+.product-card a{font-weight:700;color:#b92b30;font-size:12px;display:flex;align-items:center;gap:8px}
+.why{display:flex;gap:8px;align-items:flex-start;border:1px solid #f2c8bd;border-radius:14px;margin-top:22px;padding:17px 20px}
+.why p{font-size:13px}
+.why span{font-size:11px;line-height:1.6}
+.why strong{font-size:42px;color:#e46062;margin-left:auto}
+
+/* ── Footer / input ── */
+footer{flex:none;padding-top:14px}
+.input{display:flex;align-items:center;border:1px solid #f1c9be;border-radius:25px;padding:7px 9px 7px 17px;color:#a47b73;font-size:12px;gap:15px}
+.input input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#51312f;font-size:15px;font-family:inherit}
+.input input::placeholder{color:#a47b73}
+.input button{margin-left:auto;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#be2e33;color:white;flex-shrink:0}
+
+/* ── Right Rail ── */
+.right-rail{padding:19px 15px;overflow-y:auto}
+.right-rail section{border-radius:15px;margin-bottom:16px}
+.profile{background:#fffbf7;border:1px solid #f2ded5;padding:20px 17px}
+.profile-top{display:flex;align-items:center;gap:15px;margin-bottom:16px}
+.profile h2{font:700 17px "Playfair Display";display:flex;gap:8px}
+.profile p{font-size:10px;color:#a27a73;margin-top:6px}
+.profile-row{background:#fff6ef;border-radius:10px;padding:10px 16px;margin:3px 0;font-size:11px}
+.profile-row b,.profile-row span{display:block}
+.profile-row b{color:#a13a35;margin-bottom:3px}
+.profile button{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  /* FIX: was gap:100px which pushed icon off-screen */
+  border:1px solid #f0b8ae;border-radius:14px;width:100%;padding:8px;
+  color:#bc2c32;font-size:11px;margin-top:15px
+}
+.helps,.premium{background:linear-gradient(120deg,#ffdcd6,#ffc6c4);padding:18px}
+.right-rail h3{font:700 14px "Playfair Display";color:#ac3233}
+.helps h3{display:flex;gap:8px}
+.helps p{display:flex;gap:10px;font-size:10px;line-height:1.4;margin-top:14px;color:#c23b3b}
+.helps span{color:#4e302d}
+.promise{border:1px solid #edc4ba;padding:19px;position:relative}
+.promise p,.premium p{font-size:11px;line-height:1.5;margin-top:9px}
+.promise b{position:absolute;right:18px;top:35px;font-size:42px;color:#ee9690}
+.premium{height:188px;position:relative;overflow:hidden}
+.premium button{display:flex;align-items:center;gap:8px;color:#fff;background:#be3034;border-radius:15px;padding:8px 13px;font-size:11px;font-weight:700;margin-top:13px}
+.premium strong{position:absolute;right:21px;bottom:-9px;font-size:76px;color:#e26c6b}
+
+/* ── Chat exchange (sent messages) ── */
+.chat-exchange{margin-top:20px}
+.chat-exchange .user-msg{width:max-content;max-width:min(78%,520px)}
+.chat-exchange .time{margin-bottom:11px}
+.della-reply{display:flex;align-items:center;gap:10px;margin:0 0 20px}
+.della-reply p{background:#fff8f3;border:1px solid #f1c9be;border-radius:14px 14px 14px 0;padding:12px 17px;font-size:14px}
+.della-reply .mini-avatar{width:32px;height:32px;font-size:17px}
+
+/* ── Modal ── */
+.modal-backdrop{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:rgba(73,31,28,.28);padding:20px}
+.profile-modal{width:min(420px,100%);border:1px solid #edb9ae;border-radius:20px;background:#fff9f4;padding:24px;box-shadow:0 18px 50px rgba(126,46,43,.2)}
+.modal-head{display:flex;justify-content:space-between;gap:15px;margin-bottom:18px}
+.modal-head h2{font:700 22px "Playfair Display";color:#a92d32}
+.modal-head p{font-size:12px;color:#99736b;margin-top:5px}
+.modal-head>button{color:#b53034;font-size:27px;line-height:1}
+.profile-modal label{display:block;margin-top:13px}
+.profile-modal label span{display:block;color:#9d3b38;font-size:12px;font-weight:700;line-height:1.2;margin-bottom:6px}
+.profile-modal input{display:block;width:100%;height:42px;border:1px solid #efc8bd;border-radius:10px;background:#fffdfb;padding:0 12px;color:#51312f;font-family:inherit;font-size:13px;line-height:42px;outline-color:#df8580}
+.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}
+.modal-actions button{min-width:82px;border:1px solid #efa9a4;border-radius:14px;padding:9px 14px;color:#b52d32;font-size:12px}
+.modal-actions button:last-child{min-width:106px;background:#be3034;color:#fff;font-weight:700}
+
+/* ── Background & Glassmorphism ── */
+body{
+  background:linear-gradient(135deg,#f5c9c6 0%,#fff5ed 44%,#efc1c7 100%)
+}
+body:before,body:after{
+  content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(20px);opacity:.9
+}
+body:before{width:460px;height:460px;top:-130px;left:12%;background:radial-gradient(circle,#ed8f9d,#f7c0b4 68%,transparent 70%)}
+body:after{width:520px;height:520px;right:-70px;bottom:-180px;background:radial-gradient(circle,#eda6b0,#f8c48d 68%,transparent 70%)}
+.app{background:linear-gradient(120deg,rgba(255,255,255,.2),rgba(255,244,239,.12))}
+.left-rail,.right-rail{
+  background:linear-gradient(145deg,rgba(255,255,255,.46),rgba(255,236,232,.22));
+  border-color:rgba(255,255,255,.72);
+  backdrop-filter:blur(28px) saturate(145%);
+  -webkit-backdrop-filter:blur(28px) saturate(145%);
+  box-shadow:inset 1px 0 0 rgba(255,255,255,.52),inset -1px 0 0 rgba(218,133,135,.16)
+}
+.chat{
+  background:linear-gradient(145deg,rgba(255,255,255,.21),rgba(255,242,237,.11));
+  backdrop-filter:blur(18px) saturate(135%);
+  -webkit-backdrop-filter:blur(18px) saturate(135%)
+}
+.journey-item,.ask button,.product-card,.why,.input,.promise{
+  background:linear-gradient(145deg,rgba(255,255,255,.56),rgba(255,244,240,.26));
+  border-color:rgba(255,255,255,.82);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 18px rgba(139,69,69,.08);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%)
+}
+.chat-top{border-bottom-color:rgba(255,255,255,.64)}
+.answer-content>p,.della-reply p{
+  background:linear-gradient(145deg,rgba(255,255,255,.69),rgba(255,241,238,.35));
+  border-color:rgba(255,255,255,.86);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 8px 18px rgba(140,68,65,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px)
+}
+.profile{
+  background:linear-gradient(145deg,rgba(255,255,255,.64),rgba(255,241,237,.28));
+  border-color:rgba(255,255,255,.82);
+  backdrop-filter:blur(22px) saturate(145%);
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 22px rgba(139,69,69,.08)
+}
+.profile-row{background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.48)}
+.helps,.premium{
+  background:linear-gradient(135deg,rgba(255,238,236,.66),rgba(242,156,166,.38));
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 10px 22px rgba(139,69,69,.08);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px)
+}
+.modal-backdrop{
+  background:rgba(75,35,34,.14);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px)
+}
+.profile-modal{
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,238,235,.63));
+  backdrop-filter:blur(30px) saturate(150%);
+  -webkit-backdrop-filter:blur(30px) saturate(150%);
+  box-shadow:0 24px 65px rgba(105,43,41,.22),inset 0 1px 0 rgba(255,255,255,.95)
+}
+.profile-modal input{background:rgba(255,255,255,.54);border-color:rgba(255,255,255,.86)}
+
+/* ── Responsive ── */
+@media(max-width:1180px){
+  .app{grid-template-columns:255px minmax(0,1fr)}
+  .right-rail{display:none}
+  .left-rail{padding:23px 18px}
+  .beauty-art{display:none}
+  .chat{padding-inline:26px}
+}
+@media(max-width:850px){
+  .app{display:block}
+  .left-rail{display:none}
+  .chat{padding:12px 14px;min-height:100vh}
+  .chat-top{height:78px}
+  .chat-top button{padding:7px 10px}
+  .conversation{padding-top:15px}
+  .answer{gap:7px}
+  .mini-avatar{display:none}
+  .answer-content>p{font-size:12px;padding:12px}
+  .products{display:flex;overflow-x:auto;gap:10px;padding-bottom:7px}
+  .product-card{min-width:235px}
+  .why{margin-top:13px;padding:13px}
+  .why span br{display:none}
+  .input{position:sticky;bottom:5px;background:#fff8f3}
+  .della-avatar{width:45px;height:45px}
+  .chat-top h2{font-size:18px}
+  .user-msg{width:min(307px,90%)}
+}

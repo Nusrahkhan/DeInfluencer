@@ -13,6 +13,7 @@ import operator
 import os
 import time
 from typing import Annotated, Any, List, Literal, Optional, TypedDict
+from unittest import result
 
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -61,12 +62,75 @@ def structured_invoke_with_retry(chain, messages, max_attempts: int = 6):
 # 1. SCHEMAS
 # ─────────────────────────────────────────────────────────────────────────────
 
+class LinkCard(BaseModel):
+    title: str
+    url: str
+    favicon: Optional[str] = None
+
+
+class ImageCard(BaseModel):
+    title: str
+    image_url: str
+    click_url: Optional[str] = None
+
+
+class TableData(BaseModel):
+    columns: List[str]
+    rows: List[List[str]]
+
+class ProductCard(BaseModel):
+    name: str
+    brand: Optional[str] = None
+    image_url: Optional[str] = None
+    product_url: Optional[str] = None
+    reason: Optional[str] = None
+
+
+class UICard(BaseModel):
+    type: Literal[
+        "bullet_list",
+        "product_grid",
+        "comparison_table",
+        "warning",
+    ]
+
+    title: str
+
+    bullets: Optional[List[str]] = None
+
+    products: Optional[List[ProductCard]] = None
+
+    table: Optional[TableData] = None
+
+    images: Optional[List[ImageCard]] = None
+
+    links: Optional[List[LinkCard]] = None
+
+
+class Hero(BaseModel):
+    title: str
+    subtitle: str
+    confidence: Literal["high", "medium", "low"]
+
+
+class UIPlan(BaseModel):
+
+    hero: Hero
+
+    cards: List[UICard]
+
+    sources: List[LinkCard] = Field(default_factory=list)
+
+
 class EvidenceItem(BaseModel):
     title: str
     url: str
-    published_at: Optional[str] = None
+
+    image_url: Optional[str] = None
     snippet: Optional[str] = None
-    source_type: Optional[str] = None  # "study" | "expert_blog" | "dermatology_article"
+
+    source_type: Optional[str] = None
+    published_at: Optional[str] = None
 
 
 # FIX 1: Wrap List[EvidenceItem] in a proper Pydantic model so
@@ -76,7 +140,7 @@ class EvidencePack(BaseModel):
 
 
 class RouterDecision(BaseModel):
-    queries: List[str] = Field(..., description="4-8 targeted search queries")
+    queries: List[str] = Field(..., description="3-5 targeted search queries")
     skin_type_focus: Optional[str] = None
     concern_category: Literal[
         "ingredient_safety", "product_comparison", "routine_advice",
@@ -110,13 +174,14 @@ class AnswerPlan(BaseModel):
 class State(TypedDict):
     llm: Any
     question: str
-    profile: dict          # keys: skin_type, concerns, budget, preferred_brands
+    profile: dict
     concern_category: str
     queries: List[str]
     evidence: List[EvidenceItem]
-    plan: Optional[AnswerPlan]
-    sections: Annotated[List[tuple], operator.add]
-    final: str
+
+    plan: Optional[UIPlan]
+
+    final: dict
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -131,9 +196,19 @@ focused search queries that surface high-quality evidence from:
 - Dermatologist-authored blogs (dermnetnz.org, AAD, etc.)
 - Beauty/skincare product review and recommendation sites
 
-For product recommendation questions (e.g. "suggest lip tints", "best SPF for me"),
-generate queries that factor in the user's skin type, concerns, budget, and
-preferred brands.
+FOR PRODUCT RECOMMENDATIONS, include:
+- Specific product names + user's skin type + skin concern
+- Brand-specific official sites (never generic "product finder" sites)
+- User's budget range + preferred brands explicitly
+
+AVOID generating queries that lead to:
+- Unverified lifestyle blogs
+- AI-generated content farms
+- Verified retailer sites (Sephora, Nykaa, official brand websites only)
+- Drop-shipping aggregator sites
+- Affiliate marketing content without expertise
+- Social media posts without source verification
+
 
 Also classify the concern_category. Use "product_recommendation" for
 shopping/suggestion queries.
@@ -183,20 +258,37 @@ def _tavily_search(query: str, max_results: int = 5) -> List[dict]:
 
 RESEARCH_SYSTEM = """You are a dermatology & beauty evidence synthesizer.
 
+CRITICAL URL VALIDATION RULES (NON-NEGOTIABLE):
+1. ONLY INCLUDE URLS EXPLICITLY PROVIDED IN THE NUMBERED RESULTS
+2. NEVER INVENT, FABRICATE, GUESS, OR "HALLUCINATE" URLS
+3. NEVER MODIFY OR "CORRECT" URLS—use exactly as provided
+4. If a URL appears malformed, OMIT it entirely
+5. Never suggest what a URL "should be"—only use what actually exists in results
+6. DEDUPLICATE by exact URL match
+
 Given numbered web results, return a JSON object with exactly one key "evidence"
 whose value is an array. No markdown fences, no explanation.
 
-Each element must have:
-  "title"        : string
-  "url"          : string (non-empty)
-  "snippet"      : string (max 120 chars)
-  "published_at" : string YYYY-MM-DD or null
-  "source_type"  : one of "study" | "expert_blog" | "dermatology_article" | "other"
+For each result, extract EXACTLY:
+  "title"        : string (exact title from result)
+  "url"          : string (EXACT URL as provided—validate it's complete)
+  "snippet"      : string (exact snippet from result, max 120 chars)
+  "published_at" : string YYYY-MM-DD format (if available, else null)
+  "source_type"  : string one of:
+    - "clinical_study" (PubMed, journal articles)
+    - "dermatology_expert" (AAD, dermatologist blogs with credentials)
+    - "dermatology_association" (AAD.org, DermNetNZ.org, etc.)
+    - "beauty_expert_review" (credentialed reviewers with expertise)
+    - "other"
 
-Rules:
-- Omit items with empty url.
-- Deduplicate by url.
-- Return at most 10 items.
+VALIDATION CHECKLIST:
+□ URL is complete and non-empty
+□ URL comes directly from provided results
+□ No URL fabrication under any circumstance
+□ Title matches the actual article/page
+□ Snippet is accurate quote, not synthesized
+Return maximum 10 validated items. Skip any with missing/invalid URLs.
+
 """
 
 
@@ -239,33 +331,77 @@ def research_node(state: State) -> dict:
 # 4. ORCHESTRATOR
 # ─────────────────────────────────────────────────────────────────────────────
 
-ORCH_SYSTEM = """You are a board-certified dermatologist and cosmetic chemist.
+ORCH_SYSTEM = """
+You are a board-certified dermatologist and cosmetic chemist creating 
+a React UI response.
 
-Given a skincare / makeup / beauty question and research evidence, create a
-structured answer plan personalised to the user's profile.
+CRITICAL: NEVER INVENT LINKS. NEVER CREATE FAKE URLS.
 
-Rules:
-- verdict: direct 2-3 sentence answer tailored to this specific user
-  (mention their skin type, concerns, budget where relevant).
-- confidence: "high" if multiple sources agree, "medium" if general consensus,
-  "low" if conflicting.
-- caution_note: only if there is a genuine safety concern.
-- sections: 3-5 sections. For product recommendations include:
-    • Why these products suit the user's profile
-    • Key ingredients to look for / avoid
-    • How to use / application tips
-    • Budget-friendly picks vs premium options
-    • What to watch out for
-  For ingredient/routine questions include mechanism, evidence, usage, cautions.
-  Each section needs 2-3 concrete bullet points.
+LINK GENERATION RULES (ABSOLUTE):
+1. ONLY use URLs that appear in the Evidence section below
+2. If a product/brand is mentioned, ONLY include links if they exist in Evidence
+3. Never give a product_url from websites like (Sephora, Nykaa, official sites)
+4. Give links of blogs/studies ONLY make your answer Evidence-based, never for "additional reading" or "further info"
+4. For links in link cards: ONLY use URLs from Evidence
+5. NEVER suggest what a URL "might be"—if it's not in Evidence, don't include it
+6. Format citations exactly as: [Title](evidence_url)
 
-Never diagnose. Ground claims in evidence. Be concise and friendly.
+EVIDENCE-BACKED CONTENT RULES:
+- Every claim must be grounded in provided evidence
+- If you cite a study, use its exact URL from Evidence
+- If you recommend a product, ONLY include if:
+  a) It appears in Evidence
+  b) The link comes directly from the Evidence section
+
+CARD STRUCTURE (REQUIRED):
+Every card MUST have:
+  1. "type" (exactly one of: bullet_list, product_grid, comparison_table, warning)
+  2. "title" (string, concise, max 50 chars)
+
+Card-specific rules:
+- bullet_list: type, title, bullets (2-3 bullets, each <15 words, no links unless in Evidence)
+- product_grid: type, title, products (max 6, ONLY include product_url if it's from Evidence)
+- comparison_table: type, title, table (max 4 rows, max 3 columns)
+- warning: type, title, content (bullet points highlighting risks/cautions)
+
+HERO SECTION:
+- title: 5-10 words, directly answers the question
+- subtitle: 10-15 words, mentions key factors (skin type, ingredient, benefit)
+- confidence: "high" (multiple peer-reviewed sources), "medium" (general consensus), 
+  "low" (limited evidence or conflicting info)
+
+SOURCES SECTION:
+- ONLY include URLs from Evidence
+- Include badge: 🔬 (study), 👨‍⚕️ (expert), 📄 (article)
+- Maximum 4 sources
+- Never include placeholder URLs or "visit [brand] site" without a real link
+
+ANSWER PERSONALIZATION:
+- Mention user's skin type, concerns, budget where relevant
+- For product recommendations: "Best for [skin type + concern], fits [budget]"
+- Ground every recommendation in Evidence
+- Be honest about limitations: "Limited evidence suggests..." or "Expert consensus indicates..."
+
+DO NOT:
+- Invent product prices
+- Create fake retailer domains
+- Suggest variations of URLs you think exist
+- Use placeholder links like "[click here](url)"
+- Write as a blog—keep to cards optimized for React UI
+
+USER PROFILE CONTEXT (personalize but verify):
+- Skin type: {profile_skin_type}
+- Concerns: {profile_concerns}
+- Budget: {profile_budget}
+- Preferred brands: {profile_brands}
+
+Only recommend products matching their profile IF they appear in Evidence with real links.
 """
 
 
 def orchestrator_node(state: State) -> dict:
     llm: ChatGroq = state["llm"]
-    planner = llm.with_structured_output(AnswerPlan)
+    planner = llm.with_structured_output(UIPlan)
     evidence = state.get("evidence", [])
     profile  = state["profile"]
 
@@ -291,105 +427,16 @@ def orchestrator_node(state: State) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 5. FANOUT + WORKER
-# ─────────────────────────────────────────────────────────────────────────────
-
-def fanout(state: State):
-    return [
-        Send("worker", {
-            "llm":      state["llm"],
-            "section":  sec.model_dump(),
-            "question": state["question"],
-            "profile":  state["profile"],
-            "plan":     state["plan"].model_dump(),
-            "evidence": [e.model_dump() for e in state.get("evidence", [])],
-        })
-        for sec in state["plan"].sections
-    ]
-
-
-def worker_node(payload: dict) -> dict:
-    llm: ChatGroq   = payload["llm"]
-    section         = AnswerSection(**payload["section"])
-    question        = payload["question"]
-    profile         = payload["profile"]
-    plan            = AnswerPlan(**payload["plan"])
-    evidence        = [EvidenceItem(**e) for e in payload.get("evidence", [])]
-
-    evidence_text = "\n".join(
-        f"- {e.title} ({e.source_type}) | {e.snippet} | {e.url}"
-        for e in evidence[:6]
-    )
-    points_text = "\n".join(f"• {p}" for p in section.content_points)
-
-    time.sleep(1)  # avoid burst rate-limits on parallel workers
-
-    section_md = llm_invoke_with_retry(llm, [
-        SystemMessage(content=(
-            "You are a dermatologist writing a clear, evidence-based and "
-            "personalised skincare/beauty answer. Write one Markdown section. "
-            "Be concise, friendly, and specific to the user's profile. "
-            "Cite sources inline as [Source Name](url) where relevant. "
-            "Never diagnose. Never invent URLs."
-        )),
-        HumanMessage(content=(
-            f"Original question: {question}\n\n"
-            f"User profile:\n"
-            f"  Skin type: {profile.get('skin_type')}\n"
-            f"  Concerns: {profile.get('concerns')}\n"
-            f"  Budget: {profile.get('budget')}\n"
-            f"  Preferred brands: {profile.get('preferred_brands')}\n\n"
-            f"Overall verdict: {plan.verdict}\n\n"
-            f"Section heading: {section.heading}\n"
-            f"Key points to cover:\n{points_text}\n\n"
-            f"Evidence available (use ONLY these URLs):\n{evidence_text}\n\n"
-            "Return ONLY the section content in Markdown. "
-            "Use the heading as a ## header. Keep it under 220 words."
-        )),
-    ]).content.strip()
-
-    return {"sections": [(section.id, section_md)]}
-
-
-# ─────────────────────────────────────────────────────────────────────────────
 # 6. REDUCER
 # ─────────────────────────────────────────────────────────────────────────────
 
-def reducer_node(state: State) -> dict:
+def reducer_node(state: State):
+
     plan = state["plan"]
 
-    confidence_emoji = {"high": "🟢", "medium": "🟡", "low": "🔴"}.get(plan.confidence, "🟡")
-    verdict_block = (
-        f"> {confidence_emoji} **{plan.verdict}**\n"
-        f"> Confidence: **{plan.confidence.upper()}**"
-    )
-    if plan.caution_note:
-        verdict_block += f"\n>\n> ⚠️ *{plan.caution_note}*"
-
-    ordered = [md for _, md in sorted(state["sections"], key=lambda x: x[0])]
-    body    = "\n\n".join(ordered).strip()
-
-    evidence = state.get("evidence", [])
-    if evidence:
-        sources_md = "\n---\n### 📚 Sources\n"
-        for e in evidence[:8]:
-            badge = {"study": "🔬", "expert_blog": "👩‍⚕️", "dermatology_article": "📄"}.get(
-                e.source_type, "🔗"
-            )
-            date_str = f" *(published: {e.published_at})*" if e.published_at else ""
-            sources_md += f"- {badge} [{e.title}]({e.url}){date_str}\n"
-    else:
-        sources_md = ""
-
-    disclaimer = (
-        "\n---\n*⚕️ This information is for educational purposes only and does not "
-        "constitute medical advice. Please consult a licensed dermatologist for "
-        "personalised recommendations.*"
-    )
-
-    final = f"{verdict_block}\n\n{body}\n{sources_md}{disclaimer}\n"
-    return {"final": final}
-
+    return {
+        "final": plan.model_dump()
+    }
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 7. BUILD GRAPH
@@ -400,14 +447,12 @@ def build_app():
     g.add_node("router",       router_node)
     g.add_node("research",     research_node)
     g.add_node("orchestrator", orchestrator_node)
-    g.add_node("worker",       worker_node)
     g.add_node("reducer",      reducer_node)
 
     g.add_edge(START,        "router")
     g.add_edge("router",     "research")
     g.add_edge("research",   "orchestrator")
-    g.add_conditional_edges("orchestrator", fanout, ["worker"])
-    g.add_edge("worker",     "reducer")
+    g.add_edge("orchestrator",     "reducer")
     g.add_edge("reducer",    END)
 
     return g.compile()
@@ -417,7 +462,7 @@ def build_app():
 # 8. PUBLIC ENTRY POINT  (called by FastAPI)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def run_derm_agent(question: str, profile: dict) -> str:
+def run_derm_agent(question: str, profile: dict) -> dict:
     """
     profile keys (snake_case, matches FastAPI Profile model):
         skin_type, concerns, budget, preferred_brands
@@ -434,7 +479,6 @@ def run_derm_agent(question: str, profile: dict) -> str:
         "queries":          [],
         "evidence":         [],
         "plan":             None,
-        "sections":         [],
         "final":            "",
     }
 

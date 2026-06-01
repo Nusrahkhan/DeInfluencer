@@ -143,7 +143,7 @@ def trend_finder_node(state: State) -> dict:
     today = date.today().strftime("%B %Y")
 
     queries = [
-        f"trending skincare products this week {today}",
+        f"trending skincare products this week {today} on social media",
         f"viral makeup product {today} TikTok Reddit Youtube Instagram",
         #f"new skincare launch hype {today}",
     ]
@@ -328,7 +328,7 @@ app = g.compile()
 
 # ── Runner ─────────────────────────────────────────────────────────────────────
 
-def run():
+def run_agent():
     """Collect API keys and run the agent."""
 
     llm = ChatGroq(
@@ -349,5 +349,6 @@ def run():
     return out
 
 
+
 if __name__ == "__main__":
-    run()
+    run_agent()
