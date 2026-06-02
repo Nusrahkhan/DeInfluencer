@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us | deInfluence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#fff1eb",
+                        "surface-tint": "#b4262f",
+                        "on-secondary-container": "#793738",
+                        "secondary-container": "#fda3a3",
+                        "background": "#fff8f5",
+                        "surface-container-high": "#ffe3d4",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-surface-variant": "#4f453f",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "secondary": "#90494a",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#ffd1cf",
+                        "inverse-surface": "#422b1e",
+                        "primary": "#b4262f",
+                        "on-surface": "#2a170b",
+                        "secondary-fixed-dim": "#ffb3b2",
+                        "outline": "#81746e",
+                        "inverse-on-surface": "#ffede5",
+                        "surface-variant": "#ffdbc9",
+                        "on-tertiary-fixed": "#3f0207",
+                        "error": "#ba1a1a",
+                        "primary-container": "#ffd1ce",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#410006",
+                        "primary-fixed-dim": "#ffb3b0",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ffeadf",
+                        "inverse-primary": "#ffb3b0",
+                        "tertiary": "#984444",
+                        "on-secondary-fixed-variant": "#733334",
+                        "surface-dim": "#f8d2be",
+                        "surface-container-highest": "#ffdbc9",
+                        "on-secondary-fixed": "#3b080c",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad8",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fff8f5",
+                        "on-tertiary-container": "#9a4645",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#d3c3bc",
+                        "on-tertiary-fixed-variant": "#7a2d2e",
+                        "on-background": "#2a170b",
+                        "on-primary-container": "#b62831",
+                        "secondary-fixed": "#ffdad9",
+                        "surface": "#fff8f5",
+                        "on-primary-fixed-variant": "#91061b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader", "serif"],
+                        "display": ["Newsreader", "serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"],
+                        "label": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fff8f5; color: #2a170b; }
+        .font-display { font-family: 'Newsreader', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl transition-all duration-300">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<a class="font-display text-2xl italic font-bold text-surface-tint" href="index.html">deInfluence</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="index.html">Reviews</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
+<a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="aboutus.html">About Us</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:block relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-highest border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 w-48" placeholder="Search brands..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold hover:opacity-90 active:scale-95 transition-all text-sm">Sign Up</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="pt-32 pb-20 px-8 max-w-screen-2xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8 animate-in fade-in slide-in-from-left duration-1000">
+<span class="inline-block px-4 py-1.5 bg-primary-container text-on-primary-container rounded-full text-xs font-bold tracking-widest uppercase">The Mission</span>
+<h1 class="font-display text-6xl md:text-8xl font-bold leading-[0.9] tracking-tight">
+                    The Antidote to <br/><span class="italic text-primary">Marketing Hype</span>
+</h1>
+<p class="font-body text-xl text-on-surface-variant leading-relaxed max-w-xl">
+                    We believe the beauty industry is broken. In a world of filtered results and paid testimonials, we provide the clarity of cold, hard data.
+                </p>
+<div class="flex gap-4 pt-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all">Explore the Data</button>
+<button class="bg-surface-container-high text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-highest transition-all">Our Methodology</button>
+</div>
+</div>
+<div class="relative group animate-in fade-in zoom-in duration-1000">
+<div class="absolute -inset-4 bg-primary/5 rounded-lg -rotate-2 group-hover:rotate-0 transition-transform duration-500"></div>
+<div class="aspect-[4/5] rounded-lg overflow-hidden relative shadow-2xl">
+<img alt="Beauty aesthetic" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuAfOV-zTQ9cDLvva0dB9LmjIsSg2oYmuU931Zi3pQYRtj3Gr825qeJ73hbMnurp8FzVvm6FwXOqcOFM07wpQ2RrUVbqbUgfKhMr3OAyzh36xKJtiJcy0TQw5EWuabeFfZi3AgX0YIR88FSLEts_T5C5BLgiouCiwUnhqghtyJjbpEFbZPx0tXUxNiKSO_Hyzoe09XM0uMlbPe_EilPTYBhXIqoEfZ_Ot1IAhVRbRJYcCcf8YPmjGU35cIdRCyCEb40fOxJbE_70vd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="absolute -bottom-8 -left-8 bg-surface-container-highest p-8 rounded-lg shadow-xl max-w-xs hidden md:block">
+<p class="font-display text-2xl italic text-primary font-bold">"Beauty isn't subjective when it comes to chemistry."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- The Problem -->
+<section class="bg-surface-container-low py-32">
+<div class="max-w-4xl mx-auto px-8 text-center space-y-12">
+<h2 class="font-display text-4xl md:text-6xl font-bold">The Problem: Noise.</h2>
+<div class="grid md:grid-cols-2 gap-12 text-left">
+<div class="p-8 bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">campaign</span>
+<h3 class="font-display text-2xl font-bold mb-4">The Paid Paradigm</h3>
+<p class="font-body text-on-surface-variant">85% of high-ranking beauty reviews are sponsored or incentivized. PR gifts and affiliate commissions have turned honest feedback into a marketing channel.</p>
+</div>
+<div class="p-8 bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">data_exploration</span>
+<h3 class="font-display text-2xl font-bold mb-4">The Information Gap</h3>
+<p class="font-body text-on-surface-variant">The true consensus is buried in thousands of Reddit threads, Discord chats, and YouTube comment sections. Consumers lack the tools to synthesize this raw human experience.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Methodology (Bento-ish Grid) -->
+<section class="py-32 px-8 max-w-screen-2xl mx-auto">
+<div class="mb-20 text-center space-y-4">
+<h2 class="font-display text-5xl md:text-7xl font-bold">Our Methodology</h2>
+<p class="font-body text-on-surface-variant text-lg">No affiliate links. No PR gifts. Just raw data.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-full">
+<!-- Large Feature -->
+<div class="md:col-span-8 bg-surface-container-highest p-12 rounded-lg relative overflow-hidden flex flex-col justify-end min-h-[500px]">
+<div class="absolute top-0 right-0 p-12 opacity-10">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div class="relative z-10 max-w-lg space-y-6">
+<h3 class="font-display text-4xl font-bold text-primary">Community Consensus Engine</h3>
+<p class="font-body text-xl leading-relaxed">Our proprietary NLP (Natural Language Processing) models scan over 50,000 threads daily across Reddit, YouTube, and specialized forums. We identify patterns, detect sentiment shifts, and filter out bot-generated hype to find what real people actually think.</p>
+<div class="flex gap-2">
+<span class="px-4 py-1 bg-surface-container-lowest rounded-full text-xs font-bold">REAL-TIME ANALYSIS</span>
+<span class="px-4 py-1 bg-surface-container-lowest rounded-full text-xs font-bold">BIAS DETECTION</span>
+</div>
+</div>
+</div>
+<!-- Small Feature 1 -->
+<div class="md:col-span-4 bg-primary text-on-primary p-12 rounded-lg flex flex-col justify-center space-y-6">
+<span class="material-symbols-outlined text-5xl">lock</span>
+<h3 class="font-display text-3xl font-bold italic">The "Un-Incentivized" Filter</h3>
+<p class="font-body opacity-90">We weight reviews higher when they mention "purchased with my own money" and discard anything containing standard disclosure legalities.</p>
+</div>
+<!-- Small Feature 2 -->
+<div class="md:col-span-5 bg-surface-container-low p-12 rounded-lg space-y-6">
+<span class="material-symbols-outlined text-primary text-5xl">psychology</span>
+<h3 class="font-display text-3xl font-bold">Zero-Commission Policy</h3>
+<p class="font-body text-on-surface-variant">Unlike every other review site, we do not use affiliate links. We do not profit when you buy a product. Our only incentive is the accuracy of our data.</p>
+</div>
+<!-- Wide Feature -->
+<div class="md:col-span-7 bg-surface-variant p-12 rounded-lg flex items-center gap-12">
+<div class="space-y-4">
+<h3 class="font-display text-3xl font-bold">12.4M Mentions Analyzed</h3>
+<p class="font-body text-on-surface-variant">Our database grows every second, capturing the organic evolution of beauty trends and product performance in real-world conditions.</p>
+</div>
+<div class="hidden md:flex flex-col gap-2">
+<div class="h-2 w-48 bg-primary/20 rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-primary rounded-full"></div>
+</div>
+<div class="h-2 w-32 bg-primary/20 rounded-full overflow-hidden">
+<div class="h-full w-1/2 bg-primary rounded-full"></div>
+</div>
+<div class="h-2 w-40 bg-primary/20 rounded-full overflow-hidden">
+<div class="h-full w-5/6 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Meet Blossom -->
+<section class="py-32 bg-background overflow-hidden">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="bg-surface-container-low rounded-lg p-12 md:p-20 relative flex flex-col md:flex-row items-center gap-16">
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-primary-container rounded-full blur-3xl opacity-30"></div>
+<div class="flex-1 space-y-8 relative z-10 text-center md:text-left">
+<div class="flex justify-center md:justify-start items-center gap-4 text-primary font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">temp_preferences_custom</span>
+<span class="uppercase tracking-widest text-sm">Meet Your Concierge</span>
+</div>
+<h2 class="font-display text-5xl md:text-7xl font-bold">Ask Blossom</h2>
+<p class="font-body text-xl text-on-surface-variant max-w-xl leading-relaxed">
+                        Blossom is the user interface for our massive database. She isn't just an AI; she's a trained beauty specialist that translates millions of data points into personalized advice for your unique skin needs.
+                    </p>
+                    <p> </p>
+<a href="blossom.html">
+    <button class="bg-on-surface text-surface px-10 py-5 rounded-xl font-bold text-lg hover:bg-primary transition-colors flex items-center gap-3 mx-auto md:mx-0">
+        Chat with Blossom
+        <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+</a>
+</div>
+<div class="flex-1 w-full max-w-md relative">
+<!-- Illustrative AI Interface Mockup -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-2xl border border-outline-variant/20 space-y-4 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white">temp_preferences_custom</span>
+</div>
+<div>
+<p class="font-bold">Blossom AI</p>
+<p class="text-xs text-outline italic">Online &amp; Analyzing</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg rounded-tl-none">
+<p class="text-sm italic">"Searching 4,200 Reddit threads for 'Hyaluronic Acid for sensitive skin'..."</p>
+</div>
+<div class="bg-primary-container p-4 rounded-lg rounded-tr-none ml-8">
+<p class="text-sm font-bold text-on-primary-container">"The consensus suggests Brand X's latest formula causes pilling when paired with vitamin C. Most users recommend Brand Y for night use."</p>
+</div>
+<div class="pt-4 border-t border-outline-variant/20 flex gap-2">
+<div class="flex-1 h-8 bg-surface-container-high rounded-full"></div>
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">send</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Values -->
+<section class="py-32 px-8 max-w-screen-2xl mx-auto">
+<h2 class="font-display text-4xl font-bold text-center mb-16">Our Foundational Values</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="text-center space-y-4 group">
+<div class="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors duration-500">
+<span class="material-symbols-outlined text-3xl group-hover:text-white">visibility</span>
+</div>
+<h3 class="font-display text-2xl font-bold">Transparency</h3>
+<p class="font-body text-on-surface-variant px-4">Full disclosure of our data sources and open-sourcing our sentiment analysis logic. We hide nothing.</p>
+</div>
+<div class="text-center space-y-4 group">
+<div class="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors duration-500">
+<span class="material-symbols-outlined text-3xl group-hover:text-white">target</span>
+</div>
+<h3 class="font-display text-2xl font-bold">Accuracy</h3>
+<p class="font-body text-on-surface-variant px-4">Statistical significance over anecdotal hype. If the data isn't conclusive, we don't present it as truth.</p>
+</div>
+<div class="text-center space-y-4 group">
+<div class="w-20 h-20 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors duration-500">
+<span class="material-symbols-outlined text-3xl group-hover:text-white">group</span>
+</div>
+<h3 class="font-display text-2xl font-bold">Community</h3>
+<p class="font-body text-on-surface-variant px-4">Empowering the collective voice of the consumer. You are the source of our truth.</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full flex flex-col md:flex-row justify-between items-center px-12 py-12 border-t border-outline-variant/20 bg-surface-container-low">
+<div class="flex flex-col items-center md:items-start space-y-4 mb-8 md:mb-0">
+<span class="font-display text-lg font-bold text-primary">deInfluence</span>
+<p class="font-body text-sm tracking-wide text-on-surface-variant">© 2024 deInfluence. Data-Driven. Unsponsored. Unfiltered.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-body text-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all" href="#">Mission</a>
+<a class="font-body text-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all" href="#">Methodology</a>
+<a class="font-body text-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all" href="#">Privacy</a>
+<a class="font-body text-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all" href="#">Contact</a>
+<a class="font-body text-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all" href="#">Editorial Guidelines</a>
+</div>
+</footer>
+<script>
+        // Simple scroll effect for Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-xl', 'bg-surface/95');
+            } else {
+                nav.classList.remove('shadow-xl', 'bg-surface/95');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in', 'fade-in', 'slide-in-from-bottom-10', 'duration-1000');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body></html>

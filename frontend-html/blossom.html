@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blossom | AI Beauty Assistant</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#ffdad8",
+              "on-tertiary": "#ffffff",
+              "surface-bright": "#fff8f5",
+              "on-tertiary-container": "#9a4645",
+              "on-error": "#ffffff",
+              "tertiary": "#984444",
+              "on-secondary-fixed-variant": "#733334",
+              "surface-dim": "#f8d2be",
+              "surface-container-highest": "#ffdbc9",
+              "on-secondary-fixed": "#3b080c",
+              "on-secondary": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-primary-fixed": "#410006",
+              "primary-fixed-dim": "#ffb3b0",
+              "on-primary": "#ffffff",
+              "surface-container": "#ffeadf",
+              "inverse-primary": "#ffb3b0",
+              "surface-variant": "#ffdbc9",
+              "on-tertiary-fixed": "#3f0207",
+              "error": "#ba1a1a",
+              "primary-container": "#ffd1ce",
+              "on-error-container": "#93000a",
+              "on-primary-fixed-variant": "#91061b",
+              "secondary-fixed": "#ffdad9",
+              "surface": "#fff8f5",
+              "on-background": "#2a170b",
+              "on-primary-container": "#b62831",
+              "outline-variant": "#d3c3bc",
+              "on-tertiary-fixed-variant": "#7a2d2e",
+              "on-surface-variant": "#4f453f",
+              "tertiary-fixed-dim": "#ffb3b0",
+              "secondary-container": "#fda3a3",
+              "background": "#fff8f5",
+              "surface-container-high": "#ffe3d4",
+              "tertiary-fixed": "#ffdad8",
+              "on-secondary-container": "#793738",
+              "surface-container-low": "#fff1eb",
+              "surface-tint": "#b4262f",
+              "inverse-on-surface": "#ffede5",
+              "primary": "#b4262f",
+              "on-surface": "#2a170b",
+              "secondary-fixed-dim": "#ffb3b2",
+              "outline": "#81746e",
+              "tertiary-container": "#ffd1cf",
+              "inverse-surface": "#422b1e",
+              "secondary": "#90494a",
+              "surface-container-lowest": "#ffffff"
+            },
+            borderRadius: {
+              "DEFAULT": "1rem",
+              "lg": "2rem",
+              "xl": "3rem",
+              "full": "9999px"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "display": ["Newsreader"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+
+        body { 
+        background-image: url("bbg.jpg");
+            background-size: cover;      /* Fills the screen */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fff8f5; color: #2a170b; }
+        .font-headline { font-family: 'Newsreader', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fff8f5; }
+        ::-webkit-scrollbar-thumb { background: #ffdbc9; border-radius: 10px; }
+        .chat-bubble-ai { border-bottom-left-radius: 0.25rem; }
+        .chat-bubble-user { border-bottom-right-radius: 0.25rem; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-screen flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
+<nav class="relative flex items-center w-full px-8 py-4 max-w-7xl mx-auto">
+
+    <!-- Logo -->
+    <a href="index.html"
+       class="text-2xl font-serif font-black text-[#b4262f]">
+        deInfluence
+    </a>
+
+    <!-- Centered Tabs -->
+    <div class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+        <a class="text-stone-600 font-medium font-serif hover:text-[#b4262f]" href="index.html">Reviews</a>
+        <a class="text-[#b4262f] font-bold border-b-2 border-[#b4262f] pb-1 font-serif" href="#">Blossom</a>
+        <a class="text-stone-600 font-medium font-serif hover:text-[#b4262f]" href="trending.html">Trending</a>
+        <a class="text-stone-600 font-medium font-serif hover:text-[#b4262f]" href="aboutus.html">About Us</a>
+    </div>
+
+    <!-- Right Side -->
+    <div class="ml-auto flex items-center gap-4">
+        <button class="md:hidden p-2 text-[#b4262f]">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </div>
+
+
+<button class="md:hidden p-2 text-[#b4262f]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+</header>
+<!-- Main Content: Full-height grid layout -->
+<main class="flex-grow flex gap-8 px-10 py-8 overflow-hidden h-full">
+<!-- Left Column: Common Questions -->
+ 
+<aside class="w-full lg:w-[22%] flex flex-col overflow-hidden">
+<section class="bg-surface-container-low p-8 rounded-lg flex flex-col h-full">
+<h2 class="font-headline text-headline-sm font-bold text-primary mb-6 flex-shrink-0">Common Questions</h2>
+<div class="flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar">
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Is snail mucin good for oily skin?</span>
+</button>
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Best retinol for beginners?</span>
+</button>
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">How to layer vitamin C and niacinamide?</span>
+</button>
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Sunscreen for acne-prone skin?</span>
+</button>
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Hydrating masks for winter?</span>
+</button>
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Double cleansing for blackheads?</span>
+</button>
+<button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">How to repair skin barrier?</span>
+</button>
+</div>
+</section>
+</aside>
+<!-- Center Column: Chat Interface -->
+<div class="w-full lg:w-[56%] flex flex-col bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/10 overflow-hidden">
+<!-- Chat Header -->
+<div class="p-6 flex items-center gap-4 bg-surface-container-low border-b border-outline-variant/10 flex-shrink-0">
+<div class="relative">
+<img alt="Blossom AI Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary" src="https://i.pinimg.com/736x/65/7a/ad/657aad5d2f6a50f1a1e1ddd26526a50f.jpg"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+</div>
+<div>
+<h1 class="font-headline text-xl font-bold text-on-surface">Blossom</h1>
+<p class="text-[10px] text-primary font-semibold tracking-widest uppercase">AI BEAUTY ASSISTANT</p>
+</div>
+</div>
+<!-- Messages Area (Flex-grow with scroll) -->
+<div class="flex-grow p-8 flex flex-col gap-6 overflow-y-auto">
+<!-- Single AI Greeting Message -->
+<div class="flex gap-4 items-end max-w-[80%]">
+<div class="bg-surface-container-highest p-5 rounded-lg chat-bubble-ai shadow-sm">
+<p class="text-body-lg text-on-surface-variant leading-relaxed">Hey beautiful, how can I help you?</p>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 border-t border-outline-variant/10 bg-surface-container-lowest flex-shrink-0">
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all text-body-md placeholder:text-outline" placeholder="Ask Blossom anything about beauty..." type="text"/>
+<button class="absolute right-3 w-10 h-10 flex items-center justify-center bg-primary text-on-primary rounded-full hover:opacity-90 active:scale-95 transition-transform shadow-lg">
+    <span class="material-symbols-outlined text-xl">send</span>
+</button>
+</div>
+
+</div>
+</div>
+<!-- Right Column: User Profile & About -->
+<aside class="w-full lg:w-[22%] flex flex-col gap-6 overflow-hidden">
+<!-- User Profile Card -->
+<section class="bg-surface-container-low p-8 rounded-lg text-center flex-shrink-0">
+<div class="relative w-24 h-24 mx-auto mb-4">
+<img alt="user" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md" src="https://i.pinimg.com/736x/e5/06/5d/e5065d3e4e3f20725962715103c5eb91.jpg"/>
+</div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Sariah Hussain</h3>
+
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 transition-all text-label-sm uppercase tracking-wider shadow-sm">
+                    Edit Profile
+                </button>
+</section>
+<!-- About Blossom Box (Flex-grow to fill) -->
+<section class="bg-[#8c0d0d] text-white p-8 rounded-lg shadow-xl flex-grow flex flex-col overflow-hidden">
+<div class="flex items-center gap-3 mb-4 flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-headline text-xl font-bold">About Blossom</h3>
+</div>
+<div class="pt-6 border-t border-on-primary/20 flex flex-col gap-4 flex-shrink-0">
+<div class="flex items-center gap-4 text-label-sm">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Evidence-Based Analysis</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm">
+<span class="material-symbols-outlined text-sm">data_usage</span>
+<span>1M+ Reviews Scanned</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm">
+<span class="material-symbols-outlined text-sm">science</span>
+<span>Lab-Verified Ingredients</span>
+</div>
+</div>
+</section>
+</aside>
+</main>
+<script>
+        const input = document.querySelector('input');
+        const sendBtn = input.nextElementSibling;
+        
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            if (input.value.trim() === '') return;
+            sendBtn.classList.add('scale-90');
+            setTimeout(() => {
+                sendBtn.classList.remove('scale-90');
+                input.value = '';
+            }, 200);
+        }
+    </script>
+</body></html>

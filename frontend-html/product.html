@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#984444",
+                    "surface-container-highest": "#ffdbc9",
+                    "surface-container": "#ffeadf",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdad8",
+                    "primary-fixed": "#ffdad8",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f5",
+                    "surface": "#fff8f5",
+                    "tertiary-container": "#ffd1cf",
+                    "on-primary-fixed": "#410006",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#ffe3d4",
+                    "surface-variant": "#ffdbc9",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "surface-tint": "#b4262f",
+                    "on-surface-variant": "#4f453f",
+                    "outline-variant": "#d3c3bc",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#b62831",
+                    "on-tertiary-container": "#9a4645",
+                    "on-surface": "#2a170b",
+                    "secondary-container": "#fda3a3",
+                    "on-secondary-fixed-variant": "#733334",
+                    "primary-fixed-dim": "#ffb3b0",
+                    "on-tertiary-fixed-variant": "#7a2d2e",
+                    "inverse-surface": "#422b1e",
+                    "secondary": "#90494a",
+                    "surface-bright": "#fff8f5",
+                    "secondary-fixed": "#ffdad9",
+                    "on-secondary-fixed": "#3b080c",
+                    "on-primary-fixed-variant": "#91061b",
+                    "surface-dim": "#f8d2be",
+                    "primary-container": "#ffd1ce",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#793738",
+                    "surface-container-low": "#fff1eb",
+                    "primary": "#b4262f",
+                    "inverse-primary": "#ffb3b0",
+                    "on-tertiary-fixed": "#3f0207",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline": "#81746e",
+                    "on-background": "#2a170b",
+                    "secondary-fixed-dim": "#ffb3b2",
+                    "inverse-on-surface": "#ffede5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Newsreader', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
+<!-- Desktop Nav -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="#">Reviews</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="aboutus.html">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <a href="#" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
+        <a href="#" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
+      </div>
+<button class="md:hidden p-2 text-[#b4262f]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+</header>
+<main class="pt-24 max-w-7xl mx-auto px-8">
+<!-- Editorial Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center py-12 md:py-20">
+<div class="md:col-span-7 relative">
+<div class="aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close-up of a glass serum bottle with elegant typography on a soft peach marble surface with morning sunlight and soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJmhtf3DDobDzKBxFpRexj7VHIQBe9luRv177sCoDj3S3XoEGiL45YF3Sy58_CNMWgcuzejq6MOxq_ZgRQwHFVsAyv8PC26fLGebOAmgbyLooe8FKR6YdkPfDyPwV2UWfYgEF7MpP1nqwI0ol-mqQJzZbsZktyAQKI2j94Awpz2-Bt6ZfPhtprYMD2yCflZjNuUCQkvDgptWiwJIdcW-MNwFziwb5-ibtbhywevi_QCfN93Tk0X_dK0AKH3OCUXE_T8ElHy-5VXWLv"/>
+</div>
+<!-- Asymmetric Decorative Element -->
+<div class="absolute -bottom-8 -right-8 bg-primary-container p-8 rounded-lg hidden md:block">
+<div class="flex items-center gap-2 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+</div>
+<span class="font-bold text-on-primary-container">4.5/5</span>
+</div>
+<p class="text-sm font-medium text-on-primary-container opacity-80">Based on 1,240 organic reviews</p>
+</div>
+</div>
+<div class="md:col-span-5 flex flex-col gap-6">
+<span class="uppercase tracking-widest text-xs font-bold text-primary font-body">Verified Analysis</span>
+<h1 class="text-6xl md:text-8xl leading-tight font-headline font-bold text-on-surface -ml-1" id="product-title">Skin-Quencing Serum</h1>
+<p class="text-xl leading-relaxed text-on-surface-variant font-body">A high-performance hydration catalyst formulated for the conscious consumer. We've parsed thousands of real-world experiences to find the truth behind the hype.</p>
+<div class="flex flex-wrap gap-4 mt-4">
+<div class="bg-surface-container-highest px-6 py-4 rounded-lg flex flex-col gap-1">
+<span class="text-xs font-bold uppercase tracking-wider opacity-60">The Empties Metric</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">recycling</span>
+<span class="text-xl font-bold">84% Hit Pan</span>
+</div>
+</div>
+<div class="bg-surface-container-highest px-6 py-4 rounded-lg flex flex-col gap-1">
+<span class="text-xs font-bold uppercase tracking-wider opacity-60">Pore Safety</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="text-xl font-bold">1/5 Score</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Analysis Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
+<!-- The Consensus (Reviews Summary) -->
+<div class="md:col-span-2 bg-surface-container-low rounded-lg p-10">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-4xl font-headline font-bold">The Consensus</h2>
+<div class="flex gap-2">
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">YouTube</span>
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">Reddit</span>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<h3 class="text-2xl font-headline font-bold">The Pros</h3>
+</div>
+<ul class="space-y-4 font-body text-on-surface-variant">
+<li class="flex gap-4">
+<span class="text-primary font-bold">01</span>
+<p>Exceptional molecular weight distribution for multi-depth hydration without stickiness.</p>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold">02</span>
+<p>Noticeable "glass skin" finish reported by 90% of Reddit r/SkincareAddiction testers.</p>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold">03</span>
+<p>Fragrance-free and essential oil-free formula makes it safe for reactive barriers.</p>
+</li>
+</ul>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">remove_circle</span>
+<h3 class="text-2xl font-headline font-bold">The Cons</h3>
+</div>
+<ul class="space-y-4 font-body text-on-surface-variant">
+<li class="flex gap-4">
+<span class="text-primary font-bold">01</span>
+<p>Premium price point ($85/30ml) often criticized by "budget-beauty" YouTubers.</p>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold">02</span>
+<p>Glass dropper design can be difficult to manage when product gets low.</p>
+</li>
+<li class="flex gap-4">
+<span class="text-primary font-bold">03</span>
+<p>Slow absorption rate requires a 2-minute wait before layering moisturizer.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Comedogenicity Widget -->
+<div class="flex flex-col gap-8">
+<div class="bg-surface-container-high rounded-lg p-8 flex-1 flex flex-col justify-center items-center text-center">
+<h3 class="text-xl font-headline font-bold mb-6">Comedogenicity Score</h3>
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="350" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-5xl font-headline font-bold">1/5</span>
+</div>
+</div>
+<p class="mt-6 font-bold text-primary">Low Probability</p>
+<p class="text-sm text-on-surface-variant mt-2">Non-clogging formula safe for acne-prone skin types.</p>
+</div>
+<!-- Empty Metric Detail -->
+<div class="bg-primary text-on-primary rounded-lg p-8 flex items-center justify-between overflow-hidden relative">
+<div class="z-10">
+<h3 class="text-lg font-headline font-bold mb-1">The Empties</h3>
+<p class="text-3xl font-bold">9.2/10</p>
+<p class="text-xs uppercase tracking-widest opacity-80 mt-2">Repurchase Intent</p>
+</div>
+<span class="material-symbols-outlined text-8xl absolute -right-4 -bottom-4 opacity-20 rotate-12">shopping_bag</span>
+</div>
+</div>
+</section>
+<!-- Brand Detail Section (Magazine Style) -->
+<section class="py-20 flex flex-col md:flex-row gap-16 items-center">
+<div class="md:w-1/2 order-2 md:order-1">
+<h2 class="text-5xl font-headline font-bold mb-8 italic">"The texture feels like silk rainwater on the skin—expensive but undeniably effective."</h2>
+<div class="flex items-center gap-4">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a sophisticated beauty editor with soft lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDywgJSNf5kdbaHElG5crWVtqVBiKLOjn8UghyadWwKyMW9MKUeRNk3g3KahM996A2fnzbl9onp1hx3FmO5wDNaBee9IvvZewXLAN-3Yz8U5k34a9qRRIBAzPPrCMTz423JAkYJIHMCaqdS0zF35qS-kIBR0Ym7Fq1V-kU_EWwk9XGNfJIgmq2hBqCdS54GIQqSXSE7mXTURUbQf7fk5EqbClDtAB2Wnk1b5nEYmwZ_Z4pQkdfNiwdKz8IIF54D7rVegWDRiJ5XsAZf"/>
+<div>
+<p class="font-bold">Elena Thorne</p>
+<p class="text-sm opacity-70">Senior Editor, deInfluence</p>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 order-1 md:order-2">
+<div class="rounded-lg overflow-hidden h-[400px]">
+<img class="w-full h-full object-cover" data-alt="Macro photography of clear serum droplets on a peach reflective surface with artistic light refraction" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8jUdnnfoKKdizdU_zB9WO-CEiD_7S8L8qIsIvIDwiNcpWY7c58m1NN7HEk0CjjtYA1S4JyVYJ3XCfMxRbzaoqz_0DsztLxYt06_u8CIDlbmX7R5d6TiRx0vGLFC3W7spWxtqi2vQi3T9xnGjT3hl7bUGgSOj28wyiJDtWh7cECT-zKoTBOV8PB5KZqW6BQJMFE35Pck8H7JrOmfi1Wiv5X-FhW9bXGTXfibO3G97gYp9A2lHi5V96s5zKUZBe2ZYF4feQp9jg5Y4w"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#fff1eb] dark:bg-[#150d09] w-full py-20 mt-24">
+<div class="flex flex-col items-center gap-8 w-full px-8 text-center max-w-7xl mx-auto">
+<div class="text-lg font-bold font-['Newsreader'] text-[#2a170b] dark:text-[#fff8f5]">deInfluence</div>
+<div class="flex flex-wrap justify-center gap-8 font-['Plus_Jakarta_Sans'] text-sm tracking-wide">
+<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">About Us</a>
+<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Methodology</a>
+<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Privacy Policy</a>
+<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Terms of Service</a>
+<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Contact</a>
+</div>
+<p class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 font-['Plus_Jakarta_Sans'] text-sm italic mt-4">
+                © 2026 deInfluence. Editorial Glamour for the Conscious Consumer.
+            </p>
+</div>
+</footer>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('query');
+
+  if (query) {
+    const productTitle = document.getElementById('product-title');
+    const productSearchTerm = document.getElementById('product-search-term');
+    if (productTitle) {
+      productTitle.textContent = query;
+    }
+    if (productSearchTerm) {
+      productSearchTerm.value = query;
+    }
+    document.title = `${query} | deInfluence`;
+  }
+</script>
+</body></html>
