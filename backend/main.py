@@ -1,4 +1,4 @@
-from datetime import timezone, datetime
+from datetime import timezone, datetime, timedelta
 from urllib import response
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from contextlib import asynccontextmanager
@@ -123,7 +123,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://127.0.0.1:5500"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -147,6 +147,8 @@ def search_product(query: str) -> Dict:
         # Search in products table for matching product names
         products_response = supabase.table("products").select("*").ilike("product_name", f"%{query}%").execute()
         products = products_response.data
+        print("hiii")
+        print(products)
         
         if not products:
             not_in_db_response = not_in_db(query)
@@ -158,7 +160,7 @@ def search_product(query: str) -> Dict:
         print(product_id)
         
         # Fetch sentiment data for these products
-        sentiment_response = supabase.table("product_sentiment").select("*").eq("product_id", product_id).execute()
+        sentiment_response = supabase.table("product_sentiment").select("*").ilike("product", f"%{query}%").execute()
         print(sentiment_response)
         sentiment = sentiment_response.data[0] if sentiment_response.data else {}
 
@@ -438,7 +440,25 @@ async def trigger_agent(background_tasks: BackgroundTasks):
     background_tasks.add_task(run_agent_and_store)
     return {"message": "Agent run started in the background. Check /bulletins shortly."}
 
-# Chatbot API endpoint
+# ── API Endpoint to fetch bulletin content from supabase ───────────────────────────────────────
+
+@app.get("/bulletins", summary="Fetch all skincare bulletins")
+def get_bulletins():
+    """
+    Fetches all skincare bulletins from the database from the past 1 week, ordered by most recent.
+    Each bulletin includes product insights and the compiled blog markdown.
+    """
+    try:
+        one_week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        response = supabase.table("skincare_bulletins").select("*").gte("run_at", one_week_ago).order("run_at", desc=True).execute()
+        bulletins = response.data
+        #print(bulletins)
+        return {"bulletins": bulletins}
+    except Exception as e:
+        print(f"❌ Error fetching bulletins: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch bulletins: {e}")
+
+# ── Chatbot API endpoint ───────────────────────────────────────
 class Profile(BaseModel):
     skin_type: str
     concerns: str

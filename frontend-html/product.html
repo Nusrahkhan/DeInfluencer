@@ -80,7 +80,11 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {     
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          background-image: url('./bulletin-assets/bbg.jpg');
+          background-size: cover;
+          background-attachment: fixed;}
         h1, h2, h3 { font-family: 'Newsreader', serif; }
     </style>
 </head>
@@ -107,149 +111,121 @@
 </div>
 </nav>
 </header>
-<main class="pt-24 max-w-7xl mx-auto px-8">
-<!-- Editorial Hero Section -->
-<section class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center py-12 md:py-20">
-<div class="md:col-span-7 relative">
-<div class="aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-low shadow-sm">
-<img class="w-full h-full object-cover" data-alt="Close-up of a glass serum bottle with elegant typography on a soft peach marble surface with morning sunlight and soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJmhtf3DDobDzKBxFpRexj7VHIQBe9luRv177sCoDj3S3XoEGiL45YF3Sy58_CNMWgcuzejq6MOxq_ZgRQwHFVsAyv8PC26fLGebOAmgbyLooe8FKR6YdkPfDyPwV2UWfYgEF7MpP1nqwI0ol-mqQJzZbsZktyAQKI2j94Awpz2-Bt6ZfPhtprYMD2yCflZjNuUCQkvDgptWiwJIdcW-MNwFziwb5-ibtbhywevi_QCfN93Tk0X_dK0AKH3OCUXE_T8ElHy-5VXWLv"/>
-</div>
-<!-- Asymmetric Decorative Element -->
-<div class="absolute -bottom-8 -right-8 bg-primary-container p-8 rounded-lg hidden md:block">
-<div class="flex items-center gap-2 mb-2">
-<div class="flex text-primary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
-</div>
-<span class="font-bold text-on-primary-container">4.5/5</span>
-</div>
-<p class="text-sm font-medium text-on-primary-container opacity-80">Based on 1,240 organic reviews</p>
-</div>
-</div>
-<div class="md:col-span-5 flex flex-col gap-6">
-<span class="uppercase tracking-widest text-xs font-bold text-primary font-body">Verified Analysis</span>
-<h1 class="text-6xl md:text-8xl leading-tight font-headline font-bold text-on-surface -ml-1" id="product-title">Skin-Quencing Serum</h1>
-<p class="text-xl leading-relaxed text-on-surface-variant font-body">A high-performance hydration catalyst formulated for the conscious consumer. We've parsed thousands of real-world experiences to find the truth behind the hype.</p>
-<div class="flex flex-wrap gap-4 mt-4">
-<div class="bg-surface-container-highest px-6 py-4 rounded-lg flex flex-col gap-1">
-<span class="text-xs font-bold uppercase tracking-wider opacity-60">The Empties Metric</span>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">recycling</span>
-<span class="text-xl font-bold">84% Hit Pan</span>
-</div>
-</div>
-<div class="bg-surface-container-highest px-6 py-4 rounded-lg flex flex-col gap-1">
-<span class="text-xs font-bold uppercase tracking-wider opacity-60">Pore Safety</span>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">verified_user</span>
-<span class="text-xl font-bold">1/5 Score</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Bento Analysis Grid -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
-<!-- The Consensus (Reviews Summary) -->
-<div class="md:col-span-2 bg-surface-container-low rounded-lg p-10">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-4xl font-headline font-bold">The Consensus</h2>
-<div class="flex gap-2">
-<span class="bg-surface-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">YouTube</span>
-<span class="bg-surface-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">Reddit</span>
-</div>
-</div>
-<div class="grid md:grid-cols-2 gap-12">
-<div class="space-y-6">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">add_circle</span>
-<h3 class="text-2xl font-headline font-bold">The Pros</h3>
-</div>
-<ul class="space-y-4 font-body text-on-surface-variant">
-<li class="flex gap-4">
-<span class="text-primary font-bold">01</span>
-<p>Exceptional molecular weight distribution for multi-depth hydration without stickiness.</p>
-</li>
-<li class="flex gap-4">
-<span class="text-primary font-bold">02</span>
-<p>Noticeable "glass skin" finish reported by 90% of Reddit r/SkincareAddiction testers.</p>
-</li>
-<li class="flex gap-4">
-<span class="text-primary font-bold">03</span>
-<p>Fragrance-free and essential oil-free formula makes it safe for reactive barriers.</p>
-</li>
-</ul>
-</div>
-<div class="space-y-6">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">remove_circle</span>
-<h3 class="text-2xl font-headline font-bold">The Cons</h3>
-</div>
-<ul class="space-y-4 font-body text-on-surface-variant">
-<li class="flex gap-4">
-<span class="text-primary font-bold">01</span>
-<p>Premium price point ($85/30ml) often criticized by "budget-beauty" YouTubers.</p>
-</li>
-<li class="flex gap-4">
-<span class="text-primary font-bold">02</span>
-<p>Glass dropper design can be difficult to manage when product gets low.</p>
-</li>
-<li class="flex gap-4">
-<span class="text-primary font-bold">03</span>
-<p>Slow absorption rate requires a 2-minute wait before layering moisturizer.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Comedogenicity Widget -->
-<div class="flex flex-col gap-8">
-<div class="bg-surface-container-high rounded-lg p-8 flex-1 flex flex-col justify-center items-center text-center">
-<h3 class="text-xl font-headline font-bold mb-6">Comedogenicity Score</h3>
-<div class="relative w-40 h-40 flex items-center justify-center">
-<svg class="w-full h-full transform -rotate-90">
-<circle class="text-surface-container" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
-<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="350" stroke-width="12"></circle>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="text-5xl font-headline font-bold">1/5</span>
-</div>
-</div>
-<p class="mt-6 font-bold text-primary">Low Probability</p>
-<p class="text-sm text-on-surface-variant mt-2">Non-clogging formula safe for acne-prone skin types.</p>
-</div>
-<!-- Empty Metric Detail -->
-<div class="bg-primary text-on-primary rounded-lg p-8 flex items-center justify-between overflow-hidden relative">
-<div class="z-10">
-<h3 class="text-lg font-headline font-bold mb-1">The Empties</h3>
-<p class="text-3xl font-bold">9.2/10</p>
-<p class="text-xs uppercase tracking-widest opacity-80 mt-2">Repurchase Intent</p>
-</div>
-<span class="material-symbols-outlined text-8xl absolute -right-4 -bottom-4 opacity-20 rotate-12">shopping_bag</span>
-</div>
-</div>
-</section>
-<!-- Brand Detail Section (Magazine Style) -->
-<section class="py-20 flex flex-col md:flex-row gap-16 items-center">
-<div class="md:w-1/2 order-2 md:order-1">
-<h2 class="text-5xl font-headline font-bold mb-8 italic">"The texture feels like silk rainwater on the skin—expensive but undeniably effective."</h2>
-<div class="flex items-center gap-4">
-<img class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a sophisticated beauty editor with soft lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDywgJSNf5kdbaHElG5crWVtqVBiKLOjn8UghyadWwKyMW9MKUeRNk3g3KahM996A2fnzbl9onp1hx3FmO5wDNaBee9IvvZewXLAN-3Yz8U5k34a9qRRIBAzPPrCMTz423JAkYJIHMCaqdS0zF35qS-kIBR0Ym7Fq1V-kU_EWwk9XGNfJIgmq2hBqCdS54GIQqSXSE7mXTURUbQf7fk5EqbClDtAB2Wnk1b5nEYmwZ_Z4pQkdfNiwdKz8IIF54D7rVegWDRiJ5XsAZf"/>
-<div>
-<p class="font-bold">Elena Thorne</p>
-<p class="text-sm opacity-70">Senior Editor, deInfluence</p>
-</div>
-</div>
-</div>
-<div class="md:w-1/2 order-1 md:order-2">
-<div class="rounded-lg overflow-hidden h-[400px]">
-<img class="w-full h-full object-cover" data-alt="Macro photography of clear serum droplets on a peach reflective surface with artistic light refraction" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8jUdnnfoKKdizdU_zB9WO-CEiD_7S8L8qIsIvIDwiNcpWY7c58m1NN7HEk0CjjtYA1S4JyVYJ3XCfMxRbzaoqz_0DsztLxYt06_u8CIDlbmX7R5d6TiRx0vGLFC3W7spWxtqi2vQi3T9xnGjT3hl7bUGgSOj28wyiJDtWh7cECT-zKoTBOV8PB5KZqW6BQJMFE35Pck8H7JrOmfi1Wiv5X-FhW9bXGTXfibO3G97gYp9A2lHi5V96s5zKUZBe2ZYF4feQp9jg5Y4w"/>
-</div>
-</div>
-</section>
+<main class="max-w-6xl mx-auto px-6 py-8">
+
+  <div class="bg-surface-container-low rounded-3xl p-8">
+
+    <div class="mb-8">
+      <span class="text-xs uppercase tracking-widest text-primary font-bold">
+        Product Analysis
+      </span>
+
+      <h1 id="product-name"
+          class="text-4xl font-headline font-bold mt-2">
+        Loading...
+      </h1>
+
+      <p id="brand-name"
+         class="text-on-surface-variant mt-2">
+      </p>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+
+      <div class="bg-surface rounded-2xl p-5 text-center">
+        <p class="text-xs uppercase opacity-60">Sentiment</p>
+        <h3 id="sentiment-score"
+            class="text-3xl font-bold text-primary">
+          -
+        </h3>
+      </div>
+
+      <div class="bg-surface rounded-2xl p-5 text-center">
+        <p class="text-xs uppercase opacity-60">Positive</p>
+        <h3 id="positive-score"
+            class="text-3xl font-bold text-primary">
+          -
+        </h3>
+      </div>
+
+      <div class="bg-surface rounded-2xl p-5 text-center">
+        <p class="text-xs uppercase opacity-60">Negative</p>
+        <h3 id="negative-score"
+            class="text-3xl font-bold text-primary">
+          -
+        </h3>
+      </div>
+
+      <div class="bg-surface rounded-2xl p-5 text-center">
+        <p class="text-xs uppercase opacity-60">Comedogenic Score</p>
+        <h3 id="comedogenic-score"
+            class="text-3xl font-bold text-primary">
+          -
+        </h3>
+      </div>
+
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-surface rounded-2xl p-5 mb-4">
+      <h2 class="font-bold mb-2">
+        Summary
+      </h2>
+
+      <p id="summary"
+         class="text-sm text-on-surface-variant">
+      </p>
+    </div>
+
+    <!-- Themes -->
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
+
+      <div class="bg-surface rounded-2xl p-5">
+        <h2 class="font-bold mb-2">
+          Positive Themes
+        </h2>
+
+        <p id="positive-themes"
+           class="text-sm text-on-surface-variant">
+        </p>
+      </div>
+
+      <div class="bg-surface rounded-2xl p-5">
+        <h2 class="font-bold mb-2">
+          Negative Themes
+        </h2>
+
+        <p id="negative-themes"
+           class="text-sm text-on-surface-variant">
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Ingredients -->
+    <div class="bg-surface rounded-2xl p-5">
+
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold">
+          Ingredients
+        </h2>
+
+        <a id="source-link"
+           target="_blank"
+           class="text-primary text-sm font-semibold">
+          Source →
+        </a>
+      </div>
+
+      <p id="ingredients"
+         class="text-sm text-on-surface-variant">
+      </p>
+
+    </div>
+
+  </div>
+
 </main>
 <!-- Footer -->
 <footer class="bg-[#fff1eb] dark:bg-[#150d09] w-full py-20 mt-24">
@@ -268,19 +244,90 @@
 </div>
 </footer>
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const query = params.get('query');
+  async function loadProduct() {
+    try {
 
-  if (query) {
-    const productTitle = document.getElementById('product-title');
-    const productSearchTerm = document.getElementById('product-search-term');
-    if (productTitle) {
-      productTitle.textContent = query;
+      const params = new URLSearchParams(
+        window.location.search
+      );
+
+      const query = params.get("query");
+
+      if (!query) return;
+
+      const response = await fetch(
+        `http://localhost:8000/search-product?query=${encodeURIComponent(query)}`
+      );
+
+      const data = await response.json();
+
+      document.title =
+        `${data.product_name} | deInfluence`;
+
+      document.getElementById("product-name")
+        .textContent =
+        data.product_name;
+
+      document.getElementById("brand-name")
+        .textContent =
+        `Brand: ${data.brand_name}`;
+
+      document.getElementById("comedogenic-score")
+        .textContent =
+        data.comedogenic_score || "-";
+
+      // Convert 0.247 -> 24.7%
+      const sentimentPercent =
+        data.average_sentiment
+          ? (data.average_sentiment * 100).toFixed(1)
+          : "-";
+
+      document.getElementById("sentiment-score")
+        .textContent =
+        sentimentPercent + "%";
+
+      document.getElementById("positive-score")
+        .textContent =
+        `${data.positive_percentile || 0}%`;
+
+      document.getElementById("negative-score")
+        .textContent =
+        `${data.negative_percentile || 0}%`;
+
+      document.getElementById("summary")
+        .textContent =
+        data.summary || "No summary available.";
+
+      document.getElementById("positive-themes")
+        .textContent =
+        data.positive_themes || "None";
+
+      document.getElementById("negative-themes")
+        .textContent =
+        data.negative_themes || "None detected";
+
+      document.getElementById("ingredients")
+        .textContent =
+        data.ingredients
+          ?.split(",")
+          .slice(0, 25)
+          .join(", ") || "-";
+
+      document.getElementById("source-link")
+        .href =
+        data.source_url;
+
+    } catch (err) {
+
+      console.error(err);
+
+      document.getElementById("product-name")
+        .textContent =
+        "Unable to load product";
+
     }
-    if (productSearchTerm) {
-      productSearchTerm.value = query;
-    }
-    document.title = `${query} | deInfluence`;
   }
+
+  loadProduct();
 </script>
 </body></html>
