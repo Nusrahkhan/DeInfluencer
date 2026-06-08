@@ -505,6 +505,8 @@ async def chatbot(req: ChatRequest):
         profile=req.profile.model_dump()
     )
 
+    print(f"Chatbot answer: {answer}")
+
     return {
         "answer": answer
     }

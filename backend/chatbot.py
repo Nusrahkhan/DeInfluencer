@@ -203,7 +203,7 @@ FOR PRODUCT RECOMMENDATIONS, include:
 
 AVOID generating queries that lead to:
 - Unverified lifestyle blogs
-- AI-generated content farms
+- AI-generated content
 - Verified retailer sites (Sephora, Nykaa, official brand websites only)
 - Drop-shipping aggregator sites
 - Affiliate marketing content without expertise
