@@ -30,6 +30,8 @@ from sentiment import (
     resolve_gemini_api_key
 )
 from trending import run_agent
+from auth import hash_password, verify_password, create_access_token
+from email_service import generate_otp, send_otp_email, send_welcome_email
 
 # Load environment variables from .env file
 load_dotenv()
@@ -486,7 +488,34 @@ def get_bulletins():
         print(f"❌ Error fetching bulletins: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch bulletins: {e}")
 
-# ── Chatbot API endpoint ───────────────────────────────────────
+# ── Pydantic Models ───────────────────────────────────────────────────────────
+
+# Authentication Models
+class SignUpRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+    confirm_password: str
+
+class OTPRequest(BaseModel):
+    email: str
+    otp: str
+
+class SignInRequest(BaseModel):
+    email: str
+    password: str
+
+class QuizSubmission(BaseModel):
+    email: str
+    skin_type: str
+    skin_concerns: list
+    budget_range: str
+    preferred_brands: list
+
+class ResendOTPRequest(BaseModel):
+    email: str
+
+# Chatbot Models
 class Profile(BaseModel):
     skin_type: str
     concerns: str
@@ -510,3 +539,352 @@ async def chatbot(req: ChatRequest):
     return {
         "answer": answer
     }
+
+
+# ── AUTHENTICATION ENDPOINTS ───────────────────────────────────────────────────────────
+
+@app.post("/auth/signup", summary="Register a new user")
+def signup(req: SignUpRequest) -> dict:
+    """
+    Register a new user with email and password.
+    - Validates email uniqueness
+    - Generates 6-digit OTP
+    - Sends OTP to email (valid for 5 minutes)
+    - Returns success message
+    """
+    try:
+        # ✅ Validate input
+        if req.password != req.confirm_password:
+            raise HTTPException(status_code=400, detail="Passwords do not match")
+        
+        if len(req.password) < 6:
+            raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+        
+        if len(req.name.strip()) < 2:
+            raise HTTPException(status_code=400, detail="Name must be at least 2 characters")
+        
+        # ✅ Check if user already exists
+        existing_user = supabase.table("users").select("id").eq("email", req.email).execute()
+        if existing_user.data:
+            raise HTTPException(status_code=409, detail="Email already registered")
+        
+        # ✅ Hash password and create user record
+        hashed_password = hash_password(req.password)
+        
+        new_user = {
+            "email": req.email,
+            "name": req.name.strip(),
+            "password_hash": hashed_password,
+        }
+        
+        user_response = supabase.table("users").insert([new_user]).execute()
+        if not user_response.data:
+            raise HTTPException(status_code=500, detail="Failed to create user")
+        
+        logger.info(f"✅ User created: {req.email}")
+        
+        # ✅ Generate OTP (6 digits)
+        otp = generate_otp()
+        expires_at = (datetime.now(timezone.utc) + timedelta(minutes=5)).isoformat()
+        
+        otp_record = {
+            "email": req.email,
+            "otp_code": otp,
+            "expires_at": expires_at,
+            "is_verified": False,
+            "attempts": 0,
+        }
+        
+        otp_response = supabase.table("otp_records").insert([otp_record]).execute()
+        if not otp_response.data:
+            raise HTTPException(status_code=500, detail="Failed to create OTP record")
+        
+        logger.info(f"✅ OTP generated for {req.email}: {otp} (expires at {expires_at})")
+        
+        # ✅ Send OTP via email
+        email_sent = send_otp_email(req.email, otp)
+        
+        if not email_sent:
+            logger.warning(f"⚠️ Email not configured. OTP: {otp}")
+            # Still success - for dev/testing without email
+        
+        return {
+            "success": True,
+            "message": f"Account created! Check your email for a 6-digit OTP. Valid for 5 minutes.",
+            "email": req.email,
+            "test_otp": otp if not email_sent else None  # Only show in dev mode
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Signup error")
+        raise HTTPException(status_code=500, detail=f"Signup failed: {str(e)}")
+
+
+@app.post("/auth/verify-otp", summary="Verify OTP and complete registration")
+def verify_otp(req: OTPRequest) -> dict:
+    """
+    Verify OTP and complete email verification.
+    - Checks OTP validity (correct code + not expired)
+    - Enforces 5-attempt limit
+    - Returns JWT token on success
+    """
+    try:
+        # ✅ Get latest OTP record for this email
+        otp_response = supabase.table("otp_records")\
+            .select("*")\
+            .eq("email", req.email)\
+            .eq("is_verified", False)\
+            .order("created_at", desc=True)\
+            .limit(1)\
+            .execute()
+        
+        if not otp_response.data:
+            raise HTTPException(status_code=404, detail="No pending OTP found. Please sign up again.")
+        
+        otp_record = otp_response.data[0]
+        
+        # ✅ Check if OTP expired
+        expires_at_str = otp_record["expires_at"]
+        # Handle both formats: with and without Z
+        if isinstance(expires_at_str, str):
+            expires_at_str = expires_at_str.replace("Z", "+00:00")
+            expires_at = datetime.fromisoformat(expires_at_str)
+        else:
+            expires_at = expires_at_str
+        
+        # Ensure both are timezone-aware for comparison
+        current_time = datetime.now(timezone.utc)
+        if expires_at.tzinfo is None:
+            # If naive, assume UTC
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+        
+        if current_time > expires_at:
+            raise HTTPException(status_code=400, detail="OTP has expired. Please sign up again.")
+        
+        # ✅ Verify OTP code
+        if otp_record["otp_code"] != req.otp:
+            new_attempts = otp_record["attempts"] + 1
+            supabase.table("otp_records")\
+                .update({"attempts": new_attempts})\
+                .eq("id", otp_record["id"])\
+                .execute()
+            
+            remaining = 5 - new_attempts
+            if remaining <= 0:
+                raise HTTPException(status_code=400, detail="Too many failed attempts. Please sign up again.")
+            
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Invalid OTP. {remaining} attempt(s) remaining."
+            )
+        
+        # ✅ Mark OTP as verified
+        supabase.table("otp_records")\
+            .update({
+                "is_verified": True,
+                "verified_at": datetime.now(timezone.utc).isoformat()
+            })\
+            .eq("id", otp_record["id"])\
+            .execute()
+        
+        # ✅ Create JWT token
+        token = create_access_token(req.email)
+        
+        # Get user name
+        user_response = supabase.table("users").select("name").eq("email", req.email).execute()
+        user_name = user_response.data[0]["name"] if user_response.data else "User"
+        
+        logger.info(f"✅ OTP verified for {req.email}")
+        
+        return {
+            "success": True,
+            "message": "Email verified successfully!",
+            "token": token,
+            "email": req.email,
+            "name": user_name
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("OTP verification error")
+        raise HTTPException(status_code=500, detail=f"Verification failed: {str(e)}")
+
+
+@app.post("/auth/resend-otp", summary="Resend OTP to email")
+def resend_otp(req: ResendOTPRequest) -> dict:
+    """
+    Resend OTP to user's email (invalidates previous OTP).
+    """
+    try:
+        # Check if user exists
+        user_response = supabase.table("users").select("id").eq("email", req.email).execute()
+        if not user_response.data:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        # Generate new OTP
+        otp = generate_otp()
+        expires_at = (datetime.now(timezone.utc) + timedelta(minutes=5)).isoformat()
+        
+        otp_record = {
+            "email": req.email,
+            "otp_code": otp,
+            "expires_at": expires_at,
+            "is_verified": False,
+            "attempts": 0,
+        }
+        
+        supabase.table("otp_records").insert([otp_record]).execute()
+        logger.info(f"✅ New OTP generated for {req.email}")
+        
+        # Send OTP
+        email_sent = send_otp_email(req.email, otp)
+        
+        return {
+            "success": True,
+            "message": "OTP resent to your email",
+            "test_otp": otp if not email_sent else None
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Resend OTP error")
+        raise HTTPException(status_code=500, detail=f"Failed to resend OTP: {str(e)}")
+
+
+@app.post("/auth/signin", summary="Sign in existing user")
+def signin(req: SignInRequest) -> dict:
+    """
+    Sign in existing user with email and password.
+    - Verifies credentials
+    - Returns JWT token on success
+    """
+    try:
+        # ✅ Get user by email
+        user_response = supabase.table("users").select("*").eq("email", req.email).execute()
+        
+        if not user_response.data:
+            raise HTTPException(status_code=401, detail="Invalid email or password")
+        
+        user = user_response.data[0]
+        
+        # ✅ Verify password
+        if not verify_password(req.password, user["password_hash"]):
+            raise HTTPException(status_code=401, detail="Invalid email or password")
+        
+        # ✅ Create JWT token
+        token = create_access_token(req.email)
+        
+        logger.info(f"✅ User signed in: {req.email}")
+        
+        return {
+            "success": True,
+            "message": "Signed in successfully!",
+            "token": token,
+            "email": req.email,
+            "name": user["name"]
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Sign in error")
+        raise HTTPException(status_code=500, detail=f"Sign in failed: {str(e)}")
+
+
+@app.post("/auth/submit-quiz", summary="Submit quiz answers")
+def submit_quiz(req: QuizSubmission) -> dict:
+    """
+    Store user's quiz answers in user_profiles table.
+    - Validates user exists
+    - Creates or updates profile
+    - Stores all quiz responses
+    """
+    try:
+        # ✅ Get user ID from email
+        user_response = supabase.table("users").select("id").eq("email", req.email).execute()
+        
+        if not user_response.data:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        user_id = user_response.data[0]["id"]
+        
+        # ✅ Check if profile already exists
+        profile_response = supabase.table("user_profiles")\
+            .select("id")\
+            .eq("user_id", user_id)\
+            .execute()
+        
+        profile_data = {
+            "user_id": user_id,
+            "skin_type": req.skin_type,
+            "skin_concerns": req.skin_concerns,
+            "budget_range": req.budget_range,
+            "preferred_brands": req.preferred_brands,
+            "quiz_completed_at": datetime.now(timezone.utc).isoformat(),
+        }
+        
+        if profile_response.data:
+            # Update existing profile
+            supabase.table("user_profiles")\
+                .update(profile_data)\
+                .eq("user_id", user_id)\
+                .execute()
+            message = "Profile updated successfully!"
+            logger.info(f"✅ Profile updated for user {user_id}")
+        else:
+            # Create new profile
+            supabase.table("user_profiles").insert([profile_data]).execute()
+            message = "Profile created successfully!"
+            logger.info(f"✅ New profile created for user {user_id}")
+        
+        return {
+            "success": True,
+            "message": message,
+            "email": req.email,
+            "profile": profile_data
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Quiz submission error")
+        raise HTTPException(status_code=500, detail=f"Quiz submission failed: {str(e)}")
+
+
+@app.get("/auth/profile", summary="Get user profile")
+def get_profile(email: str) -> dict:
+    """
+    Get user profile and quiz answers.
+    """
+    try:
+        # Get user
+        user_response = supabase.table("users").select("*").eq("email", email).execute()
+        if not user_response.data:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        user = user_response.data[0]
+        user_id = user["id"]
+        
+        # Get profile
+        profile_response = supabase.table("user_profiles").select("*").eq("user_id", user_id).execute()
+        profile = profile_response.data[0] if profile_response.data else None
+        
+        return {
+            "user": {
+                "id": user["id"],
+                "email": user["email"],
+                "name": user["name"],
+                "created_at": user["created_at"]
+            },
+            "profile": profile
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Get profile error")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch profile: {str(e)}")

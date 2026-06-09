@@ -1,0 +1,356 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>deInfluence | The Modern Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#ffb3b0",
+                    "tertiary": "#984444",
+                    "on-surface": "#2a170b",
+                    "primary-fixed-dim": "#ffb3b0",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fff8f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#ffe3d4",
+                    "on-primary-fixed-variant": "#91061b",
+                    "secondary": "#90494a",
+                    "primary": "#b4262f",
+                    "on-secondary-fixed": "#3b080c",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "tertiary-container": "#ffd1cf",
+                    "surface-variant": "#ffdbc9",
+                    "outline": "#81746e",
+                    "on-tertiary-fixed": "#3f0207",
+                    "surface": "#fff8f5",
+                    "surface-container": "#ffeadf",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#fff8f5",
+                    "outline-variant": "#d3c3bc",
+                    "surface-dim": "#f8d2be",
+                    "secondary-fixed": "#ffdad9",
+                    "on-tertiary-fixed-variant": "#7a2d2e",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#9a4645",
+                    "on-secondary-container": "#793738",
+                    "inverse-on-surface": "#ffede5",
+                    "surface-container-highest": "#ffdbc9",
+                    "error": "#ba1a1a",
+                    "primary-container": "#ffd1ce",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-background": "#2a170b",
+                    "inverse-surface": "#422b1e",
+                    "surface-tint": "#b4262f",
+                    "surface-container-low": "#fff1eb",
+                    "secondary-container": "#fda3a3",
+                    "on-primary-container": "#b62831",
+                    "on-surface-variant": "#4f453f",
+                    "on-secondary-fixed-variant": "#733334",
+                    "on-primary-fixed": "#410006",
+                    "secondary-fixed-dim": "#ffb3b2",
+                    "primary-fixed": "#ffdad8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader"],
+                    "display": ["Newsreader"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .serif { font-family: 'Newsreader', serif; }
+        
+        .glass-panel {
+            background: rgba(255, 248, 245, 0.7);
+            backdrop-filter: blur(12px);
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim { animation: floating 6s ease-in-out infinite; }
+
+        /* Animation Classes */
+        .auth-overlay {
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        
+        .auth-content {
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .auth-container.is-signin .auth-overlay {
+            transform: translateX(140%);
+        }
+
+        .auth-container.is-signin .signup-form {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(50px);
+        }
+
+        .auth-container.is-signin .signin-form {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
+        .signin-form {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-50px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center p-4 lg:p-8">
+<img alt="Background pattern" class="fixed inset-0 w-full h-full object-cover -z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_o2RkM9EmPyrbGql_fnGZ-hV6xsHEcCp2BlthcKRVzHNtYcMowscJWPNnzL3w-_Ocee_xZ2snv8U_mkHQZT4sUQNK9OFhHx8-C2J6kyL65vGchLNMSLDUEDPckwbRjd7VQUBHwJLNIuXY_o3wsphTbbHavoIHxpHHcWE0RjXlCpbc2dajmEQSJNtusSdF9bolVsri8TK1jrpUemIZ18bxoFNazlTT3SLaXi4DlfmRUAdc6Dnad-Xz6zGDm8Mhw0kCLKTBgJTbzxPqO5E">
+<!-- Auth Container -->
+<main class="auth-container w-full max-w-4xl h-[650px] rounded-lg overflow-hidden flex relative glass-panel" id="authContainer">
+<!-- Animated Overlay (Red Section) -->
+<section class="auth-overlay absolute inset-0 w-full md:w-5/12 h-64 md:h-full z-20 overflow-hidden bg-primary/90 pointer-events-none md:pointer-events-auto">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary via-primary/40 to-transparent"></div>
+<!-- Branding Overlay -->
+<div class="relative z-10 h-full flex flex-col justify-between p-12 text-on-primary">
+<div>
+<h1 class="serif text-4xl font-bold tracking-tight">deInfluence</h1>
+</div>
+<div class="float-anim" style="transform: translate(-1.28906px, 2.28516px);">
+<h2 class="serif text-5xl font-extrabold leading-none tracking-tighter opacity-90 lg:text-6xl">
+                        Editorial <br>Glamour
+                    </h2>
+<p class="mt-6 text-lg font-light opacity-80 max-w-xs">
+                        Curating the conscious consumer journey through artisanal digital experiences.
+                    </p>
+</div>
+<div class="flex gap-4 items-center">
+<div class="w-12 h-[1px] bg-on-primary/40"></div>
+<span class="text-xs tracking-[0.2em] uppercase opacity-60">Est. 2026</span>
+</div>
+</div>
+</section>
+<!-- Forms Container -->
+<div class="relative w-full h-full flex">
+<!-- Left Side: Sign In Form (Hidden by default) -->
+<section class="signin-form auth-content w-full md:w-5/12 h-full flex flex-col justify-center px-8 lg:px-12 py-8 absolute left-0 top-0">
+<div class="w-full mx-auto max-w-md space-y-4">
+<header class="space-y-4">
+<h3 class="serif font-bold text-3xl" style="opacity: 0;">Welcome Back</h3>
+<p class="text-on-surface-variant text-sm">Sign in to access your curated collections.</p>
+</header>
+<form class="space-y-6" onsubmit="return false;">
+<div class="space-y-2">
+<label class="block font-bold tracking-wider text-on-surface-variant uppercase ml-2 text-xs">Email Address</label>
+<input class="w-full px-8 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-4 text-lg" placeholder="example@brand.com" type="email">
+</div>
+<div class="space-y-2">
+<label class="block font-bold tracking-wider text-on-surface-variant uppercase ml-2 text-xs">Password</label>
+<input class="w-full px-8 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-4 text-lg" placeholder="********" type="password">
+</div>
+<div class="pt-4">
+<button class="w-full md:w-auto px-8 bg-primary text-on-primary rounded-full font-bold shadow-lg hover:shadow-primary/20 transition-all transform active:scale-95 duration-200 flex items-center justify-center gap-2 group py-3 text-base">
+                                Sign In
+                                <span class="material-symbols-outlined text-2xl transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</form>
+<p class="text-on-surface-variant text-sm">Don't have an account? <button class="text-primary font-bold hover:underline ml-1" id="switchToSignup">Sign Up</button></p>
+</div>
+</section>
+<!-- Right Side: Sign Up Form (Default Visible) -->
+<section class="signup-form auth-content w-full md:w-7/12 ml-auto h-full flex flex-col justify-center px-8 lg:px-16 py-8 overflow-y-auto">
+<div class="w-full mx-auto max-w-lg space-y-4">
+<header class="space-y-4">
+<h3 class="serif font-bold text-3xl">Create Account</h3>
+<p class="text-on-surface-variant text-sm">Join our community of conscious curators.</p>
+</header>
+<form class="space-y-6" id="signupForm" onsubmit="return false;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="block font-bold tracking-wider text-on-surface-variant uppercase ml-2 text-xs">Name</label>
+<input class="w-full px-6 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-3 text-base" placeholder="Your name" type="text">
+</div>
+<div class="space-y-2">
+<label class="block font-bold tracking-wider text-on-surface-variant uppercase ml-2 text-xs">Email Address</label>
+<input class="w-full px-6 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-3 text-base" placeholder="example@brand.com" type="email">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="block font-bold tracking-wider text-on-surface-variant uppercase ml-2 text-xs">Password</label>
+<input class="w-full px-6 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-3 text-base" placeholder="********" type="password">
+</div>
+<div class="space-y-2">
+<label class="block font-bold tracking-wider text-on-surface-variant uppercase ml-2 text-xs">Repeat Password</label>
+<input class="w-full px-6 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-3 text-base" placeholder="********" type="password">
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full md:w-auto px-8 bg-primary text-on-primary rounded-full font-bold shadow-lg hover:shadow-primary/20 transition-all transform active:scale-95 duration-200 flex items-center justify-center gap-2 group py-3 text-base" type="submit">
+                                Sign Up
+                                <span class="material-symbols-outlined text-3xl transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</form>
+<p class="text-center md:text-left text-on-surface-variant mt-8 text-sm">Already have an account? <button class="text-primary font-bold hover:underline ml-1" id="switchToSignin">Sign In</button></p>
+</div>
+</section>
+</div>
+</main>
+<!-- Aesthetic Atmospheric Element -->
+<div class="fixed bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-surface-container-highest/20 to-transparent -z-10 pointer-events-none"></div>
+
+<!-- Import API Client -->
+<script src="api-client.js"></script>
+
+<script>
+const container = document.getElementById('authContainer');
+const signinBtn = document.getElementById('switchToSignin');
+const signupBtn = document.getElementById('switchToSignup');
+const signupForm = document.getElementById('signupForm');
+
+signinBtn.addEventListener('click', () => {
+    container.classList.add('is-signin');
+});
+
+signupBtn.addEventListener('click', () => {
+    container.classList.remove('is-signin');
+});
+
+// ─────────────────────────────────────────────
+// SIGN UP HANDLER
+// ─────────────────────────────────────────────
+signupForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    // Get all inputs within the signup form
+    const inputs = signupForm.querySelectorAll('input');
+    const nameInput = inputs[0];           // First input: name
+    const emailInput = inputs[1];          // Second input: email
+    const passwordInput = inputs[2];       // Third input: password
+    const confirmPasswordInput = inputs[3]; // Fourth input: confirm password
+    const submitBtn = signupForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitBtn.innerHTML;
+    
+    const name = nameInput?.value.trim() || '';
+    const email = emailInput?.value.trim() || '';
+    const password = passwordInput?.value || '';
+    const confirmPassword = confirmPasswordInput?.value || '';
+    
+    // Validation
+    if (!name || !email || !password || !confirmPassword) {
+        UIHelpers.showError('Please fill in all fields');
+        return;
+    }
+    
+    UIHelpers.showLoading(submitBtn, 'Signing up...');
+    
+    try {
+        const result = await APIClient.signup(name, email, password, confirmPassword);
+        
+        if (result.success) {
+            // Store email for OTP verification
+            Storage.setSignupEmail(email);
+            
+            UIHelpers.showSuccess('Account created! Redirecting to OTP verification...');
+            UIHelpers.redirectTo('otp.html');
+        }
+    } catch (error) {
+        UIHelpers.showError(error.message);
+        UIHelpers.hideLoading(submitBtn, originalButtonText);
+    }
+});
+
+// ─────────────────────────────────────────────
+// SIGN IN HANDLER
+// ─────────────────────────────────────────────
+const signinForm = document.querySelector('.signin-form form');
+if (signinForm) {
+    signinForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        const emailInput = signinForm.querySelector('input[type="email"]');
+        const passwordInput = signinForm.querySelector('input[type="password"]');
+        const submitBtn = signinForm.querySelector('button[type="submit"]');
+        const originalButtonText = submitBtn.innerHTML;
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        
+        if (!email || !password) {
+            UIHelpers.showError('Please enter email and password');
+            return;
+        }
+        
+        UIHelpers.showLoading(submitBtn, 'Signing in...');
+        
+        try {
+            const result = await APIClient.signin(email, password);
+            
+            if (result.success) {
+                // Store authentication data
+                Storage.setAuthToken(result.token);
+                Storage.setUserEmail(result.email);
+                Storage.setUserName(result.name);
+                
+                UIHelpers.showSuccess('Signed in successfully!');
+                UIHelpers.redirectTo('quiz.html');
+            }
+        } catch (error) {
+            UIHelpers.showError(error.message);
+            UIHelpers.hideLoading(submitBtn, originalButtonText);
+        }
+    });
+}
+
+// ─────────────────────────────────────────────
+// UI MICRO-INTERACTIONS
+// ─────────────────────────────────────────────
+
+// Input focus styling
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('focus', () => {
+        const label = input.parentElement.querySelector('label');
+        if (label) label.classList.add('text-primary');
+    });
+    input.addEventListener('blur', () => {
+        const label = input.parentElement.querySelector('label');
+        if (label) label.classList.remove('text-primary');
+    });
+});
+
+// Background parallax-lite on mouse move
+document.addEventListener('mousemove', (e) => {
+    const amount = 5;
+    const x = (e.clientX / window.innerWidth - 0.5) * amount;
+    const y = (e.clientY / window.innerHeight - 0.5) * amount;
+    
+    const illust = document.querySelector('.float-anim');
+    if(illust) {
+        illust.style.transform = `translate(${x}px, ${y}px)`;
+    }
+});
+</script>
+
+
+</body></html>

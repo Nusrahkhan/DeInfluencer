@@ -1,0 +1,502 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>deInfluence | Your Editorial Skin Consultation</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#ffb3b0",
+                      "on-tertiary-container": "#9a4645",
+                      "inverse-primary": "#ffb3b0",
+                      "primary-fixed-dim": "#ffb3b0",
+                      "on-secondary-container": "#793738",
+                      "on-primary-container": "#b62831",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#91061b",
+                      "tertiary-fixed": "#ffdad8",
+                      "secondary-fixed": "#ffdad9",
+                      "secondary": "#90494a",
+                      "tertiary": "#984444",
+                      "surface-dim": "#f8d2be",
+                      "surface-container-low": "#fff1eb",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#ffd1ce",
+                      "on-secondary-fixed-variant": "#733334",
+                      "tertiary-container": "#ffd1cf",
+                      "on-surface-variant": "#4f453f",
+                      "surface-variant": "#ffdbc9",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#410006",
+                      "on-error-container": "#93000a",
+                      "error": "#ba1a1a",
+                      "surface-container": "#ffeadf",
+                      "on-tertiary-fixed": "#3f0207",
+                      "on-background": "#2a170b",
+                      "surface-container-highest": "#ffdbc9",
+                      "on-surface": "#2a170b",
+                      "on-primary": "#ffffff",
+                      "outline": "#81746e",
+                      "surface-tint": "#b4262f",
+                      "secondary-fixed-dim": "#ffb3b2",
+                      "inverse-surface": "#422b1e",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#fff8f5",
+                      "secondary-container": "#fda3a3",
+                      "primary-fixed": "#ffdad8",
+                      "on-secondary-fixed": "#3b080c",
+                      "surface": "#fff8f5",
+                      "inverse-on-surface": "#ffede5",
+                      "background": "#fff8f5",
+                      "primary": "#b4262f",
+                      "outline-variant": "#d3c3bc",
+                      "on-tertiary-fixed-variant": "#7a2d2e",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#ffe3d4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Newsreader", "serif"],
+                      "display": ["Newsreader", "serif"],
+                      "body": ["Plus Jakarta Sans", "sans-serif"],
+                      "label": ["Plus Jakarta Sans", "sans-serif"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-transition {
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .step-hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            transform: translateX(20px);
+        }
+        .step-visible {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+            transform: translateX(0);
+        }
+        .glass-card {
+            backdrop-filter: blur(24px);
+            background: rgba(255, 248, 245, 0.75);
+            border: 1px solid rgba(211, 195, 188, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden min-h-screen">
+<!-- Hero Background Wrapper -->
+<div class="fixed inset-0 z-[-1] bg-cover bg-center bg-no-repeat" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBt-En6kqRTMxXLTZdj8XVFTjwXzH8O5lfsR8IMYjdkq7b5hmYomwjqtbKj5l21e-A3fyON82L0Vx9GqdHECsbMZ5Xus6ebH7jfB1LcdsYulz3OXiTs8n-p7y285yelU4q640d7Zdk5QN0Wx4PCm_OeDuPrjVmYSMsnAbqK6FeiaCt6AjyDWaIRPU2T6vhGsWIzw-2nbioIZGGXsjisuoxEhoCTQaAqd6_RnurMnlafsq00gu012IAwLtIxQHHVRtTElI-jbWj7fI1w')">
+</div>
+<!-- Top Navigation (Immutable Logic) -->
+<main class="min-h-screen flex items-center justify-center pt-24 pb-32 px-4"><div class="flex items-center justify-center gap-12 w-full max-w-6xl mx-auto">
+  <!-- Sidebar Container -->
+  <aside class="hidden lg:flex flex-col gap-8 p-8 glass-card rounded-xl">
+    <div class="group flex items-center gap-4 cursor-pointer">
+      <div class="w-3 h-3 rounded-full bg-primary transition-all scale-150" id="sideDot-1"></div>
+      <span class="font-label text-label-lg tracking-wide text-primary font-bold opacity-100 transition-all">Skin Type</span>
+    </div>
+    <div class="group flex items-center gap-4 cursor-pointer">
+      <div class="w-3 h-3 rounded-full bg-outline-variant group-hover:bg-primary transition-all" id="sideDot-2"></div>
+      <span class="font-label text-label-lg tracking-wide text-on-surface-variant group-hover:text-primary transition-all group-hover:opacity-100 opacity-100">Concerns</span>
+    </div>
+    <div class="group flex items-center gap-4 cursor-pointer">
+      <div class="w-3 h-3 rounded-full bg-outline-variant group-hover:bg-primary transition-all" id="sideDot-3"></div>
+      <span class="font-label text-label-lg tracking-wide text-on-surface-variant group-hover:text-primary transition-all group-hover:opacity-100 opacity-100">Budget</span>
+    </div>
+    <div class="group flex items-center gap-4 cursor-pointer">
+      <div class="w-3 h-3 rounded-full bg-outline-variant group-hover:bg-primary transition-all" id="sideDot-4"></div>
+      <span class="font-label text-label-lg tracking-wide text-on-surface-variant group-hover:text-primary transition-all group-hover:opacity-100 opacity-100">Brands</span>
+    </div>
+  </aside>
+
+  <!-- Main Quiz Card -->
+  <div class="glass-card w-full max-w-2xl rounded-lg p-8 md:p-12 shadow-2xl relative overflow-hidden">
+    <!-- SideNav Integration (Editorial Style Header) -->
+    <div class="mb-10 text-center md:text-left">
+      <div class="flex items-center gap-3 mb-2 justify-center md:justify-start">
+        <span class="bg-primary-container text-on-primary-container text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest" id="stepIndicator">Step 1 of 4</span>
+      </div>
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-on-surface tracking-tight" id="stepTitle">Your Consultation</h1>
+      <p class="text-on-surface-variant mt-2 font-body text-lg italic" id="stepSubtext">Understanding your canvas is the first step to editorial beauty.</p>
+    </div>
+    <!-- Quiz Steps Container -->
+    <div class="relative min-h-[300px]">
+      <!-- Step 1: Skin Type -->
+      <div class="step-transition step-visible" id="step-1">
+        <h3 class="font-headline text-2xl mb-6 text-primary">What is your primary skin type?</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="skin_type" data-step="skin_type" type="radio" value="Oily">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-primary peer-checked:text-white hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-3xl" data-icon="face">face</span>
+              <span class="text-lg font-bold">Oily</span>
+            </div>
+          </label>
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="skin_type" data-step="skin_type" type="radio" value="Dry">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-primary peer-checked:text-white hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-3xl" data-icon="opacity">opacity</span>
+              <span class="text-lg font-bold">Dry</span>
+            </div>
+          </label>
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="skin_type" data-step="skin_type" type="radio" value="Combination">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-primary peer-checked:text-white hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-3xl" data-icon="contrast">contrast</span>
+              <span class="text-lg font-bold">Combination</span>
+            </div>
+          </label>
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="skin_type" data-step="skin_type" type="radio" value="Sensitive">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-primary peer-checked:text-white hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-3xl" data-icon="spa">spa</span>
+              <span class="text-lg font-bold">Sensitive</span>
+            </div>
+          </label>
+        </div>
+      </div>
+        <!-- Step 2: Skin Concerns -->
+      <div class="step-transition step-hidden" id="step-2">
+        <h3 class="font-headline text-2xl mb-6 text-primary">Target your specific concerns</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="concerns" data-step="skin_concerns" type="checkbox" value="Acne">
+            <div class="p-5 border-2 border-transparent bg-surface-container-low rounded-lg transition-all peer-checked:border-primary peer-checked:bg-primary-container peer-checked:text-on-primary-container hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-2xl" data-icon="rebase_edit">rebase_edit</span>
+              <span class="font-bold">Acne &amp; Blemishes</span>
+            </div>
+          </label>
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="concerns" data-step="skin_concerns" type="checkbox" value="Anti-Aging">
+            <div class="p-5 border-2 border-transparent bg-surface-container-low rounded-lg transition-all peer-checked:border-primary peer-checked:bg-primary-container peer-checked:text-on-primary-container hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-2xl" data-icon="auto_awesome">auto_awesome</span>
+              <span class="font-bold">Anti-Aging</span>
+            </div>
+          </label>
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="concerns" data-step="skin_concerns" type="checkbox" value="Dark Spots">
+            <div class="p-5 border-2 border-transparent bg-surface-container-low rounded-lg transition-all peer-checked:border-primary peer-checked:bg-primary-container peer-checked:text-on-primary-container hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-2xl" data-icon="flare">flare</span>
+              <span class="font-bold">Dark Spots</span>
+            </div>
+          </label>
+          <label class="cursor-pointer group">
+            <input class="hidden peer" name="concerns" data-step="skin_concerns" type="checkbox" value="Hydration">
+            <div class="p-5 border-2 border-transparent bg-surface-container-low rounded-lg transition-all peer-checked:border-primary peer-checked:bg-primary-container peer-checked:text-on-primary-container hover:bg-surface-container-high flex items-center gap-4">
+              <span class="material-symbols-outlined text-2xl" data-icon="water_drop">water_drop</span>
+              <span class="font-bold">Deep Hydration</span>
+            </div>
+          </label>
+        </div>
+      </div>
+      <!-- Step 3: Budget -->
+      <div class="step-transition step-hidden" id="step-3">
+        <h3 class="font-headline text-2xl mb-6 text-primary">Your Investment Comfort</h3>
+        <div class="space-y-4">
+          <label class="block cursor-pointer group">
+            <input class="hidden peer" name="budget" data-step="budget_range" type="radio" value="Drugstore">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-secondary peer-checked:text-white hover:bg-surface-container-high">
+              <div class="flex justify-between items-center">
+                <span class="text-xl font-bold">Drugstore Gems</span>
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+              </div>
+              <p class="text-sm mt-1 opacity-80">Effective skincare without the premium price tag.</p>
+            </div>
+          </label>
+          <label class="block cursor-pointer group">
+            <input class="hidden peer" name="budget" data-step="budget_range" type="radio" value="Mid-Range">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-secondary peer-checked:text-white hover:bg-surface-container-high">
+              <div class="flex justify-between items-center">
+                <span class="text-xl font-bold">Mid-Range Essentials</span>
+                <span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+              </div>
+              <p class="text-sm mt-1 opacity-80">Proven formulas and curated ingredient lists.</p>
+            </div>
+          </label>
+          <label class="block cursor-pointer group">
+            <input class="hidden peer" name="budget" data-step="budget_range" type="radio" value="Luxury">
+            <div class="p-6 bg-surface-container-low rounded-lg transition-all peer-checked:bg-secondary peer-checked:text-white hover:bg-surface-container-high">
+              <div class="flex justify-between items-center">
+                <span class="text-xl font-bold">Luxury Splurge</span>
+                <span class="material-symbols-outlined" data-icon="diamond">diamond</span>
+              </div>
+              <p class="text-sm mt-1 opacity-80">High-performance tech and sensorial experiences.</p>
+            </div>
+          </label>
+        </div>
+      </div>
+      <!-- Step 4: Preferred Brands -->
+      <div class="step-transition step-hidden" id="step-4">
+        <h3 class="font-headline text-2xl mb-6 text-primary">Your Current Favorites</h3>
+        <p class="mb-6 text-on-surface-variant italic">List any brands you currently love or have in your rotation. This helps our consultants tailor your routine.</p>
+        <div class="relative">
+          <input class="w-full bg-surface-container-highest border-none rounded-lg p-6 font-body text-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all outline-none text-on-surface placeholder:text-outline-variant/60" placeholder="e.g., La Roche-Posay, Tatcha, The Ordinary..." type="text">
+        </div>
+        <div class="mt-12 p-8 bg-primary-container/30 rounded-lg flex gap-4 items-center">
+          <span class="material-symbols-outlined text-primary text-4xl" data-icon="auto_fix_high">auto_fix_high</span>
+          <div>
+            <h4 class="font-bold text-primary">Almost there!</h4>
+            <p class="text-sm text-on-surface-variant">Click finish to receive your customized editorial routine.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Navigation Controls -->
+    <div class="mt-12 flex justify-between items-center pt-8 border-t border-outline-variant/10">
+      <button class="px-8 py-3 font-bold text-on-surface-variant hover:text-primary transition-colors disabled:opacity-0 disabled:pointer-events-none flex items-center gap-2" disabled="" id="prevBtn">
+        <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+        Back
+      </button>
+      <button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-bold flex items-center gap-2 shadow-lg hover:bg-on-primary-fixed-variant transition-all hover:scale-105 active:scale-95" id="nextBtn">
+        <span id="nextText" class="">Next Step</span>
+        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+</div></main>
+<!-- SideNav (Web - Decorative Sidebar Concept) -->
+
+<!-- Bottom Navigation (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-lg flex justify-around items-center px-4 pb-6 pt-2 shadow-lg border-t border-outline-variant/10">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-2" id="mob-nav-1">
+<span class="material-symbols-outlined" data-icon="face">face</span>
+<span class="font-label text-xs uppercase tracking-widest mt-1">Skin</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2" id="mob-nav-2">
+<span class="material-symbols-outlined" data-icon="rebase_edit">rebase_edit</span>
+<span class="font-label text-xs uppercase tracking-widest mt-1">Concerns</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2" id="mob-nav-3">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label text-xs uppercase tracking-widest mt-1">Budget</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2" id="mob-nav-4">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label text-xs uppercase tracking-widest mt-1">Brands</span>
+</div>
+</nav>
+
+<!-- Import API Client -->
+<script src="api-client.js"></script>
+
+<script>
+        // ─────────────────────────────────────────────
+        // QUIZ STATE MANAGEMENT
+        // ─────────────────────────────────────────────
+        
+        let currentStep = 1;
+        const totalSteps = 4;
+        
+        // Check authentication
+        const authToken = Storage.getAuthToken();
+        const userEmail = Storage.getUserEmail();
+        
+        if (!authToken || !userEmail) {
+            alert("❌ Please sign up first");
+            window.location.href = 'login.html';
+        }
+        
+        // Store quiz answers
+        let quizAnswers = {
+            skin_type: null,
+            skin_concerns: [],
+            budget_range: null,
+            preferred_brands: []
+        };
+        
+        const steps = [
+            { title: "Your Skin Profile", sub: "Understanding your canvas is the first step to editorial beauty." },
+            { title: "Clinical Goals", sub: "Identify the areas where your skin deserves the most attention." },
+            { title: "Lifestyle Alignment", sub: "We curate routines that respect your aesthetic and your budget." },
+            { title: "Curated Preferences", sub: "Tell us which houses of beauty you currently admire." }
+        ];
+
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextText = document.getElementById('nextText');
+        const stepIndicator = document.getElementById('stepIndicator');
+        const stepTitle = document.getElementById('stepTitle');
+        const stepSubtext = document.getElementById('stepSubtext');
+
+        // ─────────────────────────────────────────────
+        // UI UPDATE FUNCTION
+        // ─────────────────────────────────────────────
+        
+        function updateUI() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepEl = document.getElementById(`step-${i}`);
+                stepEl.classList.replace('step-visible', 'step-hidden');
+                
+                // Sidebar dots
+                const dot = document.getElementById(`sideDot-${i}`);
+                const mobNav = document.getElementById(`mob-nav-${i}`);
+                
+                if (i === currentStep) {
+                    dot?.classList.add('scale-150', 'bg-primary');
+                    dot?.classList.remove('bg-outline-variant');
+                    mobNav?.classList.add('bg-secondary-container', 'text-on-secondary-container');
+                    mobNav?.classList.remove('text-on-surface-variant');
+                } else {
+                    dot?.classList.remove('scale-150', 'bg-primary');
+                    dot?.classList.add('bg-outline-variant');
+                    mobNav?.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+                    mobNav?.classList.add('text-on-surface-variant');
+                }
+            }
+
+            // Show current step
+            const currentStepEl = document.getElementById(`step-${currentStep}`);
+            currentStepEl.classList.replace('step-hidden', 'step-visible');
+
+            // Update text
+            stepIndicator.textContent = `Step ${currentStep} of ${totalSteps}`;
+            stepTitle.textContent = steps[currentStep-1].title;
+            stepSubtext.textContent = steps[currentStep-1].sub;
+
+            // Buttons
+            prevBtn.disabled = currentStep === 1;
+            nextText.textContent = currentStep === totalSteps ? "Get My Routine" : "Next Step";
+        }
+
+        // ─────────────────────────────────────────────
+        // ANSWER TRACKING
+        // ─────────────────────────────────────────────
+        
+        // Track all input changes
+        document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const stepId = e.target.getAttribute('data-step') || e.target.name;
+                
+                if (e.target.type === 'radio') {
+                    if (stepId === 'skin_type') {
+                        quizAnswers.skin_type = e.target.value;
+                    } else if (stepId === 'budget_range') {
+                        quizAnswers.budget_range = e.target.value;
+                    }
+                } else if (e.target.type === 'checkbox') {
+                    if (stepId === 'skin_concerns') {
+                        if (e.target.checked) {
+                            quizAnswers.skin_concerns.push(e.target.value);
+                        } else {
+                            quizAnswers.skin_concerns = quizAnswers.skin_concerns.filter(c => c !== e.target.value);
+                        }
+                    } else if (stepId === 'preferred_brands') {
+                        if (e.target.checked) {
+                            quizAnswers.preferred_brands.push(e.target.value);
+                        } else {
+                            quizAnswers.preferred_brands = quizAnswers.preferred_brands.filter(b => b !== e.target.value);
+                        }
+                    }
+                }
+                
+                console.log('Quiz Answers Updated:', quizAnswers);
+            });
+        });
+
+        // Handle text input for preferred brands
+        const brandsInput = document.querySelector('input[placeholder*="La Roche-Posay"]');
+        if (brandsInput) {
+            brandsInput.addEventListener('change', (e) => {
+                const brandsText = e.target.value.trim();
+                if (brandsText) {
+                    quizAnswers.preferred_brands = brandsText.split(',').map(b => b.trim()).filter(b => b);
+                }
+                console.log('Quiz Answers Updated:', quizAnswers);
+            });
+        }
+
+        // ─────────────────────────────────────────────
+        // NAVIGATION HANDLERS
+        // ─────────────────────────────────────────────
+        
+        nextBtn.addEventListener('click', async () => {
+            if (currentStep < totalSteps) {
+                // Validate current step before moving
+                let isValid = true;
+                
+                if (currentStep === 1 && !quizAnswers.skin_type) {
+                    UIHelpers.showError('Please select your skin type');
+                    isValid = false;
+                } else if (currentStep === 2 && quizAnswers.skin_concerns.length === 0) {
+                    UIHelpers.showError('Please select at least one skin concern');
+                    isValid = false;
+                } else if (currentStep === 3 && !quizAnswers.budget_range) {
+                    UIHelpers.showError('Please select your budget range');
+                    isValid = false;
+                }
+                // Step 4 (brands) is optional, no validation needed
+                
+                if (isValid) {
+                    currentStep++;
+                    updateUI();
+                }
+            } else {
+                // ─────────────────────────────────────────────
+                // FINAL SUBMISSION
+                // ─────────────────────────────────────────────
+                
+                // Validate all answers
+                if (!quizAnswers.skin_type) {
+                    UIHelpers.showError('Please select your skin type');
+                    return;
+                }
+                if (quizAnswers.skin_concerns.length === 0) {
+                    UIHelpers.showError('Please select at least one skin concern');
+                    return;
+                }
+                if (!quizAnswers.budget_range) {
+                    UIHelpers.showError('Please select your budget range');
+                    return;
+                }
+                
+                const originalText = nextText.textContent;
+                UIHelpers.showLoading(nextBtn, 'Submitting...');
+                
+                try {
+                    const result = await APIClient.submitQuiz(userEmail, quizAnswers);
+                    
+                    if (result.success) {
+                        Storage.setQuizCompleted('true');
+                        UIHelpers.showSuccess('Profile created! Redirecting...');
+                        UIHelpers.redirectTo('index.html');
+                    }
+                } catch (error) {
+                    UIHelpers.showError(error.message);
+                    UIHelpers.hideLoading(nextBtn, originalText);
+                }
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+            }
+        });
+
+        // Initialize
+        updateUI();
+    </script>
+
+
+</body></html>
