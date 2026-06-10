@@ -2,9 +2,9 @@
 Authentication utilities for password hashing and JWT token management
 """
 
-from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
+from passlib.context import CryptContext
 import os
 
 # Password hashing configuration - Using Argon2 for unlimited password length

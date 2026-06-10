@@ -472,14 +472,28 @@
                 const originalText = nextText.textContent;
                 UIHelpers.showLoading(nextBtn, 'Submitting...');
                 
-                try {
-                    const result = await APIClient.submitQuiz(userEmail, quizAnswers);
+            try {
+                const result = await APIClient.submitQuiz(userEmail, quizAnswers);
+                
+                if (result.success) {
+                    // ✅ Store profile data locally for chatbot
+                    Storage.setSkinType(quizAnswers.skin_type);
+                    Storage.setSkinConcerns(quizAnswers.skin_concerns);
+                    Storage.setBudget(quizAnswers.budget_range);
+                    Storage.setPreferredBrands(quizAnswers.preferred_brands);
                     
-                    if (result.success) {
-                        Storage.setQuizCompleted('true');
-                        UIHelpers.showSuccess('Profile created! Redirecting...');
-                        UIHelpers.redirectTo('index.html');
-                    }
+                    // Store complete profile object for easy access
+                    Storage.setUserProfile({
+                        skin_type: quizAnswers.skin_type,
+                        concerns: quizAnswers.skin_concerns.join(", "),
+                        budget: quizAnswers.budget_range,
+                        preferred_brands: quizAnswers.preferred_brands.join(", ")
+                    });
+                    
+                    Storage.setQuizCompleted('true');
+                    UIHelpers.showSuccess('Profile saved!');
+                    UIHelpers.redirectTo('blossom.html');
+                }
                 } catch (error) {
                     UIHelpers.showError(error.message);
                     UIHelpers.hideLoading(nextBtn, originalText);

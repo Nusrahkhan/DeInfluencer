@@ -168,9 +168,9 @@
 <input class="w-full px-8 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all placeholder:opacity-40 outline-none p-4 text-lg" placeholder="********" type="password">
 </div>
 <div class="pt-4">
-<button class="w-full md:w-auto px-8 bg-primary text-on-primary rounded-full font-bold shadow-lg hover:shadow-primary/20 transition-all transform active:scale-95 duration-200 flex items-center justify-center gap-2 group py-3 text-base">
-                                Sign In
-                                <span class="material-symbols-outlined text-2xl transition-transform group-hover:translate-x-1">arrow_forward</span>
+<button type="submit" class="w-full md:w-auto px-8 bg-primary text-on-primary rounded-full font-bold shadow-lg hover:shadow-primary/20 transition-all transform active:scale-95 duration-200 flex items-center justify-center gap-2 group py-3 text-base">
+    Sign In
+    <span class="material-symbols-outlined text-2xl transition-transform group-hover:translate-x-1">arrow_forward</span>
 </button>
 </div>
 </form>
@@ -271,6 +271,8 @@ signupForm?.addEventListener('submit', async (event) => {
         if (result.success) {
             // Store email for OTP verification
             Storage.setSignupEmail(email);
+
+            localStorage.setItem('di_user', JSON.stringify({ name: name, email: email }));
             
             UIHelpers.showSuccess('Account created! Redirecting to OTP verification...');
             UIHelpers.redirectTo('otp.html');
@@ -312,9 +314,11 @@ if (signinForm) {
                 Storage.setAuthToken(result.token);
                 Storage.setUserEmail(result.email);
                 Storage.setUserName(result.name);
+
+                localStorage.setItem('di_user', JSON.stringify({ name: result.name, email: result.email }));
                 
                 UIHelpers.showSuccess('Signed in successfully!');
-                UIHelpers.redirectTo('quiz.html');
+                UIHelpers.redirectTo('index.html');
             }
         } catch (error) {
             UIHelpers.showError(error.message);

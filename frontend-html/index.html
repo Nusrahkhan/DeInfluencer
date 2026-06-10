@@ -7,7 +7,6 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
@@ -78,36 +77,145 @@
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         .glass-nav { backdrop-filter: blur(10px); }
         .hero-gradient { background: linear-gradient(45deg, #b4262f 0%, #ffd1ce 100%); }
+
+        /* Profile dropdown */
+        #profile-dropdown {
+          display: none;
+          position: absolute;
+          right: 0;
+          top: calc(100% + 10px);
+          min-width: 200px;
+          background: #fff8f5;
+          border: 1px solid #ffd1ce;
+          border-radius: 1rem;
+          box-shadow: 0 8px 32px rgba(180,38,47,0.10);
+          z-index: 100;
+          overflow: hidden;
+          animation: dropIn 0.18s cubic-bezier(.4,0,.2,1);
+        }
+        #profile-dropdown.open { display: block; }
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        #profile-dropdown a, #profile-dropdown button {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          padding: 12px 18px;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #2a170b;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          text-align: left;
+          text-decoration: none;
+          transition: background 0.15s;
+        }
+        #profile-dropdown a:hover, #profile-dropdown button:hover {
+          background: #ffeadf;
+        }
+        #profile-dropdown hr {
+          border: none;
+          border-top: 1px solid #ffd1ce;
+          margin: 4px 0;
+        }
+        #profile-dropdown .dropdown-header {
+          padding: 14px 18px 10px;
+          border-bottom: 1px solid #ffd1ce;
+        }
+        #profile-dropdown .dropdown-header .user-name {
+          font-weight: 700;
+          color: #b4262f;
+          font-size: 0.95rem;
+        }
+        #profile-dropdown .dropdown-header .user-email {
+          font-size: 0.75rem;
+          color: #81746e;
+          margin-top: 2px;
+        }
+
+        /* Avatar button */
+        #avatar-btn {
+          width: 38px;
+          height: 38px;
+          border-radius: 9999px;
+          background: #b4262f;
+          color: #fff;
+          font-weight: 700;
+          font-size: 0.95rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          border: 2px solid #ffd1ce;
+          transition: box-shadow 0.2s, transform 0.15s;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          letter-spacing: 0.02em;
+        }
+        #avatar-btn:hover {
+          box-shadow: 0 0 0 4px #ffd1ce;
+          transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+
 <!-- TopAppBar -->
 <header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
 <nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-<a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
-<!-- Desktop Nav -->
-<div class="hidden md:flex items-center gap-8">
-<a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="#">Reviews</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="aboutus.html">About Us</a>
-</div>
-<div class="flex items-center gap-4">
-      <div class="flex items-center gap-3">
-        <a href="login.html" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
-        <a href="login.html" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
+  <a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
+
+  <!-- Desktop Nav -->
+  <div class="hidden md:flex items-center gap-8">
+    <a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="#">Reviews</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="aboutus.html">About Us</a>
+  </div>
+
+  <div class="flex items-center gap-4">
+
+    <!-- AUTH: Guest buttons (shown when logged out) -->
+    <div id="auth-guest" class="flex items-center gap-3">
+      <a href="login.html" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
+      <a href="login.html" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
+    </div>
+
+    <!-- AUTH: User profile (shown when logged in) -->
+    <div id="auth-user" class="relative" style="display:none;">
+      <button id="avatar-btn" aria-label="Open profile menu" aria-expanded="false" aria-haspopup="true">
+        <!-- Initials injected by JS -->
+      </button>
+      <div id="profile-dropdown" role="menu" aria-label="Profile menu">
+        <div class="dropdown-header">
+          <div class="user-name" id="dropdown-name"></div>
+          <div class="user-email" id="dropdown-email"></div>
+        </div>
+       
+    
+        <hr/>
+        <button id="logout-btn" role="menuitem">
+          <span class="material-symbols-outlined" style="font-size:18px;color:#b4262f;">logout</span>
+          <span style="color:#b4262f;">Sign out</span>
+        </button>
       </div>
-<button class="md:hidden p-2 text-[#b4262f]">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-</div>
+    </div>
+
+    <button class="md:hidden p-2 text-[#b4262f]">
+      <span class="material-symbols-outlined" data-icon="menu">menu</span>
+    </button>
+  </div>
 </nav>
 </header>
+
 <main>
-<!-- Hero Section: The Atelier Canvas -->
+<!-- Hero Section -->
 <section class="relative overflow-hidden min-h-[90vh] flex flex-col items-center justify-center px-6 py-24 text-center">
 <img alt="beauty products illustration background" class="absolute inset-0 h-full w-full object-cover" src="heroimage.jpg"/>
-<!-- Central Content -->
 <div class="relative z-10 max-w-3xl mx-auto translate-y-[15%]">
 <h1 class="font-headline text-5xl md:text-[8rem] font-black text-primary tracking-tighter mb-6 leading-none">
                     deInfluence
@@ -115,7 +223,6 @@
 <p class="font-body text-xl md:text-xl text-on-surface-variant font-medium max-w-2xl mx-auto mb-12 leading-relaxed italic">
                   Product is trending. But is it right for you? We help you decide.
                 </p>
-<!-- Editorial Search Bar -->
 <form class="w-full max-w-2xl mx-auto relative group" id="landing-search-form">
 <div class="absolute -inset-1 bg-primary/10 rounded-full blur opacity-25 group-focus-within:opacity-50 transition duration-1000"></div>
 <div class="relative flex items-center bg-white rounded-full px-8 py-5 shadow-sm">
@@ -128,7 +235,8 @@
 </form>
 </div>
 </section>
-<!-- Value Prop: De-Influence Marketing Hype -->
+
+<!-- Value Prop -->
 <section class="bg-surface-container-low py-24 px-8">
 <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 <div class="space-y-8">
@@ -151,7 +259,7 @@
 </div>
 <div class="relative">
 <div class="rounded-lg overflow-hidden bg-surface-container-high aspect-square shadow-2xl rotate-2">
-<img alt="" class="w-full h-full object-cover" data-alt="macro close-up of pink cosmetic cream texture with soft swirling patterns and luxurious lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFFShAA7l9817ilWYKNYH3crRpmGAqV29hU3V1YmwGkdVH2c6YjSgo0y6Sul_vrELi4P8QHr5NOLQwMDZgmsGUzW4HQVsQcNujAhkHX5r0AHx-o2QvQJCUvnDh-1NtuAarIezimPR7upMovti2RixyPIYbdXa5zULsfWghcXXQYcj7UGHo6uR4nIXT4GSy8Mh_1XKjUoDXqL5XGQrr42H24TjfQ6Ra897JKEMDBLFubLSmEpZEkMiGbctMX60iDxjxxkBRwkWUhyAy"/>
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFFShAA7l9817ilWYKNYH3crRpmGAqV29hU3V1YmwGkdVH2c6YjSgo0y6Sul_vrELi4P8QHr5NOLQwMDZgmsGUzW4HQVsQcNujAhkHX5r0AHx-o2QvQJCUvnDh-1NtuAarIezimPR7upMovti2RixyPIYbdXa5zULsfWghcXXQYcj7UGHo6uR4nIXT4GSy8Mh_1XKjUoDXqL5XGQrr42H24TjfQ6Ra897JKEMDBLFubLSmEpZEkMiGbctMX60iDxjxxkBRwkWUhyAy"/>
 <div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
 </div>
 <div class="absolute -bottom-6 -left-6 bg-surface-container-highest p-8 rounded-lg shadow-xl max-w-xs -rotate-2">
@@ -161,6 +269,7 @@
 </div>
 </div>
 </section>
+
 <!-- Newsletter / CTA -->
 <section class="max-w-7xl mx-auto px-8 py-16">
 <div class="bg-surface-container rounded-xl p-16 text-center space-y-8">
@@ -173,6 +282,7 @@
 </div>
 </section>
 </main>
+
 <!-- Footer -->
 <footer class="bg-[#fff1eb] dark:bg-stone-900 full-width rounded-t-[3rem] mt-10 tonal-layering no-borders flat transition-all ease-in-out">
 <div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-10 gap-6 max-w-7xl mx-auto">
@@ -192,15 +302,111 @@
 </div>
 </div>
 </footer>
+
 <script>
+  // ─── Search ──────────────────────────────────────────────────────────────
   const landingSearchForm = document.getElementById('landing-search-form');
   const landingSearchInput = document.getElementById('landing-search-input');
-
-  landingSearchForm?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const searchTerm = landingSearchInput?.value.trim();
-    const queryString = searchTerm ? `?query=${encodeURIComponent(searchTerm)}` : '';
-    window.location.href = `product.html${queryString}`;
+  landingSearchForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = landingSearchInput?.value.trim();
+    window.location.href = `product.html${q ? '?query=' + encodeURIComponent(q) : ''}`;
   });
+
+  // ─── Auth state helpers ───────────────────────────────────────────────────
+  function getUser() {
+    try { return JSON.parse(localStorage.getItem('di_user') || 'null'); } catch { return null; }
+  }
+
+  function getInitials(name) {
+    if (!name) return '?';
+    return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+  }
+
+  function renderNav() {
+    const user = getUser();
+    const guestEl = document.getElementById('auth-guest');
+    const userEl  = document.getElementById('auth-user');
+
+    if (user) {
+      guestEl.style.display = 'none';
+      userEl.style.display  = 'block';
+
+      document.getElementById('avatar-btn').textContent   = getInitials(user.name || user.email);
+      document.getElementById('dropdown-name').textContent  = user.name  || 'My Account';
+      document.getElementById('dropdown-email').textContent = user.email || '';
+    } else {
+      guestEl.style.display = 'flex';
+      userEl.style.display  = 'none';
+    }
+  }
+
+  // ─── Dropdown toggle ─────────────────────────────────────────────────────
+  const avatarBtn  = document.getElementById('avatar-btn');
+  const dropdown   = document.getElementById('profile-dropdown');
+
+  avatarBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle('open');
+    avatarBtn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', () => {
+    dropdown?.classList.remove('open');
+    avatarBtn?.setAttribute('aria-expanded', 'false');
+  });
+
+  dropdown?.addEventListener('click', (e) => e.stopPropagation());
+
+  // ─── Logout ───────────────────────────────────────────────────────────────
+// ─── Logout ───────────────────────────────────────────────────────────────
+document.getElementById('logout-btn')?.addEventListener('click', async () => {
+  const user = getUser();
+  const token = localStorage.getItem('di_token');
+  
+  if (!user || !token) {
+    localStorage.clear();
+    renderNav();
+    dropdown.classList.remove('open');
+    return;
+  }
+  
+  try {
+    const response = await fetch('http://localhost:8000/auth/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: user.email,
+        token: token
+      })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Logout successful:', data.message);
+      localStorage.clear();
+      renderNav();
+      dropdown.classList.remove('open');
+      // Optional: redirect to login after a short delay
+      // setTimeout(() => window.location.href = 'login.html', 500);
+    } else {
+      console.error('Logout failed:', response.status);
+      // Clear locally anyway for security
+      localStorage.clear();
+      renderNav();
+    }
+  } catch (error) {
+    console.error('Logout error:', error);
+    // Clear locally anyway for security
+    localStorage.clear();
+    renderNav();
+    dropdown.classList.remove('open');
+  }
+});
+
+
+
+  // ─── Init ─────────────────────────────────────────────────────────────────
+  renderNav();
 </script>
 </body></html>

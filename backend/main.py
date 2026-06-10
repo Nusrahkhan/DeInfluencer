@@ -4,7 +4,7 @@ from fastapi import BackgroundTasks, FastAPI, HTTPException
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from supabase import create_client, Client
-from typing import List, Dict
+from typing import List, Dict, Optional
 import os
 from dotenv import load_dotenv
 from google import genai
@@ -524,21 +524,66 @@ class Profile(BaseModel):
 
 class ChatRequest(BaseModel):
     question: str
-    profile: Profile
+    email: str
 
 @app.post("/chatbot")
 async def chatbot(req: ChatRequest):
 
-    answer = run_derm_agent(
-        question=req.question,
-        profile=req.profile.model_dump()
-    )
+    try:
+        # ✅ Get user ID from email
+        user_response = supabase.table("users").select("id").eq("email", req.email).execute()
+        print(user_response)
+        
+        if not user_response.data:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        user_id = user_response.data[0]["id"]
+        
+        # ✅ Fetch user profile from Supabase
+        profile_response = supabase.table("user_profiles")\
+            .select("skin_type, skin_concerns, budget_range, preferred_brands")\
+            .eq("user_id", user_id)\
+            .single()\
+            .execute()
 
-    print(f"Chatbot answer: {answer}")
+        if not profile_response.data:
+            raise HTTPException(status_code=404, detail="User profile not found. Please complete the quiz first.")
+        
+        profile_data = profile_response.data
+        
+        # ✅ Map database fields to Profile model
+        # Convert lists to comma-separated strings
+        concerns = profile_data.get("skin_concerns", "")
+        if isinstance(concerns, list):
+            concerns = ", ".join(concerns)
 
-    return {
-        "answer": answer
-    }
+        preferred_brands = profile_data.get("preferred_brands", "")
+        if isinstance(preferred_brands, list):
+            preferred_brands = ", ".join(preferred_brands)
+
+        profile = Profile(
+            skin_type=profile_data.get("skin_type", ""),
+            concerns=concerns,
+            budget=profile_data.get("budget_range", ""),
+            preferred_brands=preferred_brands
+        )
+
+        answer = run_derm_agent(
+            question=req.question,
+            profile=profile.model_dump()
+        )
+
+        print(f"Chatbot answer: {answer}")
+
+        return {
+            "answer": answer
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Chatbot error")
+        raise HTTPException(status_code=500, detail=f"Chatbot request failed: {str(e)}")
 
 
 # ── AUTHENTICATION ENDPOINTS ───────────────────────────────────────────────────────────
@@ -854,37 +899,117 @@ def submit_quiz(req: QuizSubmission) -> dict:
         logger.exception("Quiz submission error")
         raise HTTPException(status_code=500, detail=f"Quiz submission failed: {str(e)}")
 
+class ProfileUpdate(BaseModel):
+    email: str
+    skin_type: Optional[str] = None
+    skin_concerns: Optional[str] = None   # stored as text/comma-separated
+    budget_range: Optional[str] = None
+    preferred_brands: Optional[str] = None
 
-@app.get("/auth/profile", summary="Get user profile")
-def get_profile(email: str) -> dict:
+@app.get("/get-profile")
+async def get_profile(email: str):
+    user_response = supabase.table("users").select("*").eq("email", email).execute()
+    if not user_response.data:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user = user_response.data[0]
+    user_id = user["id"]
+    
+    profile_response = supabase.table("user_profiles").select("*").eq("user_id", user_id).execute()
+    profile = profile_response.data[0] if profile_response.data else None
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    return {
+        "name": user["name"],
+        "email": user["email"],
+        "skin_type": profile.get("skin_type", ""),
+        "skin_concerns": profile.get("skin_concerns", ""),   # e.g. "Acne, Dryness"
+        "budget_range": profile.get("budget_range", ""),
+        "preferred_brands": profile.get("preferred_brands", "")
+    }
+
+@app.post("/update-profile")
+async def update_profile(req: ProfileUpdate):
+    user_response = supabase.table("users").select("id").eq("email", req.email).execute()
+    if not user_response.data:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user_id = user_response.data[0]["id"]
+    
+    update_data = {}
+    if req.skin_type is not None:
+        update_data["skin_type"] = req.skin_type
+    
+    # Convert comma-separated strings back to arrays
+    if req.skin_concerns is not None:
+        concerns_str = req.skin_concerns.strip()
+        update_data["skin_concerns"] = [c.strip() for c in concerns_str.split(",")] if concerns_str else []
+    
+    if req.budget_range is not None:
+        update_data["budget_range"] = req.budget_range
+    
+    if req.preferred_brands is not None:
+        brands_str = req.preferred_brands.strip()
+        update_data["preferred_brands"] = [b.strip() for b in brands_str.split(",")] if brands_str else []
+
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields to update")
+
+    supabase.table("user_profiles").update(update_data).eq("user_id", user_id).execute()
+    
+    return {"success": True, "message": "Profile updated successfully"}
+   
+
+class LogoutRequest(BaseModel):
+    email: str
+    token: str  # JWT token from frontend
+
+
+@app.post("/auth/logout", summary="Sign out user and clear sessions")
+def logout(req: LogoutRequest) -> dict:
     """
-    Get user profile and quiz answers.
+    Sign out user - clears sessions and optionally blacklists token.
+    - Validates user exists
+    - Clears active sessions
+    - Adds token to blacklist (prevents reuse)
+    - Returns success message
     """
     try:
-        # Get user
-        user_response = supabase.table("users").select("*").eq("email", email).execute()
+        # ✅ Verify user exists
+        user_response = supabase.table("users").select("id").eq("email", req.email).execute()
         if not user_response.data:
             raise HTTPException(status_code=404, detail="User not found")
         
-        user = user_response.data[0]
-        user_id = user["id"]
+        user_id = user_response.data[0]["id"]
         
-        # Get profile
-        profile_response = supabase.table("user_profiles").select("*").eq("user_id", user_id).execute()
-        profile = profile_response.data[0] if profile_response.data else None
+        # ✅ Add token to blacklist (prevents token reuse)
+        token_blacklist_entry = {
+            "user_id": user_id,
+            "email": req.email,
+            "token": req.token,
+            "blacklisted_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        supabase.table("token_blacklist").insert([token_blacklist_entry]).execute()
+        
+        # ✅ Clear any active user sessions (optional - if you have a sessions table)
+        supabase.table("user_sessions")\
+            .update({"ended_at": datetime.now(timezone.utc).isoformat()})\
+            .eq("user_id", user_id)\
+            .is_("ended_at", None)\
+            .execute()
+        
+        logger.info(f"✅ User logged out: {req.email}")
         
         return {
-            "user": {
-                "id": user["id"],
-                "email": user["email"],
-                "name": user["name"],
-                "created_at": user["created_at"]
-            },
-            "profile": profile
+            "success": True,
+            "message": "Signed out successfully",
+            "email": req.email
         }
     
     except HTTPException:
         raise
     except Exception as e:
-        logger.exception("Get profile error")
-        raise HTTPException(status_code=500, detail=f"Failed to fetch profile: {str(e)}")
+        logger.exception("Logout error")
+        raise HTTPException(status_code=500, detail=f"Logout failed: {str(e)}")

@@ -191,6 +191,52 @@ const Storage = {
   clear() {
     localStorage.clear();
   },
+
+// Add to the Storage object in api-client.js
+
+setUserProfile(profile) {
+  localStorage.setItem("user_profile", JSON.stringify(profile));
+},
+
+getUserProfile() {
+  const profile = localStorage.getItem("user_profile");
+  return profile ? JSON.parse(profile) : null;
+},
+
+setSkinType(skinType) {
+  localStorage.setItem("skin_type", skinType);
+},
+
+getSkinType() {
+  return localStorage.getItem("skin_type");
+},
+
+setSkinConcerns(concerns) {
+  localStorage.setItem("skin_concerns", JSON.stringify(concerns));
+},
+
+getSkinConcerns() {
+  const concerns = localStorage.getItem("skin_concerns");
+  return concerns ? JSON.parse(concerns) : [];
+},
+
+setBudget(budget) {
+  localStorage.setItem("budget_range", budget);
+},
+
+getBudget() {
+  return localStorage.getItem("budget_range");
+},
+
+setPreferredBrands(brands) {
+  localStorage.setItem("preferred_brands", JSON.stringify(brands));
+},
+
+getPreferredBrands() {
+  const brands = localStorage.getItem("preferred_brands");
+  return brands ? JSON.parse(brands) : [];
+},
+
 };
 
 /**
@@ -221,3 +267,5 @@ const UIHelpers = {
     }, 1000);
   },
 };
+
+
