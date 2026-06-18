@@ -166,6 +166,14 @@ def search_product(query: str) -> Dict:
         print(sentiment_response)
         sentiment = sentiment_response.data[0] if sentiment_response.data else {}
 
+        reddit_reviews_response = (
+            supabase.table("reddit_reviews")
+            .select("*")
+            .ilike("product", f"%{query}%")
+            .execute()
+        )
+        print(reddit_reviews_response.data)
+
         print(f"Sentiment: {sentiment.get('average_sentiment')}")
             
         return {
@@ -180,9 +188,12 @@ def search_product(query: str) -> Dict:
             "average_sentiment": sentiment.get("average_sentiment") if sentiment else None,
             "positive_percentile": sentiment.get("positive_percentile") if sentiment else None,
             "negative_percentile": sentiment.get("negative_percentile") if sentiment else None,
+            "review_count": sentiment.get("review_count") if sentiment else None,
+            "neutral_percentile": sentiment.get("neutral_percentile") if sentiment else None,
             "positive_themes": sentiment.get("positive_themes") if sentiment else None,
             "negative_themes": sentiment.get("negative_themes") if sentiment else None,
             "summary": sentiment.get("summary") if sentiment else None,
+            "reddit_reviews": reddit_reviews_response.data if reddit_reviews_response.data else []
         }    
     except Exception as e:
         return {"error": str(e)}
@@ -331,6 +342,7 @@ def not_in_db(query: str) -> Dict:
         except Exception as e:
             print(f"❌ Error inserting into Supabase: {e}")
             return {
+                "reddit_reviews": formatted_records.data if formatted_records.data else [],
                 # Products table fields
                 "product_name": query,
                 "brand_name": brand_name,
@@ -378,6 +390,7 @@ def not_in_db(query: str) -> Dict:
                 "positive_themes": sentiment.get("positive_themes"),
                 "negative_themes": sentiment.get("negative_themes"),
                 "summary": sentiment.get("summary"),
+                "reddit_reviews": formatted_records.data if formatted_records.data else []
             }
 
             response = supabase.table("product_sentiment").insert(sentiment_insert).execute()
@@ -408,7 +421,8 @@ def not_in_db(query: str) -> Dict:
             "negative_percentile": sentiment.get("negative_percentile"),
             "positive_themes": sentiment.get("positive_themes") ,
             "negative_themes": sentiment.get("negative_themes"),
-            "summary": sentiment.get("summary")
+            "summary": sentiment.get("summary"),
+            "reddit_reviews": formatted_records.data if formatted_records.data else []
         }    
     
     except Exception as e:

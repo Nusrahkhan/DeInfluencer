@@ -1,333 +1,400 @@
+
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "tertiary": "#984444",
-                    "surface-container-highest": "#ffdbc9",
-                    "surface-container": "#ffeadf",
-                    "on-tertiary": "#ffffff",
-                    "tertiary-fixed": "#ffdad8",
-                    "primary-fixed": "#ffdad8",
-                    "error": "#ba1a1a",
-                    "background": "#fff8f5",
-                    "surface": "#fff8f5",
-                    "tertiary-container": "#ffd1cf",
-                    "on-primary-fixed": "#410006",
-                    "error-container": "#ffdad6",
-                    "on-error-container": "#93000a",
-                    "surface-container-high": "#ffe3d4",
-                    "surface-variant": "#ffdbc9",
-                    "tertiary-fixed-dim": "#ffb3b0",
-                    "surface-tint": "#b4262f",
-                    "on-surface-variant": "#4f453f",
-                    "outline-variant": "#d3c3bc",
-                    "on-secondary": "#ffffff",
-                    "on-primary-container": "#b62831",
-                    "on-tertiary-container": "#9a4645",
-                    "on-surface": "#2a170b",
-                    "secondary-container": "#fda3a3",
-                    "on-secondary-fixed-variant": "#733334",
-                    "primary-fixed-dim": "#ffb3b0",
-                    "on-tertiary-fixed-variant": "#7a2d2e",
-                    "inverse-surface": "#422b1e",
-                    "secondary": "#90494a",
-                    "surface-bright": "#fff8f5",
-                    "secondary-fixed": "#ffdad9",
-                    "on-secondary-fixed": "#3b080c",
-                    "on-primary-fixed-variant": "#91061b",
-                    "surface-dim": "#f8d2be",
-                    "primary-container": "#ffd1ce",
-                    "surface-container-lowest": "#ffffff",
-                    "on-secondary-container": "#793738",
-                    "surface-container-low": "#fff1eb",
-                    "primary": "#b4262f",
-                    "inverse-primary": "#ffb3b0",
-                    "on-tertiary-fixed": "#3f0207",
-                    "on-primary": "#ffffff",
-                    "on-error": "#ffffff",
-                    "outline": "#81746e",
-                    "on-background": "#2a170b",
-                    "secondary-fixed-dim": "#ffb3b2",
-                    "inverse-on-surface": "#ffede5"
-            },
-            "borderRadius": {
-                    "DEFAULT": "1rem",
-                    "lg": "2rem",
-                    "xl": "3rem",
-                    "full": "9999px"
-            },
-            "fontFamily": {
-                    "headline": ["Newsreader"],
-                    "body": ["Plus Jakarta Sans"],
-                    "label": ["Plus Jakarta Sans"]
-            }
-          },
-        },
-      }
-    </script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#b4262f","on-primary": "#ffffff","primary-container": "#ffd1ce","on-primary-container": "#b62831",
+        "surface": "#fff8f5","on-surface": "#2a170b","surface-variant": "#ffdbc9","on-surface-variant": "#4f453f",
+        "surface-container-low": "#fff1eb","surface-container": "#ffeadf","surface-container-high": "#ffe3d4",
+        "outline": "#81746e","outline-variant": "#d3c3bc","secondary": "#90494a","secondary-container": "#fda3a3",
+        "error": "#ba1a1a","background": "#fff8f5"
+      },
+      fontFamily: { headline: ["Newsreader","serif"], body: ["Plus Jakarta Sans","sans-serif"] },
+      borderRadius: { DEFAULT:"1rem","lg":"2rem","xl":"3rem","full":"9999px" }
+    }
+  }
+}
+</script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {     
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          background-image: url('./bulletin-assets/bbg.jpg');
-          background-size: cover;
-          background-attachment: fixed;}
-        h1, h2, h3 { font-family: 'Newsreader', serif; }
-    </style>
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+  body { font-family:'Plus Jakarta Sans',sans-serif; background:#fff8f5; }
+  h1,h2,h3 { font-family:'Newsreader',serif; }
+  .tag { display:inline-block; padding:3px 12px; border-radius:999px; font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
+  .skeleton { background:linear-gradient(90deg,#ffd4c8 25%,#ffe4dc 50%,#ffd4c8 75%); background-size:200%; animation:shimmer 1.4s infinite; border-radius:8px; }
+  @keyframes shimmer { 0%{background-position:200%} 100%{background-position:-200%} }
+  .review-card { background:#fff; border:0.5px solid #d3c3bc; border-radius:16px; padding:16px; }
+  .ingredient-pill { display:inline-block; background:#ffeadf; color:#4f453f; border-radius:999px; padding:3px 10px; font-size:12px; margin:3px; border:1px solid #ffd4c8; }
+  .ingredient-pill.high { background:#fda3a3; color:#791f1f; border-color:#f09595; }
+  .ingredient-pill.med { background:#ffdad8; color:#91061b; border-color:#ffb3b0; }
+  .score-ring { position:relative; width:90px; height:90px; }
+  .score-ring svg { transform:rotate(-90deg); }
+  .score-ring .val { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; font-family:'Newsreader',serif; color:#b4262f; }
+  .fade-in { animation:fadeIn .5s ease forwards; opacity:0; }
+  @keyframes fadeIn { to{opacity:1} }
+  .chart-legend-dot { width:12px;height:12px;border-radius:3px;flex-shrink:0; }
+</style>
 </head>
-<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
-<!-- TopAppBar -->
-<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
-<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-<a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
-<!-- Desktop Nav -->
-<div class="hidden md:flex items-center gap-8">
-<a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="#">Reviews</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="aboutus.html">About Us</a>
-</div>
-<div class="flex items-center gap-4">
-      <div class="flex items-center gap-3">
-        <a href="#" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
-        <a href="#" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
-      </div>
-<button class="md:hidden p-2 text-[#b4262f]">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-</div>
-</nav>
+<body>
+
+<!-- HEADER -->
+<header style="background:#fff8f5;border-bottom:1px solid #ffdbc9;position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);">
+  <nav style="max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">
+    <a href="index.html" style="font-family:'Newsreader',serif;font-size:22px;font-weight:900;color:#b4262f;text-decoration:none;">deInfluence</a>
+    <div style="display:flex;gap:28px;align-items:center;">
+      <a href="#" style="font-family:'Newsreader',serif;color:#b4262f;font-weight:700;text-decoration:none;border-bottom:2px solid #b4262f;padding-bottom:2px;">Reviews</a>
+      <a href="blossom.html" style="font-family:'Newsreader',serif;color:#81746e;text-decoration:none;">Blossom</a>
+      <a href="trending.html" style="font-family:'Newsreader',serif;color:#81746e;text-decoration:none;">Trending</a>
+      <a href="aboutus.html" style="font-family:'Newsreader',serif;color:#81746e;text-decoration:none;">About Us</a>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <a href="#" style="padding:8px 18px;background:#b4262f;color:#fff;border-radius:999px;font-weight:700;font-size:13px;text-decoration:none;">Login</a>
+      <a href="#" style="padding:8px 18px;border:1.5px solid #b4262f;color:#b4262f;border-radius:999px;font-weight:700;font-size:13px;text-decoration:none;">Sign up</a>
+    </div>
+  </nav>
 </header>
-<main class="max-w-6xl mx-auto px-6 py-8">
 
-  <div class="bg-surface-container-low rounded-3xl p-8">
+<main style="max-width:1100px;margin:0 auto;padding:40px 24px 60px;">
 
-    <div class="mb-8">
-      <span class="text-xs uppercase tracking-widest text-primary font-bold">
-        Product Analysis
-      </span>
+  <!-- HERO SECTION -->
+  <div id="hero" style="display:flex;gap:32px;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:240px;">
+      <span class="tag" style="background:#ffd1ce;color:#b62831;">Product Analysis</span>
+      <h1 id="product-name" style="font-size:36px;font-weight:700;margin:10px 0 6px;color:#2a170b;">Loading product...</h1>
+      <p id="brand-name" style="color:#81746e;margin:0 0 14px;font-size:15px;"></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <span id="badge-reviews" class="tag" style="background:#ffeadf;color:#4f453f;display:none;"></span>
+        <a id="source-link" href="#" target="_blank" class="tag" style="background:#ffd1ce;color:#b4262f;text-decoration:none;">Source →</a>
+      </div>
+    </div>
+  </div>
 
-      <h1 id="product-name"
-          class="text-4xl font-headline font-bold mt-2">
-        Loading...
-      </h1>
+  <!-- METRICS ROW -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:28px;">
 
-      <p id="brand-name"
-         class="text-on-surface-variant mt-2">
-      </p>
+    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Sentiment</p>
+      <h3 id="sentiment-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#b4262f;margin:0;">—</h3>
     </div>
 
-    <!-- Metrics -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-
-      <div class="bg-surface rounded-2xl p-5 text-center">
-        <p class="text-xs uppercase opacity-60">Sentiment</p>
-        <h3 id="sentiment-score"
-            class="text-3xl font-bold text-primary">
-          -
-        </h3>
-      </div>
-
-      <div class="bg-surface rounded-2xl p-5 text-center">
-        <p class="text-xs uppercase opacity-60">Positive</p>
-        <h3 id="positive-score"
-            class="text-3xl font-bold text-primary">
-          -
-        </h3>
-      </div>
-
-      <div class="bg-surface rounded-2xl p-5 text-center">
-        <p class="text-xs uppercase opacity-60">Negative</p>
-        <h3 id="negative-score"
-            class="text-3xl font-bold text-primary">
-          -
-        </h3>
-      </div>
-
-      <div class="bg-surface rounded-2xl p-5 text-center">
-        <p class="text-xs uppercase opacity-60">Comedogenic Score</p>
-        <h3 id="comedogenic-score"
-            class="text-3xl font-bold text-primary">
-          -
-        </h3>
-      </div>
-
+    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Positive</p>
+      <h3 id="positive-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#3b6d11;margin:0;">—</h3>
     </div>
 
-    <!-- Summary -->
-    <div class="bg-surface rounded-2xl p-5 mb-4">
-      <h2 class="font-bold mb-2">
-        Summary
-      </h2>
-
-      <p id="summary"
-         class="text-sm text-on-surface-variant">
-      </p>
+    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Negative</p>
+      <h3 id="negative-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#ba1a1a;margin:0;">—</h3>
     </div>
 
-    <!-- Themes -->
-    <div class="grid md:grid-cols-2 gap-4 mb-4">
-
-      <div class="bg-surface rounded-2xl p-5">
-        <h2 class="font-bold mb-2">
-          Positive Themes
-        </h2>
-
-        <p id="positive-themes"
-           class="text-sm text-on-surface-variant">
-        </p>
-      </div>
-
-      <div class="bg-surface rounded-2xl p-5">
-        <h2 class="font-bold mb-2">
-          Negative Themes
-        </h2>
-
-        <p id="negative-themes"
-           class="text-sm text-on-surface-variant">
-        </p>
-      </div>
-
-    </div>
-
-    <!-- Ingredients -->
-    <div class="bg-surface rounded-2xl p-5">
-
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="font-bold">
-          Ingredients
-        </h2>
-
-        <a id="source-link"
-           target="_blank"
-           class="text-primary text-sm font-semibold">
-          Source →
-        </a>
-      </div>
-
-      <p id="ingredients"
-         class="text-sm text-on-surface-variant">
-      </p>
-
+    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Comedogenic</p>
+      <h3 id="comedogenic-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#b4262f;margin:0;">—</h3>
     </div>
 
   </div>
 
+  <!-- MAIN CONTENT GRID -->
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;flex-wrap:wrap;" id="main-grid">
+
+    <!-- LEFT COLUMN -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <!-- SUMMARY -->
+      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+        <h2 style="font-size:18px;margin:0 0 10px;">Summary</h2>
+        <p id="summary" style="color:#4f453f;line-height:1.7;margin:0;font-size:14px;"></p>
+      </div>
+
+      <!-- THEMES -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+        <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:20px;padding:22px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <span class="material-symbols-outlined" style="color:#3b6d11;font-size:20px;">thumb_up</span>
+            <h2 style="font-size:15px;margin:0;color:#27500a;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Loved For</h2>
+          </div>
+          <p id="positive-themes" style="color:#3b6d11;font-size:13px;line-height:1.7;margin:0;"></p>
+        </div>
+
+        <div style="background:#fcebeb;border:1px solid #f7c1c1;border-radius:20px;padding:22px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <span class="material-symbols-outlined" style="color:#a32d2d;font-size:20px;">thumb_down</span>
+            <h2 style="font-size:15px;margin:0;color:#791f1f;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Concerns</h2>
+          </div>
+          <p id="negative-themes" style="color:#a32d2d;font-size:13px;line-height:1.7;margin:0;"></p>
+        </div>
+
+      </div>
+
+      <!-- INGREDIENTS -->
+      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+        <h2 style="font-size:18px;margin:0 0 4px;">Ingredients</h2>
+        <p style="font-size:12px;color:#81746e;margin:0 0 14px;">Highlighted ingredients may clog pores based on comedogenic ratings</p>
+        <div id="ingredients" style="line-height:2;"></div>
+      </div>
+
+      <!-- REDDIT REVIEWS -->
+      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+          <h2 style="font-size:18px;margin:0;">Community Reviews</h2>
+          <span style="font-size:12px;color:#81746e;display:flex;align-items:center;gap:4px;">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#ff4500;">forum</span> from Reddit
+          </span>
+        </div>
+        <div id="reviews-container" style="display:flex;flex-direction:column;gap:14px;">
+          <p style="color:#81746e;font-size:14px;" id="reviews-placeholder">Loading reviews...</p>
+        </div>
+        <button id="load-more-btn" onclick="showMoreReviews()" style="display:none;margin-top:18px;width:100%;padding:10px;border:1.5px solid #ffdbc9;background:transparent;border-radius:999px;color:#b4262f;font-weight:600;font-size:13px;cursor:pointer;">Show more reviews</button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: PIE CHART + VERDICTS -->
+    <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:88px;">
+
+      <!-- PIE CHART CARD -->
+      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+        <h2 style="font-size:18px;margin:0 0 16px;">Sentiment Breakdown</h2>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;" id="chart-legend">
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#4caf7d;"></span><span>Positive <span id="leg-pos">—</span></span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#e24b4a;"></span><span>Negative <span id="leg-neg">—</span></span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#fac775;"></span><span>Neutral <span id="leg-neu">—</span></span></span>
+        </div>
+
+        <div style="position:relative;width:100%;height:220px;">
+          <canvas id="sentimentChart" role="img" aria-label="Pie chart showing positive, negative, and neutral sentiment breakdown">Sentiment breakdown unavailable.</canvas>
+        </div>
+      </div>
+
+      <!-- VERDICT CARD -->
+      <div id="verdict-card" style="background:#ffd1ce;border:1px solid #ffb3b0;border-radius:20px;padding:22px;display:none;">
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#91061b;margin:0 0 6px;font-weight:600;">Our Verdict</p>
+        <h3 id="verdict-text" style="font-family:'Newsreader',serif;font-size:22px;color:#2a170b;margin:0 0 8px;"></h3>
+        <p id="verdict-sub" style="font-size:13px;color:#4f453f;margin:0;line-height:1.6;"></p>
+      </div>
+
+      <!-- COMEDOGENIC INFO -->
+      <div style="background:#fff8f5;border:1px solid #ffdbc9;border-radius:20px;padding:20px;">
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 4px;font-weight:600;">Comedogenic Scale</p>
+        <div style="display:flex;gap:0;border-radius:8px;overflow:hidden;margin:10px 0 8px;height:10px;">
+          <div style="flex:1;background:#4caf7d;"></div>
+          <div style="flex:1;background:#a8d56a;"></div>
+          <div style="flex:1;background:#fac775;"></div>
+          <div style="flex:1;background:#f09595;"></div>
+          <div style="flex:1;background:#e24b4a;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#81746e;">
+          <span>0 Won't clog</span><span>5 Highly comedogenic</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </main>
-<!-- Footer -->
-<footer class="bg-[#fff1eb] dark:bg-[#150d09] w-full py-20 mt-24">
-<div class="flex flex-col items-center gap-8 w-full px-8 text-center max-w-7xl mx-auto">
-<div class="text-lg font-bold font-['Newsreader'] text-[#2a170b] dark:text-[#fff8f5]">deInfluence</div>
-<div class="flex flex-wrap justify-center gap-8 font-['Plus_Jakarta_Sans'] text-sm tracking-wide">
-<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">About Us</a>
-<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Methodology</a>
-<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Privacy Policy</a>
-<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Terms of Service</a>
-<a class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 hover:text-[#b4262f] dark:hover:text-[#fda3a3] transition-colors" href="#">Contact</a>
-</div>
-<p class="text-[#2a170b] dark:text-[#fff8f5] opacity-60 font-['Plus_Jakarta_Sans'] text-sm italic mt-4">
-                © 2026 deInfluence. Editorial Glamour for the Conscious Consumer.
-            </p>
-</div>
+
+<!-- FOOTER -->
+<footer style="background:#fff1eb;padding:60px 24px;text-align:center;">
+  <p style="font-family:'Newsreader',serif;font-size:18px;font-weight:700;color:#2a170b;margin:0 0 20px;">deInfluence</p>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-bottom:20px;">
+    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">About Us</a>
+    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Methodology</a>
+    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Privacy Policy</a>
+    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Terms of Service</a>
+    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Contact</a>
+  </div>
+  <p style="color:#81746e;font-size:12px;font-style:italic;margin:0;">© 2026 deInfluence. Editorial Glamour for the Conscious Consumer.</p>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-  async function loadProduct() {
-    try {
+let allReviews = [];
+let shownReviews = 3;
+let sentimentChartInstance = null;
 
-      const params = new URLSearchParams(
-        window.location.search
-      );
+const COMEDOGENIC_HIGHS = ["isopropyl myristate","coconut oil","lanolin","wheat germ oil","flaxseed oil","myristyl myristate","cocoa butter","sodium lauryl sulfate","d&c red","algae extract","linseed oil","soybean oil"];
+const COMEDOGENIC_MEDS = ["olive oil","sesame oil","avocado oil","shea butter","jojoba oil","beeswax","stearic acid","hydrogenated vegetable oil","glyceryl stearate"];
 
-      const query = params.get("query");
+function renderIngredients(ingredientStr) {
+  const container = document.getElementById("ingredients");
+  if (!ingredientStr) { container.textContent = "Not available"; return; }
+  const ings = ingredientStr.split(",").slice(0,30);
+  container.innerHTML = ings.map(i => {
+    const raw = i.trim().toLowerCase();
+    const isHigh = COMEDOGENIC_HIGHS.some(h => raw.includes(h));
+    const isMed = !isHigh && COMEDOGENIC_MEDS.some(m => raw.includes(m));
+    const cls = isHigh ? "high" : isMed ? "med" : "";
+    return `<span class="ingredient-pill ${cls}">${i.trim()}</span>`;
+  }).join("") + (ingredientStr.split(",").length > 30 ? `<span class="ingredient-pill" style="color:#81746e;">+${ingredientStr.split(",").length - 30} more</span>` : "");
+}
 
-      if (!query) return;
+function renderReviews() {
+  const container = document.getElementById("reviews-container");
+  const placeholder = document.getElementById("reviews-placeholder");
 
-      const response = await fetch(
-        `http://localhost:8000/search-product?query=${encodeURIComponent(query)}`
-      );
-
-      const data = await response.json();
-
-      document.title =
-        `${data.product_name} | deInfluence`;
-
-      document.getElementById("product-name")
-        .textContent =
-        data.product_name;
-
-      document.getElementById("brand-name")
-        .textContent =
-        `Brand: ${data.brand_name}`;
-
-      document.getElementById("comedogenic-score")
-        .textContent =
-        data.comedogenic_score || "-";
-
-      // Convert 0.247 -> 24.7%
-      const sentimentPercent =
-        data.average_sentiment
-          ? (data.average_sentiment * 100).toFixed(1)
-          : "-";
-
-      document.getElementById("sentiment-score")
-        .textContent =
-        sentimentPercent + "%";
-
-      document.getElementById("positive-score")
-        .textContent =
-        `${data.positive_percentile || 0}%`;
-
-      document.getElementById("negative-score")
-        .textContent =
-        `${data.negative_percentile || 0}%`;
-
-      document.getElementById("summary")
-        .textContent =
-        data.summary || "No summary available.";
-
-      document.getElementById("positive-themes")
-        .textContent =
-        data.positive_themes || "None";
-
-      document.getElementById("negative-themes")
-        .textContent =
-        data.negative_themes || "None detected";
-
-      document.getElementById("ingredients")
-        .textContent =
-        data.ingredients
-          ?.split(",")
-          .slice(0, 25)
-          .join(", ") || "-";
-
-      document.getElementById("source-link")
-        .href =
-        data.source_url;
-
-    } catch (err) {
-
-      console.error(err);
-
-      document.getElementById("product-name")
-        .textContent =
-        "Unable to load product";
-
+  if (!allReviews.length) {
+    if (placeholder) {
+      placeholder.textContent = "No community reviews found.";
     }
+    return;
   }
 
-  loadProduct();
+  if (placeholder) {
+    placeholder.style.display = "none";
+  }
+  const toShow = allReviews.slice(0, shownReviews);
+  container.innerHTML = toShow.map(r => {
+    const score = r.sentiment_score || r.score || 0;
+    const isPos = score > 0.1;
+    const isNeg = score < -0.1;
+    const dotColor = isPos ? "#4caf7d" : isNeg ? "#e24b4a" : "#fac775";
+    const subreddit = r.subreddit ? `r/${r.subreddit}` : "Reddit";
+    const date = r.created_at ? new Date(r.created_at * 1000).toLocaleDateString("en-US",{month:"short",year:"numeric"}) : "";
+    return `<div class="review-card fade-in">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:12px;font-weight:600;color:#81746e;display:flex;align-items:center;gap:5px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:${dotColor};display:inline-block;"></span>
+          ${subreddit}
+        </span>
+        <span style="font-size:11px;color:#d3c3bc;">${date}</span>
+      </div>
+      <p style="font-size:13px;color:#2a170b;line-height:1.65;margin:0;">${r.body || r.text || r.content || "Review text unavailable."}</p>
+      ${r.url ? `<a href="${r.url}" target="_blank" style="font-size:11px;color:#b4262f;text-decoration:none;margin-top:8px;display:inline-block;">View on Reddit →</a>` : ""}
+    </div>`;
+  }).join("");
+  document.getElementById("load-more-btn").style.display = allReviews.length > shownReviews ? "block" : "none";
+}
+
+function showMoreReviews() {
+  shownReviews += 5;
+  renderReviews();
+}
+
+function renderSentimentChart(pos, neg, neu) {
+  const ctx = document.getElementById("sentimentChart").getContext("2d");
+  if (sentimentChartInstance) sentimentChartInstance.destroy();
+  sentimentChartInstance = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Positive","Negative","Neutral"],
+      datasets: [{
+        data: [pos, neg, neu],
+        backgroundColor: ["#4caf7d","#e24b4a","#fac775"],
+        borderColor: ["#fff8f5","#fff8f5","#fff8f5"],
+        borderWidth: 3,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "62%",
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.parsed}%`
+          }
+        }
+      }
+    }
+  });
+  document.getElementById("leg-pos").textContent = `${pos}%`;
+  document.getElementById("leg-neg").textContent = `${neg}%`;
+  document.getElementById("leg-neu").textContent = `${neu}%`;
+}
+
+function setVerdict(pos, neg, comedogenic) {
+  const card = document.getElementById("verdict-card");
+  const text = document.getElementById("verdict-text");
+  const sub = document.getElementById("verdict-sub");
+  card.style.display = "block";
+  if (pos >= 70) {
+    text.textContent = "Crowd Favourite ✨";
+    sub.textContent = `${pos}% of reviewers gave positive feedback. A safe pick for most skin types.`;
+  } else if (neg >= 50) {
+    text.textContent = "Proceed with Caution";
+    sub.textContent = `${neg}% of reviewers raised concerns. Read the details before buying.`;
+    card.style.background = "#fcebeb"; card.style.borderColor = "#f7c1c1";
+  } else {
+    text.textContent = "Mixed Reactions";
+    sub.textContent = "Reviews are split. Consider your own skin type and concerns.";
+    card.style.background = "#faeeda"; card.style.borderColor = "#fac775";
+  }
+  if (comedogenic && parseInt(comedogenic) >= 4) {
+    sub.textContent += " High comedogenic rating — may not suit acne-prone skin.";
+  }
+}
+
+async function loadProduct() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+    if (!query) {
+      document.getElementById("product-name").textContent = "No product specified";
+      document.getElementById("reviews-placeholder").textContent = "Please search for a product.";
+      return;
+    }
+    const response = await fetch(`http://localhost:8000/search-product?query=${encodeURIComponent(query)}`);
+    const data = await response.json();
+
+    document.title = `${data.product_name} | deInfluence`;
+    document.getElementById("product-name").textContent = data.product_name || "Unknown Product";
+    document.getElementById("brand-name").textContent = `by ${data.brand_name || "Unknown Brand"}`;
+
+    if (data.source_url) document.getElementById("source-link").href = data.source_url;
+
+    const reviewCount = data.review_count || (data.reddit_reviews?.length) || 0;
+    if (reviewCount) {
+      const badge = document.getElementById("badge-reviews");
+      badge.textContent = `${reviewCount} reviews`;
+      badge.style.display = "inline-block";
+    }
+
+    const comedogenic = data.comedogenic_score;
+    document.getElementById("comedogenic-score").textContent = comedogenic ?? "—";
+
+    const sentiment = data.average_sentiment != null
+      ? (data.average_sentiment * 100).toFixed(1) + "%" : "—";
+    document.getElementById("sentiment-score").textContent = sentiment;
+
+    const pos = data.positive_percentile || 0;
+    const neg = data.negative_percentile || 0;
+    const neu = data.neutral_percentile || Math.max(0, 100 - pos - neg);
+
+    document.getElementById("positive-score").textContent = `${pos}%`;
+    document.getElementById("negative-score").textContent = `${neg}%`;
+
+    document.getElementById("summary").textContent = data.summary || "No summary available.";
+    document.getElementById("positive-themes").textContent = data.positive_themes || "None noted";
+    document.getElementById("negative-themes").textContent = data.negative_themes || "None detected";
+
+    renderIngredients(data.ingredients);
+    renderSentimentChart(pos, neg, neu);
+    setVerdict(pos, neg, comedogenic);
+
+    allReviews = data.reddit_reviews || [];
+    renderReviews();
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("product-name").textContent = "Could not load product";
+    document.getElementById("reviews-placeholder").textContent = "Failed to load data. Please try again.";
+  }
+}
+
+loadProduct();
 </script>
-</body></html>
+</body>
+</html>
