@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>This Week in Skincare | deInfluence</title>
+<script src="config.js"></script>
 <!-- Google Fonts: Newsreader & Plus Jakarta Sans -->
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols -->
@@ -360,7 +361,7 @@
 async function loadBulletins() {
   try {
     const response = await fetch(
-      "http://localhost:8000/bulletins"
+      `${API_BASE_URL}/bulletins`
     );
 
     const data = await response.json();

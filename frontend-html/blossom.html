@@ -7,10 +7,12 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="config.js"></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -327,7 +329,7 @@
 
 </aside>
 </main>
-<script>
+<script >
 
 // ─── Profile ──────────────────────────────────────────────────────────────────
 const profileLoading = document.getElementById("profileLoading");
@@ -370,7 +372,7 @@ async function loadProfile() {
   profileError.classList.add("hidden");
 
   try {
-    const res  = await fetch(`http://localhost:8000/get-profile?email=${encodeURIComponent(email)}`);
+    const res  = await fetch(`${API_BASE_URL}/get-profile?email=${encodeURIComponent(email)}`);
     const data = await res.json();
     if (!res.ok) throw new Error(data?.detail || "Failed to load profile");
 
@@ -417,7 +419,7 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
   };
 
   try {
-    const res  = await fetch("http://localhost:8000/update-profile", {
+    const res  = await fetch(`${API_BASE_URL}/update-profile`, {
       method:  "POST",
       headers: { "Content-Type": "application/json" },
       body:    JSON.stringify(updated),
@@ -452,7 +454,7 @@ document.getElementById("saveBtn").addEventListener("click", async () => {
 loadProfile();
 // ──────────────────────────────────────────────────────────────────────────────
 
-const backendUrl = "http://localhost:8000/chatbot";
+const backendUrl = `${API_BASE_URL}/chatbot`;
 const input = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendButton");
 const messagesContainer = document.getElementById("chatMessages");

@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="config.js"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
 tailwind.config = {
@@ -346,7 +347,7 @@ async function loadProduct() {
       document.getElementById("reviews-placeholder").textContent = "Please search for a product.";
       return;
     }
-    const response = await fetch(`http://localhost:8000/search-product?query=${encodeURIComponent(query)}`);
+    const response = await fetch(`${API_BASE_URL}/search-product?query=${encodeURIComponent(query)}`);
     const data = await response.json();
 
     document.title = `${data.product_name} | deInfluence`;

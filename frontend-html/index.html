@@ -5,9 +5,10 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>deInfluence | The Modern Atelier of Beauty Reviews</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="config.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<script  id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
           theme: {
@@ -303,7 +304,7 @@
 </div>
 </footer>
 
-<script>
+<script >
   // ─── Search ──────────────────────────────────────────────────────────────
   const landingSearchForm = document.getElementById('landing-search-form');
   const landingSearchInput = document.getElementById('landing-search-input');
@@ -372,7 +373,7 @@ document.getElementById('logout-btn')?.addEventListener('click', async () => {
   }
   
   try {
-    const response = await fetch('http://localhost:8000/auth/logout', {
+    const response = await fetch(`${API_BASE_URL}/auth/logout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
