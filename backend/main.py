@@ -108,7 +108,7 @@ async def lifespan(app: FastAPI):
     print("LIFESPAN STARTED")
     scheduler.add_job(
         run_agent_and_store,
-        trigger=CronTrigger(day_of_week="sun", hour=4, minute=7, timezone="UTC"),
+        trigger=CronTrigger(day_of_week="tue", hour=11, minute=16, timezone="UTC"),
         id="weekly_skincare_agent",
         name="Weekly Skincare Bulletin",
         replace_existing=True,
@@ -117,7 +117,7 @@ async def lifespan(app: FastAPI):
     scheduler.start()
     job = scheduler.get_job("weekly_skincare_agent")
     logger.info(f"Next scheduled run: {job.next_run_time}")
-    logger.info("Scheduler started — agent runs every Sunday 04:05 UTC (9:35 AM IST)")
+    logger.info("Scheduler started — agent runs every Tuesday 11:16 UTC (4:46 PM IST)")
     yield
     scheduler.shutdown()
 

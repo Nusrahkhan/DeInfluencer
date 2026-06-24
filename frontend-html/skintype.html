@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Discover Your Skin Type | deInfluence Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#410006",
+                      "on-tertiary-fixed-variant": "#7a2d2e",
+                      "on-background": "#2a170b",
+                      "inverse-surface": "#422b1e",
+                      "surface-tint": "#b4262f",
+                      "surface-container-highest": "#ffdbc9",
+                      "tertiary": "#984444",
+                      "outline": "#81746e",
+                      "on-tertiary-container": "#9a4645",
+                      "on-secondary-fixed-variant": "#733334",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-container": "#ffd1cf",
+                      "on-surface-variant": "#4f453f",
+                      "surface-dim": "#f8d2be",
+                      "secondary-fixed": "#ffdad9",
+                      "on-surface": "#2a170b",
+                      "on-secondary-container": "#793738",
+                      "secondary-container": "#fda3a3",
+                      "surface-container-high": "#ffe3d4",
+                      "secondary": "#90494a",
+                      "background": "#fff8f5",
+                      "primary": "#b4262f",
+                      "on-primary-fixed-variant": "#91061b",
+                      "surface-container": "#ffeadf",
+                      "inverse-on-surface": "#ffede5",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#fff8f5",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#ffd1ce",
+                      "outline-variant": "#d3c3bc",
+                      "secondary-fixed-dim": "#ffb3b2",
+                      "primary-fixed": "#ffdad8",
+                      "tertiary-fixed-dim": "#ffb3b0",
+                      "primary-fixed-dim": "#ffb3b0",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "surface": "#fff8f5",
+                      "on-secondary-fixed": "#3b080c",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#ffb3b0",
+                      "surface-container-low": "#fff1eb",
+                      "on-tertiary-fixed": "#3f0207",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#b62831",
+                      "tertiary-fixed": "#ffdad8",
+                      "surface-variant": "#ffdbc9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Newsreader", "serif"],
+                      "display": ["Newsreader", "serif"],
+                      "body": ["Plus Jakarta Sans", "sans-serif"],
+                      "label": ["Plus Jakarta Sans", "sans-serif"]
+              }
+            },
+          }
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 24px 48px -12px rgba(42, 23, 11, 0.06);
+        }
+        .glass-nav {
+            background: rgba(255, 248, 245, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        body {
+            background-color: #fff8f5;
+            color: #2a170b;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+  <a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
+
+  <!-- Desktop Nav -->
+  <div class="hidden md:flex items-center gap-8">
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="index.hmtl">Reviews</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
+    <a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="skintype.html">Skintype</a>
+  </div>
+
+  <div class="flex items-center
+   gap-4">
+
+    <!-- AUTH: Guest buttons (shown when logged out) -->
+    <div id="auth-guest" class="flex items-center gap-3">
+      <a href="login.html" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
+      <a href="login.html" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
+    </div>
+
+    <!-- AUTH: User profile (shown when logged in) -->
+    <div id="auth-user" class="relative" style="display:none;">
+      <button id="avatar-btn" aria-label="Open profile menu" aria-expanded="false" aria-haspopup="true">
+        <!-- Initials injected by JS -->
+      </button>
+      <div id="profile-dropdown" role="menu" aria-label="Profile menu">
+        <div class="dropdown-header">
+          <div class="user-name" id="dropdown-name"></div>
+          <div class="user-email" id="dropdown-email"></div>
+        </div>
+       
+    
+        <hr/>
+        <button id="logout-btn" role="menuitem">
+          <span class="material-symbols-outlined" style="font-size:18px;color:#b4262f;">logout</span>
+          <span style="color:#b4262f;">Sign out</span>
+        </button>
+      </div>
+    </div>
+
+    <button class="md:hidden p-2 text-[#b4262f]">
+      <span class="material-symbols-outlined" data-icon="menu">menu</span>
+    </button>
+  </div>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<header class="relative px-6 pt-20 pb-32 md:pt-32 md:pb-48 bg-surface">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 z-10">
+<span class="inline-block px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest mb-6 uppercase">Skin Care Fundamentals</span>
+<h1 class="font-display text-6xl md:text-8xl font-bold text-on-surface leading-[1.1] tracking-tighter mb-8">Discover Your <span class="text-primary italic">Skin Type</span></h1>
+<p class="font-body text-xl md:text-2xl text-on-surface-variant max-w-xl leading-relaxed mb-10">
+                        Understanding your skin's unique biological blueprint is the essential first step toward a radiant complexion. It's not just about products; it's about personalized ritual.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<a class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg shadow-primary/10" href="#test">Take the Skin Test</a>
+<a class="bg-surface-container-highest text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-high transition-all" href="#types">Browse Types</a>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-[4/5] rounded-lg overflow-hidden editorial-shadow transform lg:rotate-2 hover:rotate-0 transition-transform duration-700">
+<img class="w-full h-full object-cover" data-alt="A high-end editorial close-up of a person with glowing, healthy skin, illuminated by soft golden hour lighting in a minimalist studio setting. The color palette features warm creams, deep corals, and soft peaches, reflecting a premium beauty brand aesthetic. The mood is serene, luxurious, and highly detailed, showcasing skin texture." src="https://i.pinimg.com/736x/bc/8f/03/bc8f03bfc949dc76e0469ba924a80d6d.jpg"/>
+</div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 bg-tertiary-container/30 rounded-full blur-3xl -z-10"></div>
+</div>
+</div>
+</header>
+<!-- Section: What Are the Main Skin Types? -->
+<section class="py-24 bg-surface-container-low" id="types">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-20">
+<h2 class="font-display text-4xl md:text-5xl font-bold text-on-surface mb-4">What Are the Main Skin Types?</h2>
+<div class="h-1 w-20 bg-primary mx-auto mb-8"></div>
+<p class="font-body text-lg text-on-surface-variant max-w-2xl mx-auto italic">Identifying the five core profiles of skin behavior.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<!-- Normal Card -->
+<div class="bg-surface p-8 rounded-lg editorial-shadow flex flex-col items-center text-center group hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-6 group-hover:bg-on-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">face</span>
+</div>
+<h3 class="font-display text-2xl font-bold mb-3 group-hover:text-on-primary">Normal</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-on-primary/80">Well-balanced, with fine pores and no major sensitivities.</p>
+</div>
+<!-- Oily Card -->
+<div class="bg-surface p-8 rounded-lg editorial-shadow flex flex-col items-center text-center group hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-6 group-hover:bg-on-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">water_drop</span>
+</div>
+<h3 class="font-display text-2xl font-bold mb-3 group-hover:text-on-primary">Oily</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-on-primary/80">Excess sebum production, visible pores, and frequent shine.</p>
+</div>
+<!-- Dry Card -->
+<div class="bg-surface p-8 rounded-lg editorial-shadow flex flex-col items-center text-center group hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-6 group-hover:bg-on-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">spa</span>
+</div>
+<h3 class="font-display text-2xl font-bold mb-3 group-hover:text-on-primary">Dry</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-on-primary/80">Lacks moisture, may feel tight, flaky, or rough to the touch.</p>
+</div>
+<!-- Combination Card -->
+<div class="bg-surface p-8 rounded-lg editorial-shadow flex flex-col items-center text-center group hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-6 group-hover:bg-on-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">masks</span>
+</div>
+<h3 class="font-display text-2xl font-bold mb-3 group-hover:text-on-primary">Combination</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-on-primary/80">Oily T-zone while cheeks remain dry or normal.</p>
+</div>
+<!-- Sensitive Card -->
+<div class="bg-surface p-8 rounded-lg editorial-shadow flex flex-col items-center text-center group hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-6 group-hover:bg-on-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary">sentiment_very_dissatisfied</span>
+</div>
+<h3 class="font-display text-2xl font-bold mb-3 group-hover:text-on-primary">Sensitive</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed group-hover:text-on-primary/80">Easily irritated, prone to redness, itching, or burning.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: The Bare-Face Test -->
+<section class="py-24 bg-surface" id="test">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<div class="space-y-12">
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary-container flex items-center justify-center text-primary font-bold text-xl transition-all group-hover:bg-primary group-hover:text-on-primary">1</div>
+<div>
+<h4 class="font-display text-2xl font-bold mb-2">Cleanse</h4>
+<p class="text-on-surface-variant leading-relaxed">Wash your face thoroughly with a mild, pH-balanced cleanser to remove makeup, oil, and dirt.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary-container flex items-center justify-center text-primary font-bold text-xl transition-all group-hover:bg-primary group-hover:text-on-primary">2</div>
+<div>
+<h4 class="font-display text-2xl font-bold mb-2">Pat Dry</h4>
+<p class="text-on-surface-variant leading-relaxed">Gently pat your skin dry with a clean towel. Avoid rubbing, which can cause micro-irritation.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary-container flex items-center justify-center text-primary font-bold text-xl transition-all group-hover:bg-primary group-hover:text-on-primary">3</div>
+<div>
+<h4 class="font-display text-2xl font-bold mb-2">Wait</h4>
+<p class="text-on-surface-variant leading-relaxed">Leave your skin bare—apply no serums, moisturizers, or treatments. Wait for exactly 30 minutes.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-primary-container flex items-center justify-center text-primary font-bold text-xl transition-all group-hover:bg-primary group-hover:text-on-primary">4</div>
+<div>
+<h4 class="font-display text-2xl font-bold mb-2">Observe</h4>
+<p class="text-on-surface-variant leading-relaxed">Examine your skin in a mirror and take note of any shine, tightness, or areas of redness.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<div class="bg-surface-container-high p-12 rounded-lg relative">
+<h2 class="font-display text-5xl font-bold mb-6 text-on-surface">The <br/><span class="italic text-primary">Bare-Face</span> Test</h2>
+<p class="text-on-surface-variant mb-8 text-lg leading-relaxed">The gold standard of skin analysis. Minimalist, scientific, and revealing. Discover how your skin behaves when left to its own devices.</p>
+<div class="aspect-square rounded-lg overflow-hidden editorial-shadow mt-12 bg-white">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist photo of high-quality skincare bottles and a fresh white cotton towel on a marble surface. The lighting is bright and airy, with soft shadows. The color palette is predominantly cream and soft pink, with a few touches of deep coral, evoking a clinical yet luxurious atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCie9vL9mafMKHYmROjlP-fJNJYKSgK3ZnW1NYBScZDIfD2xOsaEEFTfaOHR7x2iM1m8h5uqUZ6y9BKG1uzsbAh5eRo-vQE4XWJoNRAZWXn82itzNo0QPuN_m_i77G40Hj1ZCYioh4PExEkgbkHBoFKvNxOxp0GaX67JakbcTk50deAIur8u7jslrRThYvKTXWlkhkfBbSjVpp_a1jPd4a-cfls4uHfLFghQfoLeE-h2O7yZZ4IxZcFasIYtSaDABv-FVCM4yB-Ye_8"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Observe Your Skin (Results) -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="font-display text-4xl font-bold mb-4">Observe Your Results</h2>
+<p class="text-on-surface-variant italic">Match your findings from the Bare-Face test below.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-surface p-10 rounded-lg flex flex-col border-l-4 border-primary">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4">Outcome A</span>
+<h5 class="font-display text-2xl font-bold mb-4">Tight &amp; Flaky</h5>
+<p class="text-on-surface-variant mb-6">If your skin feels parched or displays dry patches, you likely have <span class="font-bold">Dry Skin</span>.</p>
+</div>
+<div class="bg-surface p-10 rounded-lg flex flex-col border-l-4 border-primary">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4">Outcome B</span>
+<h5 class="font-display text-2xl font-bold mb-4">All-Over Shine</h5>
+<p class="text-on-surface-variant mb-6">If your forehead, nose, and cheeks all show a noticeable sheen, you have <span class="font-bold">Oily Skin</span>.</p>
+</div>
+<div class="bg-surface p-10 rounded-lg flex flex-col border-l-4 border-primary">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4">Outcome C</span>
+<h5 class="font-display text-2xl font-bold mb-4">T-Zone Only</h5>
+<p class="text-on-surface-variant mb-6">If shine is limited to your forehead and nose, but cheeks feel dry, you have <span class="font-bold">Combination Skin</span>.</p>
+</div>
+<div class="bg-surface p-10 rounded-lg flex flex-col border-l-4 border-primary">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4">Outcome D</span>
+<h5 class="font-display text-2xl font-bold mb-4">Comfortable</h5>
+<p class="text-on-surface-variant mb-6">If your skin feels supple and looks clear with no major concerns, you have <span class="font-bold">Normal Skin</span>.</p>
+</div>
+<div class="bg-surface p-10 rounded-lg flex flex-col border-l-4 border-primary">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4">Outcome E</span>
+<h5 class="font-display text-2xl font-bold mb-4">Irritated &amp; Red</h5>
+<p class="text-on-surface-variant mb-6">If the test makes your skin sting, itch, or turn red, you have <span class="font-bold">Sensitive Skin</span>.</p>
+</div>
+<div class="bg-primary-container p-10 rounded-lg flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-4xl text-primary mb-4">analytics</span>
+<h5 class="font-display text-2xl font-bold mb-2">Unsure?</h5>
+<p class="text-on-primary-container text-sm">Consult your local dermatologist!</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: The Blotting Paper Test -->
+<section class="py-32 bg-surface">
+<div class="max-w-5xl mx-auto px-6">
+<div class="bg-surface-container-highest p-12 md:p-20 rounded-lg flex flex-col md:flex-row gap-12 items-center">
+<div class="md:w-1/2">
+<h2 class="font-display text-4xl font-bold mb-6">The Blotting Paper Test</h2>
+<p class="text-on-surface-variant mb-8 text-lg">A faster alternative for daytime assessment. This method focuses solely on sebum production patterns.</p>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0 mt-1">1</div>
+<p class="text-on-surface leading-relaxed font-medium">Press a clean blotting paper onto different areas of your face (Forehead, Nose, Cheeks, Chin).</p>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0 mt-1">2</div>
+<p class="text-on-surface leading-relaxed font-medium">Hold the paper up to a light source to see how much oil it absorbed from each zone.</p>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 bg-white p-8 rounded-lg shadow-sm border border-outline-variant/10">
+<h3 class="font-display text-2xl font-bold mb-6 text-center">Reading the Paper</h3>
+<ul class="space-y-4">
+<li class="flex justify-between items-center py-2 border-b border-surface-container">
+<span class="text-on-surface-variant">Heavily soaked</span>
+<span class="text-primary font-bold">Oily</span>
+</li>
+<li class="flex justify-between items-center py-2 border-b border-surface-container">
+<span class="text-on-surface-variant">Cheeks clear, T-zone oily</span>
+<span class="text-primary font-bold">Combination</span>
+</li>
+<li class="flex justify-between items-center py-2 border-b border-surface-container">
+<span class="text-on-surface-variant">Little to no oil</span>
+<span class="text-primary font-bold">Dry</span>
+</li>
+<li class="flex justify-between items-center py-2">
+<span class="text-on-surface-variant">Minimal oil evenly spread</span>
+<span class="text-primary font-bold">Normal</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Quick Skin Type Comparison -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="font-display text-4xl font-bold mb-4">Quick Comparison</h2>
+<p class="text-on-surface-variant italic">A quick-reference guide for your routine.</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse bg-surface rounded-lg overflow-hidden editorial-shadow">
+<thead>
+<tr class="bg-primary text-on-primary">
+<th class="p-6 font-display text-xl">Skin Type</th>
+<th class="p-6 font-display text-xl">Oil Level</th>
+<th class="p-6 font-display text-xl">Pore Size</th>
+<th class="p-6 font-display text-xl">Common Issues</th>
+</tr>
+</thead>
+<tbody class="text-on-surface-variant">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6 border-b border-surface-container font-bold text-on-surface">Normal</td>
+<td class="p-6 border-b border-surface-container">Balanced</td>
+<td class="p-6 border-b border-surface-container">Fine / Small</td>
+<td class="p-6 border-b border-surface-container">Occasional blemish</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6 border-b border-surface-container font-bold text-on-surface">Oily</td>
+<td class="p-6 border-b border-surface-container">High</td>
+<td class="p-6 border-b border-surface-container">Large / Visible</td>
+<td class="p-6 border-b border-surface-container">Blackheads, Acne</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6 border-b border-surface-container font-bold text-on-surface">Dry</td>
+<td class="p-6 border-b border-surface-container">Very Low</td>
+<td class="p-6 border-b border-surface-container">Small / Tight</td>
+<td class="p-6 border-b border-surface-container">Dullness, Fine lines</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6 border-b border-surface-container font-bold text-on-surface">Combination</td>
+<td class="p-6 border-b border-surface-container">Varies by zone</td>
+<td class="p-6 border-b border-surface-container">Large in T-zone</td>
+<td class="p-6 border-b border-surface-container">Blackheads, Dry cheeks</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6 font-bold text-on-surface">Sensitive</td>
+<td class="p-6">Unpredictable</td>
+<td class="p-6">Varies</td>
+<td class="p-6">Redness, Reactivity</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Closing Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-4xl mx-auto px-6 text-center">
+<h2 class="font-display text-5xl font-bold mb-8">Why Knowing Your Skin Type Matters</h2>
+<p class="text-xl text-on-surface-variant leading-relaxed mb-12">
+                    Skin care is not a one-size-fits-all journey. Using products designed for dry skin on an oily complexion can lead to clogged pores and breakouts, while harsh oily-skin treatments can damage a dry skin barrier. When you know your type, you invest in results, not just rituals.
+                </p>
+<div class="bg-primary-container p-10 rounded-lg text-left relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-6xl text-primary opacity-10">lightbulb</span>
+</div>
+<h6 class="font-display text-2xl font-bold text-on-primary-container mb-4">Pro Editorial Tip</h6>
+<p class="text-on-primary-container leading-relaxed">
+                        Remember that skin type can shift with age, climate, and hormonal changes. We recommend performing the Bare-Face test at least twice a year—once in the summer and once in the winter—to ensure your routine remains perfectly aligned with your skin's current needs.
+                    </p>
+
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full mt-24">
+<div class="flex flex-col mb-8 md:mb-0">
+<div class="font-display text-xl font-bold text-on-surface mb-2">deInfluence</div>
+<p class="font-body text-label-md tracking-wider text-on-surface-variant">© 2026 deInfluence Editorial. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Privacy Policy</a>
+<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Terms of Service</a>
+<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Contact Us</a>
+<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Careers</a>
+</div>
+</footer>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body></html>
