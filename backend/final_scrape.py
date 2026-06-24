@@ -126,7 +126,7 @@ def scrape_product_reviews(product_name: str, target: int = 100) -> list:
 
 
 if __name__ == "__main__":
-    product = "Huda Beauty color corrector"
+    product = "aqualogica detan sunscreen"
     records = scrape_product_reviews(product, target=60)
 
     out_file = f"{product.replace(' ', '_').lower()}_reddit.json"

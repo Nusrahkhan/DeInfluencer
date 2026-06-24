@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 from chatbot import run_derm_agent
 from ing_scrape import scrape_product_by_url, search_incidecoder
 import final_scrape
+import scraper
 from sentiment import (
     analyze_reviews_from_records,
     resolve_gemini_api_key
@@ -219,7 +220,7 @@ def not_in_db(query: str) -> Dict:
         # Step 1: Scrape Reddit reviews
 
         print(f"🔍 Scraping Reddit for: {query}")
-        raw_records = final_scrape.scrape_product_reviews(query, target=60)
+        raw_records = scraper.scrape_product_rggeviews(query, target=60)
         
         if not raw_records:
             return {

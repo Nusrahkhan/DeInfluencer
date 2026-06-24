@@ -81,7 +81,7 @@ ASPECT_PATTERNS: dict[str, tuple[str, ...]] = {
         "sunscreen", "spf", "matte", "dewy", "shine", "shiny", "no white cast",
     ),
     "hair feel and control": (
-        "frizz", "frizzy", "soft", "smooth", "shine", "breakage", "split ends", "scalp",
+        "frizz", "frizzy", "silky", "shine", "breakage", "split ends", "scalp",
         "oily scalp", "dandruff", "hair fall", "manageability",
     ),
 }
