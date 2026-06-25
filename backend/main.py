@@ -220,7 +220,7 @@ def not_in_db(query: str) -> Dict:
         # Step 1: Scrape Reddit reviews
 
         print(f"🔍 Scraping Reddit for: {query}")
-        raw_records = scraper.scrape_product_rggeviews(query, target=60)
+        raw_records = scraper.scrape_product_reviews(query, target=60)
         
         if not raw_records:
             return {
