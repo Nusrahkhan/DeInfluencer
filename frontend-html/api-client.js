@@ -3,8 +3,7 @@
  * All API calls go through this file
  */
 
-const API_BASE_URL = "http://127.0.0.1:8000";
-
+const API_BASE_URL = "https://deinfluencer.onrender.com"
 class APIClient {
   /**
    * Sign up new user
@@ -18,7 +17,7 @@ class APIClient {
     const response = await fetch(`${API_BASE_URL}/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+      body: JSON.stringify({g
         name,
         email,
         password,
