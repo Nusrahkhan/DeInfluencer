@@ -18,3 +18,4 @@ uvicorn[standard]
 google-genai
 argon2_cffi
 resend
+sib-api-v3-sdk
