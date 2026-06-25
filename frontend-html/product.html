@@ -1,11 +1,12 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="config.js"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -43,181 +44,272 @@ tailwind.config = {
   .fade-in { animation:fadeIn .5s ease forwards; opacity:0; }
   @keyframes fadeIn { to{opacity:1} }
   .chart-legend-dot { width:12px;height:12px;border-radius:3px;flex-shrink:0; }
+
+@media (max-width:768px){
+  #main-grid{display:flex!important;flex-direction:column!important;}
+  #main-grid>div:last-child{position:static!important;width:100%!important;}
+  #hero{flex-direction:column!important;}
+  #hero h1{font-size:2rem!important;}
+  div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  nav{padding:1rem!important;}
+}
+
+
+/* Prevent horizontal scrolling on mobile */
+html,body{
+  overflow-x:hidden;
+  max-width:100%;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+img,canvas{
+  max-width:100%;
+  height:auto;
+}
+
+main{
+  overflow-x:hidden;
+}
+
+@media (max-width:768px){
+
+  main{
+    padding:24px 16px 48px !important;
+  }
+
+  #hero{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:20px !important;
+  }
+
+  #main-grid{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:20px !important;
+  }
+
+  #main-grid > div{
+    width:100% !important;
+    min-width:0 !important;
+  }
+
+  #main-grid > div:last-child{
+    position:static !important;
+    top:auto !important;
+  }
+
+  div[style*="grid-template-columns:1fr 320px"]{
+    grid-template-columns:1fr !important;
+  }
+
+  div[style*="grid-template-columns:1fr 1fr"]{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  nav{
+    padding:14px 16px !important;
+  }
+
+  h1{
+    overflow-wrap:anywhere;
+  }
+}
 </style>
 </head>
 <body>
-
 <!-- HEADER -->
-<header style="background:#fff8f5;border-bottom:1px solid #ffdbc9;position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);">
-  <nav style="max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">
-    <a href="index.html" style="font-family:'Newsreader',serif;font-size:22px;font-weight:900;color:#b4262f;text-decoration:none;">deInfluence</a>
-    <div style="display:flex;gap:28px;align-items:center;">
-      <a href="#" style="font-family:'Newsreader',serif;color:#b4262f;font-weight:700;text-decoration:none;border-bottom:2px solid #b4262f;padding-bottom:2px;">Reviews</a>
-      <a href="blossom.html" style="font-family:'Newsreader',serif;color:#81746e;text-decoration:none;">Blossom</a>
-      <a href="trending.html" style="font-family:'Newsreader',serif;color:#81746e;text-decoration:none;">Trending</a>
-      <a href="skintype.html" style="font-family:'Newsreader',serif;color:#81746e;text-decoration:none;">Skintype</a>
-    </div>
-    <div style="display:flex;gap:10px;">
-      <a href="#" style="padding:8px 18px;background:#b4262f;color:#fff;border-radius:999px;font-weight:700;font-size:13px;text-decoration:none;">Login</a>
-      <a href="#" style="padding:8px 18px;border:1.5px solid #b4262f;color:#b4262f;border-radius:999px;font-weight:700;font-size:13px;text-decoration:none;">Sign up</a>
-    </div>
-  </nav>
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
+<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<a class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer" href="index.html">deInfluence</a>
+<!-- Desktop Nav -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="index.html">Reviews</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="skintype.html">Skintype</a>
+</div>
+<div class="flex items-center gap-4">
+<!-- AUTH: Guest buttons (shown when logged out) -->
+<div class="hidden md:flex items-center gap-3" id="auth-guest">
+<a class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90" href="login.html">Sign up/in</a>
+</div>
+<!-- AUTH: User profile (shown when logged in) -->
+<div class="relative" id="auth-user" style="display:none;">
+<button aria-expanded="false" aria-haspopup="true" aria-label="Open profile menu" id="avatar-btn">
+<!-- Initials injected by JS -->
+</button>
+<div aria-label="Profile menu" id="profile-dropdown" role="menu">
+<div class="dropdown-header">
+<div class="user-name" id="dropdown-name"></div>
+<div class="user-email" id="dropdown-email"></div>
+</div>
+<hr/>
+<button id="logout-btn" role="menuitem">
+<span class="material-symbols-outlined" style="font-size:18px;color:#b4262f;">logout</span>
+<span style="color:#b4262f;">Sign out</span>
+</button>
+</div>
+</div>
+<button aria-expanded="false" aria-label="Open navigation menu" class="md:hidden p-2 text-[#b4262f]" id="mobile-menu-btn">
+<span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+</button>
+</div>
+</nav>
+<!-- Mobile Menu -->
+<div class="hidden md:hidden bg-white dark:bg-stone-900 shadow-lg" id="mobile-menu">
+<a class="block px-6 py-4 border-b hover:bg-gray-50" href="index.html">
+        Reviews
+    </a>
+<a class="block px-6 py-4 border-b hover:bg-gray-50" href="blossom.html">
+        Blossom
+    </a>
+<a class="block px-6 py-4 border-b hover:bg-gray-50" href="trending.html">
+        Trending
+    </a>
+<a class="block px-6 py-4 border-b hover:bg-gray-50" href="skintype.html">
+        Skintype
+    </a>
+<!-- Sign In Button -->
+<div class="p-6">
+<a class="block w-full text-center py-3 rounded-full bg-[#b4262f] !text-white font-semibold" href="login.html">
+            Sign In/ Up
+        </a>
+</div>
+</div>
 </header>
-
 <main style="max-width:1100px;margin:0 auto;padding:40px 24px 60px;">
-
-  <!-- HERO SECTION -->
-  <div id="hero" style="display:flex;gap:32px;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;">
-    <div style="flex:1;min-width:240px;">
-      <span class="tag" style="background:#ffd1ce;color:#b62831;">Product Analysis</span>
-      <h1 id="product-name" style="font-size:36px;font-weight:700;margin:10px 0 6px;color:#2a170b;">Loading product...</h1>
-      <p id="brand-name" style="color:#81746e;margin:0 0 14px;font-size:15px;"></p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <span id="badge-reviews" class="tag" style="background:#ffeadf;color:#4f453f;display:none;"></span>
-        <a id="source-link" href="#" target="_blank" class="tag" style="background:#ffd1ce;color:#b4262f;text-decoration:none;">Source →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- METRICS ROW -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:28px;">
-
-    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
-      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Sentiment</p>
-      <h3 id="sentiment-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#b4262f;margin:0;">—</h3>
-    </div>
-
-    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
-      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Positive</p>
-      <h3 id="positive-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#3b6d11;margin:0;">—</h3>
-    </div>
-
-    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
-      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Negative</p>
-      <h3 id="negative-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#ba1a1a;margin:0;">—</h3>
-    </div>
-
-    <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
-      <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Comedogenic</p>
-      <h3 id="comedogenic-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#b4262f;margin:0;">—</h3>
-    </div>
-
-  </div>
-
-  <!-- MAIN CONTENT GRID -->
-  <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;flex-wrap:wrap;" id="main-grid">
-
-    <!-- LEFT COLUMN -->
-    <div style="display:flex;flex-direction:column;gap:20px;">
-
-      <!-- SUMMARY -->
-      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
-        <h2 style="font-size:18px;margin:0 0 10px;">Summary</h2>
-        <p id="summary" style="color:#4f453f;line-height:1.7;margin:0;font-size:14px;"></p>
-      </div>
-
-      <!-- THEMES -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-
-        <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:20px;padding:22px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-            <span class="material-symbols-outlined" style="color:#3b6d11;font-size:20px;">thumb_up</span>
-            <h2 style="font-size:15px;margin:0;color:#27500a;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Loved For</h2>
-          </div>
-          <p id="positive-themes" style="color:#3b6d11;font-size:13px;line-height:1.7;margin:0;"></p>
-        </div>
-
-        <div style="background:#fcebeb;border:1px solid #f7c1c1;border-radius:20px;padding:22px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-            <span class="material-symbols-outlined" style="color:#a32d2d;font-size:20px;">thumb_down</span>
-            <h2 style="font-size:15px;margin:0;color:#791f1f;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Concerns</h2>
-          </div>
-          <p id="negative-themes" style="color:#a32d2d;font-size:13px;line-height:1.7;margin:0;"></p>
-        </div>
-
-      </div>
-
-      <!-- INGREDIENTS -->
-      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
-        <h2 style="font-size:18px;margin:0 0 4px;">Ingredients</h2>
-        <p style="font-size:12px;color:#81746e;margin:0 0 14px;">Highlighted ingredients may clog pores based on comedogenic ratings</p>
-        <div id="ingredients" style="line-height:2;"></div>
-      </div>
-
-      <!-- REDDIT REVIEWS -->
-      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-          <h2 style="font-size:18px;margin:0;">Community Reviews</h2>
-          <span style="font-size:12px;color:#81746e;display:flex;align-items:center;gap:4px;">
-            <span class="material-symbols-outlined" style="font-size:16px;color:#ff4500;">forum</span> from Reddit
+<!-- HERO SECTION -->
+<div id="hero" style="display:flex;gap:32px;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;">
+<div style="flex:1;min-width:240px;">
+<span class="tag" style="background:#ffd1ce;color:#b62831;">Product Analysis</span>
+<h1 id="product-name" style="font-size:36px;font-weight:700;margin:10px 0 6px;color:#2a170b;">Loading product...</h1>
+<p id="brand-name" style="color:#81746e;margin:0 0 14px;font-size:15px;"></p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+<span class="tag" id="badge-reviews" style="background:#ffeadf;color:#4f453f;display:none;"></span>
+<a class="tag" href="#" id="source-link" style="background:#ffd1ce;color:#b4262f;text-decoration:none;" target="_blank">Source →</a>
+</div>
+</div>
+</div>
+<!-- METRICS ROW -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:28px;">
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+<p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Sentiment</p>
+<h3 id="sentiment-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#b4262f;margin:0;">—</h3>
+</div>
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+<p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Positive</p>
+<h3 id="positive-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#3b6d11;margin:0;">—</h3>
+</div>
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+<p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Negative</p>
+<h3 id="negative-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#ba1a1a;margin:0;">—</h3>
+</div>
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:20px;text-align:center;">
+<p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 6px;">Comedogenic</p>
+<h3 id="comedogenic-score" style="font-size:30px;font-weight:700;font-family:'Newsreader',serif;color:#b4262f;margin:0;">—</h3>
+</div>
+</div>
+<!-- MAIN CONTENT GRID -->
+<div id="main-grid" style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;flex-wrap:wrap;">
+<!-- LEFT COLUMN -->
+<div style="display:flex;flex-direction:column;gap:20px;">
+<!-- SUMMARY -->
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+<h2 style="font-size:18px;margin:0 0 10px;">Summary</h2>
+<p id="summary" style="color:#4f453f;line-height:1.7;margin:0;font-size:14px;"></p>
+</div>
+<!-- THEMES -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+<div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:20px;padding:22px;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+<span class="material-symbols-outlined" style="color:#3b6d11;font-size:20px;">thumb_up</span>
+<h2 style="font-size:15px;margin:0;color:#27500a;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Loved For</h2>
+</div>
+<p id="positive-themes" style="color:#3b6d11;font-size:13px;line-height:1.7;margin:0;"></p>
+</div>
+<div style="background:#fcebeb;border:1px solid #f7c1c1;border-radius:20px;padding:22px;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+<span class="material-symbols-outlined" style="color:#a32d2d;font-size:20px;">thumb_down</span>
+<h2 style="font-size:15px;margin:0;color:#791f1f;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Concerns</h2>
+</div>
+<p id="negative-themes" style="color:#a32d2d;font-size:13px;line-height:1.7;margin:0;"></p>
+</div>
+</div>
+<!-- INGREDIENTS -->
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+<h2 style="font-size:18px;margin:0 0 4px;">Ingredients</h2>
+<p style="font-size:12px;color:#81746e;margin:0 0 14px;">Highlighted ingredients may clog pores based on comedogenic ratings</p>
+<div id="ingredients" style="line-height:2;"></div>
+</div>
+<!-- REDDIT REVIEWS -->
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+<h2 style="font-size:18px;margin:0;">Community Reviews</h2>
+<span style="font-size:12px;color:#81746e;display:flex;align-items:center;gap:4px;">
+<span class="material-symbols-outlined" style="font-size:16px;color:#ff4500;">forum</span> from Reddit
           </span>
-        </div>
-        <div id="reviews-container" style="display:flex;flex-direction:column;gap:14px;">
-          <p style="color:#81746e;font-size:14px;" id="reviews-placeholder">Loading reviews...</p>
-        </div>
-        <button id="load-more-btn" onclick="showMoreReviews()" style="display:none;margin-top:18px;width:100%;padding:10px;border:1.5px solid #ffdbc9;background:transparent;border-radius:999px;color:#b4262f;font-weight:600;font-size:13px;cursor:pointer;">Show more reviews</button>
-      </div>
-
-    </div>
-
-    <!-- RIGHT COLUMN: PIE CHART + VERDICTS -->
-    <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:88px;">
-
-      <!-- PIE CHART CARD -->
-      <div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
-        <h2 style="font-size:18px;margin:0 0 16px;">Sentiment Breakdown</h2>
-
-        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;" id="chart-legend">
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#4caf7d;"></span><span>Positive <span id="leg-pos">—</span></span></span>
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#e24b4a;"></span><span>Negative <span id="leg-neg">—</span></span></span>
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#fac775;"></span><span>Neutral <span id="leg-neu">—</span></span></span>
-        </div>
-
-        <div style="position:relative;width:100%;height:220px;">
-          <canvas id="sentimentChart" role="img" aria-label="Pie chart showing positive, negative, and neutral sentiment breakdown">Sentiment breakdown unavailable.</canvas>
-        </div>
-      </div>
-
-      <!-- VERDICT CARD -->
-      <div id="verdict-card" style="background:#ffd1ce;border:1px solid #ffb3b0;border-radius:20px;padding:22px;display:none;">
-        <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#91061b;margin:0 0 6px;font-weight:600;">Our Verdict</p>
-        <h3 id="verdict-text" style="font-family:'Newsreader',serif;font-size:22px;color:#2a170b;margin:0 0 8px;"></h3>
-        <p id="verdict-sub" style="font-size:13px;color:#4f453f;margin:0;line-height:1.6;"></p>
-      </div>
-
-      <!-- COMEDOGENIC INFO -->
-      <div style="background:#fff8f5;border:1px solid #ffdbc9;border-radius:20px;padding:20px;">
-        <p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 4px;font-weight:600;">Comedogenic Scale</p>
-        <div style="display:flex;gap:0;border-radius:8px;overflow:hidden;margin:10px 0 8px;height:10px;">
-          <div style="flex:1;background:#4caf7d;"></div>
-          <div style="flex:1;background:#a8d56a;"></div>
-          <div style="flex:1;background:#fac775;"></div>
-          <div style="flex:1;background:#f09595;"></div>
-          <div style="flex:1;background:#e24b4a;"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:#81746e;">
-          <span>0 Won't clog</span><span>5 Highly comedogenic</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+</div>
+<div id="reviews-container" style="display:flex;flex-direction:column;gap:14px;">
+<p id="reviews-placeholder" style="color:#81746e;font-size:14px;">Loading reviews...</p>
+</div>
+<button id="load-more-btn" onclick="showMoreReviews()" style="display:none;margin-top:18px;width:100%;padding:10px;border:1.5px solid #ffdbc9;background:transparent;border-radius:999px;color:#b4262f;font-weight:600;font-size:13px;cursor:pointer;">Show more reviews</button>
+</div>
+</div>
+<!-- RIGHT COLUMN: PIE CHART + VERDICTS -->
+<div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:88px;">
+<!-- PIE CHART CARD -->
+<div style="background:#fff;border:1px solid #ffdbc9;border-radius:20px;padding:24px;">
+<h2 style="font-size:18px;margin:0 0 16px;">Sentiment Breakdown</h2>
+<div id="chart-legend" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+<span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#4caf7d;"></span><span>Positive <span id="leg-pos">—</span></span></span>
+<span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#e24b4a;"></span><span>Negative <span id="leg-neg">—</span></span></span>
+<span style="display:flex;align-items:center;gap:5px;font-size:12px;color:#4f453f;"><span class="chart-legend-dot" style="background:#fac775;"></span><span>Neutral <span id="leg-neu">—</span></span></span>
+</div>
+<div style="position:relative;width:100%;height:220px;">
+<canvas aria-label="Pie chart showing positive, negative, and neutral sentiment breakdown" id="sentimentChart" role="img">Sentiment breakdown unavailable.</canvas>
+</div>
+</div>
+<!-- VERDICT CARD -->
+<div id="verdict-card" style="background:#ffd1ce;border:1px solid #ffb3b0;border-radius:20px;padding:22px;display:none;">
+<p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#91061b;margin:0 0 6px;font-weight:600;">Our Verdict</p>
+<h3 id="verdict-text" style="font-family:'Newsreader',serif;font-size:22px;color:#2a170b;margin:0 0 8px;"></h3>
+<p id="verdict-sub" style="font-size:13px;color:#4f453f;margin:0;line-height:1.6;"></p>
+</div>
+<!-- COMEDOGENIC INFO -->
+<div style="background:#fff8f5;border:1px solid #ffdbc9;border-radius:20px;padding:20px;">
+<p style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#81746e;margin:0 0 4px;font-weight:600;">Comedogenic Scale</p>
+<div style="display:flex;gap:0;border-radius:8px;overflow:hidden;margin:10px 0 8px;height:10px;">
+<div style="flex:1;background:#4caf7d;"></div>
+<div style="flex:1;background:#a8d56a;"></div>
+<div style="flex:1;background:#fac775;"></div>
+<div style="flex:1;background:#f09595;"></div>
+<div style="flex:1;background:#e24b4a;"></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:10px;color:#81746e;">
+<span>0 Won't clog</span><span>5 Highly comedogenic</span>
+</div>
+</div>
+</div>
+</div>
 </main>
-
-<!-- FOOTER -->
-<footer style="background:#fff1eb;padding:60px 24px;text-align:center;">
-  <p style="font-family:'Newsreader',serif;font-size:18px;font-weight:700;color:#2a170b;margin:0 0 20px;">deInfluence</p>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-bottom:20px;">
-    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">About Us</a>
-    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Methodology</a>
-    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Privacy Policy</a>
-    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Terms of Service</a>
-    <a href="#" style="color:#81746e;font-size:13px;text-decoration:none;">Contact</a>
-  </div>
-  <p style="color:#81746e;font-size:12px;font-style:italic;margin:0;">© 2026 deInfluence. Editorial Glamour for the Conscious Consumer.</p>
+<!-- Footer -->
+<footer class="bg-[#fff1eb] dark:bg-stone-900 full-width rounded-t-[3rem] mt-20 tonal-layering no-borders">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-10 gap-6 max-w-7xl mx-auto">
+<div class="font-serif italic text-lg text-[#b4262f]">deInfluence.</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">YouTube Summaries</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">Reddit Insights</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">Terms</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">Privacy</a>
+</div>
+<div class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400">© 2026 deInfluence. The Modern Atelier.</div>
+</div>
 </footer>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 let allReviews = [];
@@ -397,5 +489,25 @@ async function loadProduct() {
 
 loadProduct();
 </script>
-</body>
+<script>
+const menuBtn=document.getElementById("mobile-menu-btn");
+const mobileMenu=document.getElementById("mobile-menu");
+const menuIcon=document.getElementById("mobile-menu-icon");
+
+if(menuBtn && mobileMenu){
+  menuBtn.addEventListener("click",()=>{
+    mobileMenu.classList.toggle("hidden");
+    menuIcon.textContent=mobileMenu.classList.contains("hidden")?"menu":"close";
+    menuBtn.setAttribute("aria-expanded",!mobileMenu.classList.contains("hidden"));
+  });
+
+  document.addEventListener("click",(e)=>{
+    if(!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)){
+      mobileMenu.classList.add("hidden");
+      menuIcon.textContent="menu";
+      menuBtn.setAttribute("aria-expanded","false");
+    }
+  });
+}
+</script></body>
 </html>

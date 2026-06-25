@@ -5,7 +5,6 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Discover Your Skin Type | deInfluence Editorial</title>
 <script src="config.js"></script>
-
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
@@ -96,43 +95,87 @@
             background-color: #fff8f5;
             color: #2a170b;
         }
+
+        /* ── Profile dropdown ────────────────────────────────────────────────── */
+        #profile-dropdown {
+          display: none; position: absolute; right: 0; top: calc(100% + 10px);
+          min-width: 200px; background: #fff8f5; border: 1px solid #ffd1ce;
+          border-radius: 1rem; box-shadow: 0 8px 32px rgba(180,38,47,0.10);
+          z-index: 100; overflow: hidden; animation: dropIn 0.18s cubic-bezier(.4,0,.2,1);
+        }
+        #profile-dropdown.open { display: block; }
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        #profile-dropdown a, #profile-dropdown button {
+          display: flex; align-items: center; gap: 10px; width: 100%;
+          padding: 12px 18px; font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: 0.875rem; font-weight: 500; color: #2a170b;
+          background: transparent; border: none; cursor: pointer;
+          text-align: left; text-decoration: none; transition: background 0.15s;
+        }
+        #profile-dropdown a:hover, #profile-dropdown button:hover { background: #ffeadf; }
+        #profile-dropdown hr { border: none; border-top: 1px solid #ffd1ce; margin: 4px 0; }
+        #profile-dropdown .dropdown-header { padding: 14px 18px 10px; border-bottom: 1px solid #ffd1ce; }
+        #profile-dropdown .dropdown-header .user-name { font-weight: 700; color: #b4262f; font-size: 0.95rem; }
+        #profile-dropdown .dropdown-header .user-email { font-size: 0.75rem; color: #81746e; margin-top: 2px; }
+
+        /* ── Avatar button ───────────────────────────────────────────────────── */
+        #avatar-btn {
+          width: 38px; height: 38px; border-radius: 9999px; background: #b4262f;
+          color: #fff; font-weight: 700; font-size: 0.95rem; display: flex;
+          align-items: center; justify-content: center; cursor: pointer;
+          border: 2px solid #ffd1ce; transition: box-shadow 0.2s, transform 0.15s;
+          font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.02em;
+        }
+        #avatar-btn:hover { box-shadow: 0 0 0 4px #ffd1ce; transform: scale(1.05); }
+
+        /* ── Mobile menu ─────────────────────────────────────────────────────── */
+        #mobile-menu {
+          display: none; flex-direction: column; gap: 0;
+          background: #fff8f5; border-top: 1px solid #ffd1ce; padding: 8px 0 16px;
+        }
+        #mobile-menu.open { display: flex; }
+        #mobile-menu > a {
+          display: block; padding: 12px 24px; font-family: 'Newsreader', serif;
+          font-size: 1rem; font-weight: 500; color: #4f453f; text-decoration: none;
+          transition: background 0.15s, color 0.15s;
+        }
+        #mobile-menu a:hover { background: #ffeadf; color: #b4262f; }
+        #mobile-menu a.active { color: #b4262f; font-weight: 700; }
+        #mobile-menu-btn { display: none; }
+        @media (max-width: 767px) { #mobile-menu-btn { display: flex; } }
     </style>
 </head>
 <body class="font-body selection:bg-primary-container selection:text-on-primary-container">
 <!-- TopAppBar -->
-<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
-<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md sticky top-0 z-50 bg-[#fff1eb] dark:bg-stone-900">
+<nav class="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-7xl mx-auto">
   <a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
 
   <!-- Desktop Nav -->
   <div class="hidden md:flex items-center gap-8">
-    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="index.hmtl">Reviews</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="index.html">Reviews</a>
     <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
     <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
     <a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="skintype.html">Skintype</a>
   </div>
 
-  <div class="flex items-center
-   gap-4">
-
-    <!-- AUTH: Guest buttons (shown when logged out) -->
-    <div id="auth-guest" class="flex items-center gap-3">
-      <a href="login.html" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
-      <a href="login.html" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
+  <div class="flex items-center gap-4">
+    <!-- AUTH: Guest buttons -->
+    <div id="auth-guest" class="hidden md:flex items-center gap-3">
+      <a href="login.html" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Sign up/in</a>
     </div>
 
-    <!-- AUTH: User profile (shown when logged in) -->
+    <!-- AUTH: User profile -->
     <div id="auth-user" class="relative" style="display:none;">
-      <button id="avatar-btn" aria-label="Open profile menu" aria-expanded="false" aria-haspopup="true">
-        <!-- Initials injected by JS -->
-      </button>
+      <button id="avatar-btn" aria-label="Open profile menu" aria-expanded="false" aria-haspopup="true"></button>
       <div id="profile-dropdown" role="menu" aria-label="Profile menu">
         <div class="dropdown-header">
           <div class="user-name" id="dropdown-name"></div>
           <div class="user-email" id="dropdown-email"></div>
         </div>
-       
-    
         <hr/>
         <button id="logout-btn" role="menuitem">
           <span class="material-symbols-outlined" style="font-size:18px;color:#b4262f;">logout</span>
@@ -141,11 +184,20 @@
       </div>
     </div>
 
-    <button class="md:hidden p-2 text-[#b4262f]">
-      <span class="material-symbols-outlined" data-icon="menu">menu</span>
+    <button id="mobile-menu-btn" class="md:hidden p-2 text-[#b4262f]" aria-label="Open navigation menu" aria-expanded="false">
+      <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
     </button>
   </div>
 </nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <a href="index.html">Reviews</a>
+  <a href="blossom.html">Blossom</a>
+  <a href="trending.html">Trending</a>
+  <a class="active" href="skintype.html">Skintype</a>
+  <div id="mobile-auth" style="padding: 12px 24px 4px;"></div>
+</div>
 </header>
 <main>
 <!-- Hero Section -->
@@ -153,7 +205,7 @@
 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 <div class="lg:col-span-7 z-10">
 <span class="inline-block px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold tracking-widest mb-6 uppercase">Skin Care Fundamentals</span>
-<h1 class="font-display text-6xl md:text-8xl font-bold text-on-surface leading-[1.1] tracking-tighter mb-8">Discover Your <span class="text-primary italic">Skin Type</span></h1>
+<h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-on-surface leading-[1.1] tracking-tighter mb-8">Discover Your <span class="text-primary italic">Skin Type</span></h1>
 <p class="font-body text-xl md:text-2xl text-on-surface-variant max-w-xl leading-relaxed mb-10">
                         Understanding your skin's unique biological blueprint is the essential first step toward a radiant complexion. It's not just about products; it's about personalized ritual.
                     </p>
@@ -259,8 +311,8 @@
 </div>
 </div>
 <div class="order-1 lg:order-2">
-<div class="bg-surface-container-high p-12 rounded-lg relative">
-<h2 class="font-display text-5xl font-bold mb-6 text-on-surface">The <br/><span class="italic text-primary">Bare-Face</span> Test</h2>
+<div class="bg-surface-container-high p-6 md:p-12 rounded-lg relative">
+<h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-on-surface">The <br/><span class="italic text-primary">Bare-Face</span> Test</h2>
 <p class="text-on-surface-variant mb-8 text-lg leading-relaxed">The gold standard of skin analysis. Minimalist, scientific, and revealing. Discover how your skin behaves when left to its own devices.</p>
 <div class="aspect-square rounded-lg overflow-hidden editorial-shadow mt-12 bg-white">
 <img class="w-full h-full object-cover" data-alt="A clean, minimalist photo of high-quality skincare bottles and a fresh white cotton towel on a marble surface. The lighting is bright and airy, with soft shadows. The color palette is predominantly cream and soft pink, with a few touches of deep coral, evoking a clinical yet luxurious atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCie9vL9mafMKHYmROjlP-fJNJYKSgK3ZnW1NYBScZDIfD2xOsaEEFTfaOHR7x2iM1m8h5uqUZ6y9BKG1uzsbAh5eRo-vQE4XWJoNRAZWXn82itzNo0QPuN_m_i77G40Hj1ZCYioh4PExEkgbkHBoFKvNxOxp0GaX67JakbcTk50deAIur8u7jslrRThYvKTXWlkhkfBbSjVpp_a1jPd4a-cfls4uHfLFghQfoLeE-h2O7yZZ4IxZcFasIYtSaDABv-FVCM4yB-Ye_8"/>
@@ -314,8 +366,8 @@
 <!-- Section: The Blotting Paper Test -->
 <section class="py-32 bg-surface">
 <div class="max-w-5xl mx-auto px-6">
-<div class="bg-surface-container-highest p-12 md:p-20 rounded-lg flex flex-col md:flex-row gap-12 items-center">
-<div class="md:w-1/2">
+<div class="bg-surface-container-highest p-6 md:p-12 lg:p-20 rounded-lg flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+<div class="w-full md:w-1/2">
 <h2 class="font-display text-4xl font-bold mb-6">The Blotting Paper Test</h2>
 <p class="text-on-surface-variant mb-8 text-lg">A faster alternative for daytime assessment. This method focuses solely on sebum production patterns.</p>
 <div class="space-y-6">
@@ -329,7 +381,7 @@
 </div>
 </div>
 </div>
-<div class="md:w-1/2 bg-white p-8 rounded-lg shadow-sm border border-outline-variant/10">
+<div class="w-full md:w-1/2 bg-white p-6 md:p-8 rounded-lg shadow-sm border border-outline-variant/10">
 <h3 class="font-display text-2xl font-bold mb-6 text-center">Reading the Paper</h3>
 <ul class="space-y-4">
 <li class="flex justify-between items-center py-2 border-b border-surface-container">
@@ -409,11 +461,11 @@
 <!-- Closing Section -->
 <section class="py-32 bg-surface">
 <div class="max-w-4xl mx-auto px-6 text-center">
-<h2 class="font-display text-5xl font-bold mb-8">Why Knowing Your Skin Type Matters</h2>
+<h2 class="font-display text-3xl md:text-5xl font-bold mb-8">Why Knowing Your Skin Type Matters</h2>
 <p class="text-xl text-on-surface-variant leading-relaxed mb-12">
                     Skin care is not a one-size-fits-all journey. Using products designed for dry skin on an oily complexion can lead to clogged pores and breakouts, while harsh oily-skin treatments can damage a dry skin barrier. When you know your type, you invest in results, not just rituals.
                 </p>
-<div class="bg-primary-container p-10 rounded-lg text-left relative overflow-hidden">
+<div class="bg-primary-container p-6 md:p-10 rounded-lg text-left relative overflow-hidden">
 <div class="absolute top-0 right-0 p-4">
 <span class="material-symbols-outlined text-6xl text-primary opacity-10">lightbulb</span>
 </div>
@@ -421,44 +473,36 @@
 <p class="text-on-primary-container leading-relaxed">
                         Remember that skin type can shift with age, climate, and hormonal changes. We recommend performing the Bare-Face test at least twice a year—once in the summer and once in the winter—to ensure your routine remains perfectly aligned with your skin's current needs.
                     </p>
-
+</div>
+</div>
 </section>
 </main>
 <!-- Footer -->
-<footer class="bg-surface-container-low dark:bg-surface-container-lowest flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full mt-24">
-<div class="flex flex-col mb-8 md:mb-0">
-<div class="font-display text-xl font-bold text-on-surface mb-2">deInfluence</div>
-<p class="font-body text-label-md tracking-wider text-on-surface-variant">© 2026 deInfluence Editorial. All rights reserved.</p>
-</div>
+<footer class="bg-[#fff1eb] dark:bg-stone-900 full-width rounded-t-[3rem] mt-20 tonal-layering no-borders">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-10 gap-6 max-w-7xl mx-auto">
+<div class="font-serif italic text-lg text-[#b4262f]">deInfluence.</div>
 <div class="flex flex-wrap justify-center gap-8">
-<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Privacy Policy</a>
-<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Terms of Service</a>
-<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Contact Us</a>
-<a class="font-body text-label-md tracking-wider text-on-surface-variant hover:text-primary transition-opacity" href="#">Careers</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">YouTube Summaries</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">Reddit Insights</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">Terms</a>
+<a class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-[#b4262f] underline-offset-4 hover:underline transition-all ease-in-out" href="#">Privacy</a>
+</div>
+<div class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400">© 2026 deInfluence. The Modern Atelier.</div>
 </div>
 </footer>
 <script>
-        // Simple micro-interactions
-        document.querySelectorAll('nav a').forEach(anchor => {
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if(target) {
-                        window.scrollTo({
-                            top: target.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
                 }
             });
         });
 
         // Intersection observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -466,11 +510,131 @@
                     entry.target.classList.remove('opacity-0', 'translate-y-10');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('section').forEach(section => {
             section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
             observer.observe(section);
         });
+
+        // ─── Auth helpers ─────────────────────────────────────────────────────
+        function getUser() {
+            try { return JSON.parse(localStorage.getItem('di_user') || 'null'); } catch { return null; }
+        }
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+        }
+        
+function renderNav() {
+  const user = getUser();
+
+  const guestEl = document.getElementById("auth-guest");
+  const userEl = document.getElementById("auth-user");
+  const mobileAuth = document.getElementById("mobile-auth");
+
+  if (user) {
+    // Desktop
+    guestEl.style.display = "none";
+    userEl.style.display = "block";
+
+    document.getElementById("avatar-btn").textContent =
+      getInitials(user.name || user.email);
+
+    document.getElementById("dropdown-name").textContent =
+      user.name || "My Account";
+
+    document.getElementById("dropdown-email").textContent =
+      user.email || "";
+
+    // Mobile
+    mobileAuth.innerHTML = `
+      <div class="text-center font-semibold text-[#b4262f] mb-4">
+        ${user.name || user.email}
+      </div>
+
+      <button
+        id="mobile-logout-btn"
+        class="w-full py-3 rounded-full border border-[#b4262f] text-[#b4262f] hover:bg-[#b4262f] hover:text-white transition">
+        Sign Out
+      </button>
+    `;
+
+    document.getElementById("mobile-logout-btn").onclick = () => {
+      document.getElementById("logout-btn").click();
+    };
+
+  } else {
+
+    // Desktop
+    guestEl.style.display = "";
+    userEl.style.display = "none";
+
+    // Mobile
+    mobileAuth.innerHTML = `
+      <div class="flex gap-3">
+        <a href="login.html"
+           class="flex-1 text-center py-2 rounded-full bg-[#b4262f] !text-white font-semibold">
+          Login
+        </a>
+
+        <a href="login.html"
+           class="flex-1 text-center py-2 rounded-full border border-[#b4262f] !text-[#b4262f] font-semibold">
+          Sign Up
+        </a>
+      </div>
+    `;
+  }
+}
+
+        // ─── Avatar dropdown ──────────────────────────────────────────────────
+        const avatarBtn = document.getElementById('avatar-btn');
+        const dropdown  = document.getElementById('profile-dropdown');
+        avatarBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = dropdown.classList.toggle('open');
+            avatarBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+        document.addEventListener('click', () => {
+            dropdown?.classList.remove('open');
+            avatarBtn?.setAttribute('aria-expanded', 'false');
+        });
+        dropdown?.addEventListener('click', (e) => e.stopPropagation());
+
+        // ─── Logout ───────────────────────────────────────────────────────────
+        document.getElementById('logout-btn')?.addEventListener('click', async () => {
+            const user  = getUser();
+            const token = localStorage.getItem('di_token');
+            if (!user || !token) { localStorage.clear(); renderNav(); dropdown?.classList.remove('open'); return; }
+            try {
+                const res = await fetch(`${API_BASE_URL}/auth/logout`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: user.email, token })
+                });
+                if (res.ok) console.log('Logout successful');
+            } catch (e) { console.error('Logout error:', e); }
+            localStorage.clear(); renderNav(); dropdown?.classList.remove('open');
+        });
+
+        // ─── Mobile menu ──────────────────────────────────────────────────────
+        const mobileMenuBtn  = document.getElementById('mobile-menu-btn');
+        const mobileMenu     = document.getElementById('mobile-menu');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        mobileMenuBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+            mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu?.contains(e.target) && e.target !== mobileMenuBtn) {
+                mobileMenu?.classList.remove('open');
+                if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+                mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // ─── Init ─────────────────────────────────────────────────────────────
+        renderNav();
     </script>
 </body></html>

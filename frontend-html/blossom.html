@@ -7,12 +7,10 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script src="config.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script src="config.js"></script>
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -84,15 +82,17 @@
       }
     </script>
 <style>
-
-        body { 
-        background-image: url("bbg.jpg");
-            background-size: cover;      /* Fills the screen */
-            background-position: center; /* Centers the image */
+        body {
+            background-image: url("bgblossom.png");
+            background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
             min-height: 100vh;
             margin: 0;
-        font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fff8f5; color: #2a170b; }
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fff8f5;
+            color: #2a170b;
+        }
         .font-headline { font-family: 'Newsreader', serif; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         ::-webkit-scrollbar { width: 6px; }
@@ -100,46 +100,181 @@
         ::-webkit-scrollbar-thumb { background: #ffdbc9; border-radius: 10px; }
         .chat-bubble-ai { border-bottom-left-radius: 0.25rem; }
         .chat-bubble-user { border-bottom-right-radius: 0.25rem; }
+
+        /* ── Profile dropdown (same as index.html) ─────────────────────────── */
+        #profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            min-width: 200px;
+            background: #fff8f5;
+            border: 1px solid #ffd1ce;
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(180,38,47,0.10);
+            z-index: 100;
+            overflow: hidden;
+            animation: dropIn 0.18s cubic-bezier(.4,0,.2,1);
+        }
+        #profile-dropdown.open { display: block; }
+        @keyframes dropIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        #profile-dropdown a, #profile-dropdown button {
+            display: flex; align-items: center; gap: 10px;
+            width: 100%; padding: 12px 18px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.875rem; font-weight: 500; color: #2a170b;
+            background: transparent; border: none; cursor: pointer;
+            text-align: left; text-decoration: none; transition: background 0.15s;
+        }
+        #profile-dropdown a:hover, #profile-dropdown button:hover { background: #ffeadf; }
+        #profile-dropdown hr { border: none; border-top: 1px solid #ffd1ce; margin: 4px 0; }
+        #profile-dropdown .dropdown-header { padding: 14px 18px 10px; border-bottom: 1px solid #ffd1ce; }
+        #profile-dropdown .dropdown-header .user-name { font-weight: 700; color: #b4262f; font-size: 0.95rem; }
+        #profile-dropdown .dropdown-header .user-email { font-size: 0.75rem; color: #81746e; margin-top: 2px; }
+
+        /* ── Avatar button ──────────────────────────────────────────────────── */
+        #avatar-btn {
+            width: 38px; height: 38px; border-radius: 9999px;
+            background: #b4262f; color: #fff; font-weight: 700; font-size: 0.95rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 2px solid #ffd1ce;
+            transition: box-shadow 0.2s, transform 0.15s;
+            font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.02em;
+        }
+        #avatar-btn:hover { box-shadow: 0 0 0 4px #ffd1ce; transform: scale(1.05); }
+
+        /* ── Mobile menu ────────────────────────────────────────────────────── */
+        #mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: #fff8f5;
+            border-top: 1px solid #ffd1ce;
+        }
+        #mobile-menu.open { display: flex; }
+        #mobile-menu a {
+            display: block; padding: 14px 24px;
+            font-family: 'Newsreader', serif; font-size: 1rem; font-weight: 500;
+            color: #4f453f; text-decoration: none; border-bottom: 1px solid #ffeadf;
+            transition: background 0.15s, color 0.15s;
+        }
+        #mobile-menu a:hover { background: #ffeadf; color: #b4262f; }
+        #mobile-menu a.active { color: #b4262f; font-weight: 700; }
+        #mobile-menu .mobile-auth { padding: 14px 24px 18px; display: flex; gap: 10px; }
+
+        /* ── Sidebar drawer on mobile ───────────────────────────────────────── */
+        /* On small screens the two sidebars are hidden behind toggle buttons   */
+        @media (max-width: 1023px) {
+            /* The main chat takes full width */
+            #chat-col { width: 100% !important; }
+
+            /* Sidebars become off-canvas drawers */
+            #sidebar-left, #sidebar-right {
+                position: fixed;
+                top: 0; bottom: 0;
+                width: min(320px, 85vw);
+                z-index: 200;
+                overflow-y: auto;
+                background: #fff8f5;
+                transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+                padding-top: 64px; /* clear the header */
+            }
+            #sidebar-left  { left: 0;  transform: translateX(-110%); }
+            #sidebar-right { right: 0; transform: translateX(110%); }
+            #sidebar-left.drawer-open  { transform: translateX(0); box-shadow: 4px 0 32px rgba(0,0,0,0.12); }
+            #sidebar-right.drawer-open { transform: translateX(0); box-shadow: -4px 0 32px rgba(0,0,0,0.12); }
+
+            /* Scrim overlay */
+            #drawer-scrim {
+                display: none;
+                position: fixed; inset: 0;
+                background: rgba(42,23,11,0.35);
+                z-index: 190;
+            }
+            #drawer-scrim.active { display: block; }
+
+            /* Floating drawer-toggle bar at the bottom of the chat column */
+            #drawer-toggles { display: flex; }
+        }
+        @media (min-width: 1024px) {
+            #drawer-toggles { display: none; }
+            #drawer-scrim    { display: none !important; }
+        }
     </style>
 </head>
-<body class="bg-surface text-on-surface h-screen flex flex-col overflow-hidden">
+<body class="bg-surface text-on-surface flex flex-col" style="min-height:100vh;">
+<!-- Drawer scrim (mobile only) -->
+<div id="drawer-scrim"></div>
 <!-- TopAppBar -->
-<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
-<nav class="relative flex items-center w-full px-8 py-4 max-w-7xl mx-auto">
-
-    <!-- Logo -->
-    <a href="index.html"
-       class="text-2xl font-serif font-black text-[#b4262f]">
-        deInfluence
-    </a>
-
-    <!-- Centered Tabs -->
-    <div class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-        <a class="text-stone-600 font-medium font-serif hover:text-[#b4262f]" href="index.html">Reviews</a>
-        <a class="text-[#b4262f] font-bold border-b-2 border-[#b4262f] pb-1 font-serif" href="#">Blossom</a>
-        <a class="text-stone-600 font-medium font-serif hover:text-[#b4262f]" href="trending.html">Trending</a>
-        <a class="text-stone-600 font-medium font-serif hover:text-[#b4262f]" href="skintype.html">Skintype</a>
-    </div>
-
-    <!-- Right Side -->
-    <div class="ml-auto flex items-center gap-4">
-        <button class="md:hidden p-2 text-[#b4262f]">
-            <span class="material-symbols-outlined">menu</span>
-        </button>
-    </div>
-
-
-<button class="md:hidden p-2 text-[#b4262f]">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md sticky top-0 z-50 bg-[#fff1eb] dark:bg-stone-900">
+<nav class="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-7xl mx-auto">
+<!-- Logo -->
+<a class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer" href="index.html">deInfluence</a>
+<!-- Desktop Nav (centered) -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="index.html">Reviews</a>
+<a class="text-[#b4262f] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight" href="#">Blossom</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="trending.html">Trending</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="skintype.html">Skintype</a>
+</div>
+<!-- Right side: auth + hamburger -->
+<div class="flex items-center gap-3">
+<!-- AUTH: Guest button (desktop only) -->
+<div class="hidden md:flex items-center gap-3" id="auth-guest">
+<a class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90" href="login.html">Sign up/in</a>
+</div>
+<!-- AUTH: Avatar (logged in) -->
+<div class="relative" id="auth-user" style="display:none;">
+<button aria-expanded="false" aria-haspopup="true" aria-label="Open profile menu" id="avatar-btn">
+<!-- Initials injected by JS -->
+</button>
+<div aria-label="Profile menu" id="profile-dropdown" role="menu">
+<div class="dropdown-header">
+<div class="user-name" id="dropdown-name"></div>
+<div class="user-email" id="dropdown-email"></div>
+</div>
+<hr/>
+<button id="logout-btn" role="menuitem">
+<span class="material-symbols-outlined" style="font-size:18px;color:#b4262f;">logout</span>
+<span style="color:#b4262f;">Sign out</span>
+</button>
+</div>
+</div>
+<!-- Hamburger (mobile only) -->
+<button aria-expanded="false" aria-label="Open navigation menu" class="md:hidden p-2 text-[#b4262f]" id="mobile-menu-btn">
+<span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
 </button>
 </div>
 </nav>
+<!-- Mobile dropdown menu -->
+<div aria-label="Mobile navigation" id="mobile-menu" role="navigation">
+<a href="index.html">Reviews</a>
+<a class="active" href="#">Blossom</a>
+<a href="trending.html">Trending</a>
+<a href="skintype.html">Skintype</a>
+<div class="mobile-auth">
+<a href="login.html" style="padding: 8px 18px; background: #b4262f; color: #fff; border-radius: 9999px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">Login</a>
+<a href="login.html" style="padding: 8px 18px; border: 1.5px solid #b4262f; color: #b4262f; border-radius: 9999px; font-weight: 700; font-size: 0.85rem; background: transparent; text-decoration: none;">Sign up</a>
+</div>
+</div>
 </header>
 <!-- Main Content: Full-height grid layout -->
-<main class="flex-grow flex gap-8 px-10 py-8 overflow-hidden h-full">
+<main class="flex-grow flex gap-8 px-4 md:px-10 py-4 md:py-8 lg:overflow-hidden lg:h-[calc(100vh-73px)] relative">
+<!-- Floating drawer toggle buttons (mobile/tablet only) -->
+<div class="fixed bottom-6 left-0 right-0 z-[180] justify-between px-4 pointer-events-none" id="drawer-toggles">
+<button aria-label="Show questions" class="pointer-events-auto flex items-center gap-2 bg-surface-container-low border border-outline-variant/30 shadow-lg rounded-full px-4 py-2.5 text-sm font-semibold text-primary" id="toggle-left-drawer">
+<span class="material-symbols-outlined text-base">help_outline</span>
+        Questions
+    </button>
+<button aria-label="Show profile" class="pointer-events-auto flex items-center gap-2 bg-surface-container-low border border-outline-variant/30 shadow-lg rounded-full px-4 py-2.5 text-sm font-semibold text-primary" id="toggle-right-drawer">
+<span class="material-symbols-outlined text-base">manage_accounts</span>
+        Profile
+    </button>
+</div>
 <!-- Left Column: Common Questions -->
- 
-<aside class="w-full lg:w-[22%] flex flex-col overflow-hidden">
+<aside class="w-full lg:w-[22%] flex flex-col lg:overflow-hidden" id="sidebar-left">
 <section class="bg-surface-container-low p-8 rounded-lg flex flex-col h-full">
 <h2 class="font-headline text-headline-sm font-bold text-primary mb-6 flex-shrink-0">Common Questions</h2>
 <div class="flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar">
@@ -168,7 +303,7 @@
 </section>
 </aside>
 <!-- Center Column: Chat Interface -->
-<div class="w-full lg:w-[56%] flex flex-col bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/10 overflow-hidden">
+<div class="w-full lg:w-[56%] flex flex-col bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/10 overflow-hidden" id="chat-col" style="min-height: min(600px, 70vh);">
 <!-- Chat Header -->
 <div class="p-6 flex items-center gap-4 bg-surface-container-low border-b border-outline-variant/10 flex-shrink-0">
 <div class="relative">
@@ -181,7 +316,7 @@
 </div>
 </div>
 <!-- Messages Area (Flex-grow with scroll) -->
-<div id="chatMessages" class="flex-grow p-8 flex flex-col gap-6 overflow-y-auto">
+<div class="flex-grow p-8 flex flex-col gap-6 overflow-y-auto" id="chatMessages">
 <!-- Single AI Greeting Message -->
 <div class="flex gap-4 items-end max-w-[80%]">
 <div class="bg-surface-container-highest p-5 rounded-lg chat-bubble-ai shadow-sm">
@@ -190,146 +325,122 @@
 </div>
 </div>
 <!-- Input Area -->
-<div class="p-6 border-t border-outline-variant/10 bg-surface-container-lowest flex-shrink-0">
+<div class="p-4 md:p-6 border-t border-outline-variant/10 bg-surface-container-lowest flex-shrink-0 pb-20 lg:pb-6">
 <div class="relative flex items-center">
-<input id="chatInput" class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all text-body-md placeholder:text-outline" placeholder="Ask Blossom anything about beauty..." type="text"/>
-<button id="sendButton" class="absolute right-3 w-10 h-10 flex items-center justify-center bg-primary text-on-primary rounded-full hover:opacity-90 active:scale-95 transition-transform shadow-lg" type="button">
-    <span class="material-symbols-outlined text-xl">send</span>
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-6 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all text-body-md placeholder:text-outline" id="chatInput" placeholder="Ask Blossom anything about beauty..." type="text"/>
+<button class="absolute right-3 w-10 h-10 flex items-center justify-center bg-primary text-on-primary rounded-full hover:opacity-90 active:scale-95 transition-transform shadow-lg" id="sendButton" type="button">
+<span class="material-symbols-outlined text-xl">send</span>
 </button>
 </div>
-
 </div>
 </div>
 <!-- Right Column: User Profile & About -->
-<aside class="w-full lg:w-[22%] flex flex-col gap-6 overflow-hidden">
-
-  <!-- User Profile Card -->
-  <section class="bg-surface-container-low p-6 rounded-lg flex-shrink-0" id="profileSection">
-
-    <!-- Avatar + Name -->
-    <div class="flex flex-col items-center mb-4">
-      <div class="relative w-20 h-20 mb-3">
-        <img alt="user" id="profileAvatar"
-          class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
-          src="https://i.pinimg.com/736x/e5/06/5d/e5065d3e4e3f20725962715103c5eb91.jpg"/>
-        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-      </div>
-      <h3 class="font-headline text-lg font-bold text-on-surface" id="profileName">—</h3>
-      <p class="text-xs text-outline" id="profileEmail">—</p>
-    </div>
-
-    <!-- Loading / Error states -->
-    <p id="profileLoading" class="text-sm text-outline text-center my-2 hidden">Loading profile…</p>
-    <p id="profileError"   class="text-sm text-error   text-center my-2 hidden"></p>
-
-    <!-- VIEW MODE -->
-    <div id="profileView" class="hidden">
-      <table class="w-full text-sm mb-4">
-        <tr>
-          <td class="text-on-surface-variant py-1.5 pr-2 border-b border-outline-variant/10 w-[45%]">Skin Type</td>
-          <td class="font-semibold text-on-surface py-1.5 border-b border-outline-variant/10" id="vw-skin"></td>
-        </tr>
-        <tr>
-          <td class="text-on-surface-variant py-1.5 pr-2 border-b border-outline-variant/10">Concerns</td>
-          <td class="font-semibold text-on-surface py-1.5 border-b border-outline-variant/10" id="vw-concerns"></td>
-        </tr>
-        <tr>
-          <td class="text-on-surface-variant py-1.5 pr-2 border-b border-outline-variant/10">Budget</td>
-          <td class="font-semibold text-on-surface py-1.5 border-b border-outline-variant/10" id="vw-budget"></td>
-        </tr>
-        <tr>
-          <td class="text-on-surface-variant py-1.5 pr-2">Brands</td>
-          <td class="font-semibold text-on-surface py-1.5" id="vw-brands"></td>
-        </tr>
-      </table>
-      <button id="editBtn"
-        class="w-full py-2.5 px-4 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 transition-all text-xs uppercase tracking-wider shadow-sm">
+<aside class="w-full lg:w-[22%] flex flex-col gap-6 lg:overflow-hidden" id="sidebar-right">
+<!-- User Profile Card -->
+<section class="bg-surface-container-low p-6 rounded-lg flex-shrink-0" id="profileSection">
+<!-- Avatar + Name -->
+<div class="flex flex-col items-center mb-4">
+<div class="relative w-20 h-20 mb-3">
+<img alt="user" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md" id="profileAvatar" src="https://i.pinimg.com/736x/e5/06/5d/e5065d3e4e3f20725962715103c5eb91.jpg"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+</div>
+<h3 class="font-headline text-lg font-bold text-on-surface" id="profileName">—</h3>
+<p class="text-xs text-outline" id="profileEmail">—</p>
+</div>
+<!-- Loading / Error states -->
+<p class="text-sm text-outline text-center my-2 hidden" id="profileLoading">Loading profile…</p>
+<p class="text-sm text-error text-center my-2 hidden" id="profileError"></p>
+<!-- VIEW MODE -->
+<div class="hidden" id="profileView">
+<table class="w-full text-sm mb-4">
+<tr>
+<td class="text-on-surface-variant py-1.5 pr-2 border-b border-outline-variant/10 w-[45%]">Skin Type</td>
+<td class="font-semibold text-on-surface py-1.5 border-b border-outline-variant/10" id="vw-skin"></td>
+</tr>
+<tr>
+<td class="text-on-surface-variant py-1.5 pr-2 border-b border-outline-variant/10">Concerns</td>
+<td class="font-semibold text-on-surface py-1.5 border-b border-outline-variant/10" id="vw-concerns"></td>
+</tr>
+<tr>
+<td class="text-on-surface-variant py-1.5 pr-2 border-b border-outline-variant/10">Budget</td>
+<td class="font-semibold text-on-surface py-1.5 border-b border-outline-variant/10" id="vw-budget"></td>
+</tr>
+<tr>
+<td class="text-on-surface-variant py-1.5 pr-2">Brands</td>
+<td class="font-semibold text-on-surface py-1.5" id="vw-brands"></td>
+</tr>
+</table>
+<button class="w-full py-2.5 px-4 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 transition-all text-xs uppercase tracking-wider shadow-sm" id="editBtn">
         Edit Profile
       </button>
-    </div>
-
-    <!-- EDIT MODE -->
-    <div id="profileEdit" class="hidden">
-      <div class="flex flex-col gap-3 mb-4">
-
-        <div>
-          <label class="text-xs text-on-surface-variant mb-1 block">Skin Type</label>
-          <select id="ed-skin"
-            class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none">
-            <option value="">Select…</option>
-            <option value="Oily">Oily</option>
-            <option value="Dry">Dry</option>
-            <option value="Combination">Combination</option>
-            <option value="Normal">Normal</option>
-            <option value="Sensitive">Sensitive</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="text-xs text-on-surface-variant mb-1 block">Concerns</label>
-          <input id="ed-concerns" type="text" placeholder="e.g. Acne, Dryness"
-            class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none"/>
-        </div>
-
-        <div>
-          <label class="text-xs text-on-surface-variant mb-1 block">Budget</label>
-          <select id="ed-budget"
-            class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none">
-            <option value="">Select…</option>
-            <option value="Budget (under ₹500)">Budget (under ₹500)</option>
-            <option value="Mid-range (₹500–₹2000)">Mid-range (₹500–₹2000)</option>
-            <option value="Premium (₹2000+)">Premium (₹2000+)</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="text-xs text-on-surface-variant mb-1 block">Preferred Brands</label>
-          <input id="ed-brands" type="text" placeholder="e.g. Minimalist, Dot & Key"
-            class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none"/>
-        </div>
-      </div>
-
-      <div class="flex gap-2">
-        <button id="saveBtn"
-          class="flex-1 py-2.5 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 transition-all text-xs uppercase tracking-wider shadow-sm">
+</div>
+<!-- EDIT MODE -->
+<div class="hidden" id="profileEdit">
+<div class="flex flex-col gap-3 mb-4">
+<div>
+<label class="text-xs text-on-surface-variant mb-1 block">Skin Type</label>
+<select class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none" id="ed-skin">
+<option value="">Select…</option>
+<option value="Oily">Oily</option>
+<option value="Dry">Dry</option>
+<option value="Combination">Combination</option>
+<option value="Normal">Normal</option>
+<option value="Sensitive">Sensitive</option>
+</select>
+</div>
+<div>
+<label class="text-xs text-on-surface-variant mb-1 block">Concerns</label>
+<input class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none" id="ed-concerns" placeholder="e.g. Acne, Dryness" type="text"/>
+</div>
+<div>
+<label class="text-xs text-on-surface-variant mb-1 block">Budget</label>
+<select class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none" id="ed-budget">
+<option value="">Select…</option>
+<option value="Budget (under ₹500)">Budget (under ₹500)</option>
+<option value="Mid-range (₹500–₹2000)">Mid-range (₹500–₹2000)</option>
+<option value="Premium (₹2000+)">Premium (₹2000+)</option>
+</select>
+</div>
+<div>
+<label class="text-xs text-on-surface-variant mb-1 block">Preferred Brands</label>
+<input class="w-full bg-surface-container-highest border border-outline-variant/30 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:outline-none" id="ed-brands" placeholder="e.g. Minimalist, Dot &amp; Key" type="text"/>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2.5 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 transition-all text-xs uppercase tracking-wider shadow-sm" id="saveBtn">
           Save
         </button>
-        <button id="cancelBtn"
-          class="flex-1 py-2.5 bg-surface-container text-on-surface rounded-xl font-bold hover:brightness-95 transition-all text-xs uppercase tracking-wider">
+<button class="flex-1 py-2.5 bg-surface-container text-on-surface rounded-xl font-bold hover:brightness-95 transition-all text-xs uppercase tracking-wider" id="cancelBtn">
           Cancel
         </button>
-      </div>
-
-      <p id="saveMsg" class="text-xs text-center mt-2 hidden"></p>
-    </div>
-
-  </section>
-
-  <!-- About Blossom -->
- <section class="bg-[#8c0d0d] text-white p-6 pt-4 rounded-[18px] shadow-xl flex-grow flex flex-col overflow-y-auto custom-scrollbar">
-    <div class="flex items-center gap-3 mb-4 flex-shrink-0">
-      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
-      <h5 class="font-headline text-5l font-bold">AI Agentic Personalised Blossom</h3>
-    </div>
-    <div class="pt-6 border-t border-on-primary/20 flex flex-col gap-4 flex-shrink-0">
-      <div class="flex items-center gap-4 text-label-sm">
-        <span class="material-symbols-outlined text-sm">verified</span>
-        <span>Evidence-Based Analysis</span>
-      </div>
-      <div class="flex items-center gap-4 text-label-sm">
-        <span class="material-symbols-outlined text-sm">data_usage</span>
-        <span>1M+ Reviews Scanned</span>
-      </div>
-      <div class="flex items-center gap-4 text-label-sm">
-        <span class="material-symbols-outlined text-sm">science</span>
-        <span>Lab-Verified Ingredients</span>
-      </div>
-    </div>
-  </section>
-
+</div>
+<p class="text-xs text-center mt-2 hidden" id="saveMsg"></p>
+</div>
+</section>
+<!-- About Blossom -->
+<section class="bg-[#8c0d0d] text-white p-6 pt-4 rounded-[18px] shadow-xl flex-grow flex flex-col overflow-y-auto custom-scrollbar">
+<div class="flex items-center gap-3 mb-4 flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h5 class="font-headline text-5l font-bold">AI Agentic Personalised Blossom
+</h5></div>
+<div class="pt-6 border-t border-on-primary/20 flex flex-col gap-4 flex-shrink-0">
+<div class="flex items-center gap-4 text-label-sm">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>Evidence-Based Analysis</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm">
+<span class="material-symbols-outlined text-sm">data_usage</span>
+<span>1M+ Reviews Scanned</span>
+</div>
+<div class="flex items-center gap-4 text-label-sm">
+<span class="material-symbols-outlined text-sm">science</span>
+<span>Lab-Verified Ingredients</span>
+</div>
+</div>
+</section>
 </aside>
 </main>
-<script >
+<script>
 
 // ─── Profile ──────────────────────────────────────────────────────────────────
 const profileLoading = document.getElementById("profileLoading");
@@ -801,5 +912,104 @@ document.querySelectorAll("section.bg-surface-container-lowest button").forEach(
 });
 
 scrollToBottom();
+
+// ─── Auth helpers (same as index.html) ──────────────────────────────────────
+function getUser() {
+    try { return JSON.parse(localStorage.getItem('di_user') || 'null'); } catch { return null; }
+}
+function getInitials(name) {
+    if (!name) return '?';
+    return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+}
+function renderNav() {
+    const user   = getUser();
+    const guestEl = document.getElementById('auth-guest');
+    const userEl  = document.getElementById('auth-user');
+    if (user) {
+        guestEl.style.display = 'none';
+        userEl.style.display  = 'block';
+        document.getElementById('avatar-btn').textContent    = getInitials(user.name || user.email);
+        document.getElementById('dropdown-name').textContent  = user.name  || 'My Account';
+        document.getElementById('dropdown-email').textContent = user.email || '';
+    } else {
+        guestEl.style.display = '';
+        userEl.style.display  = 'none';
+    }
+}
+
+// ─── Avatar dropdown ─────────────────────────────────────────────────────────
+const avatarBtn = document.getElementById('avatar-btn');
+const dropdown  = document.getElementById('profile-dropdown');
+avatarBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle('open');
+    avatarBtn.setAttribute('aria-expanded', String(isOpen));
+});
+document.addEventListener('click', () => {
+    dropdown?.classList.remove('open');
+    avatarBtn?.setAttribute('aria-expanded', 'false');
+});
+dropdown?.addEventListener('click', (e) => e.stopPropagation());
+
+// ─── Logout ──────────────────────────────────────────────────────────────────
+document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    const user  = getUser();
+    const token = localStorage.getItem('di_token');
+    if (!user || !token) { localStorage.clear(); renderNav(); dropdown?.classList.remove('open'); return; }
+    try {
+        const res = await fetch('http://localhost:8000/auth/logout', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email, token })
+        });
+        if (res.ok) console.log('Logout successful');
+    } catch (e) { console.error('Logout error:', e); }
+    localStorage.clear(); renderNav(); dropdown?.classList.remove('open');
+});
+
+// ─── Mobile menu ─────────────────────────────────────────────────────────────
+const mobileMenuBtn  = document.getElementById('mobile-menu-btn');
+const mobileMenu     = document.getElementById('mobile-menu');
+const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+mobileMenuBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = mobileMenu.classList.toggle('open');
+    mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+    mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+});
+document.addEventListener('click', (e) => {
+    if (!mobileMenu?.contains(e.target) && e.target !== mobileMenuBtn) {
+        mobileMenu?.classList.remove('open');
+        if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+    }
+});
+
+// ─── Sidebar drawers (mobile / tablet) ───────────────────────────────────────
+const sidebarLeft  = document.getElementById('sidebar-left');
+const sidebarRight = document.getElementById('sidebar-right');
+const drawerScrim  = document.getElementById('drawer-scrim');
+
+function openDrawer(drawer) {
+    closeAllDrawers();
+    drawer.classList.add('drawer-open');
+    drawerScrim.classList.add('active');
+}
+function closeAllDrawers() {
+    sidebarLeft?.classList.remove('drawer-open');
+    sidebarRight?.classList.remove('drawer-open');
+    drawerScrim?.classList.remove('active');
+}
+document.getElementById('toggle-left-drawer')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sidebarLeft.classList.contains('drawer-open') ? closeAllDrawers() : openDrawer(sidebarLeft);
+});
+document.getElementById('toggle-right-drawer')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sidebarRight.classList.contains('drawer-open') ? closeAllDrawers() : openDrawer(sidebarRight);
+});
+drawerScrim?.addEventListener('click', closeAllDrawers);
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+renderNav();
 </script>
 </body></html>

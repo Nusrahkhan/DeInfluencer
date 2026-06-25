@@ -81,48 +81,129 @@
         }
     </script>
 <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fff8f5; color: #2a170b; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         .serif-text { font-family: 'Newsreader', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* ── Profile dropdown ───────────────────────────────────────────────── */
+        #profile-dropdown {
+          display: none; position: absolute; right: 0; top: calc(100% + 10px);
+          min-width: 200px; background: #fff8f5; border: 1px solid #ffd1ce;
+          border-radius: 1rem; box-shadow: 0 8px 32px rgba(180,38,47,0.10);
+          z-index: 100; overflow: hidden; animation: dropIn 0.18s cubic-bezier(.4,0,.2,1);
+        }
+        #profile-dropdown.open { display: block; }
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        #profile-dropdown a, #profile-dropdown button {
+          display: flex; align-items: center; gap: 10px; width: 100%;
+          padding: 12px 18px; font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: 0.875rem; font-weight: 500; color: #2a170b;
+          background: transparent; border: none; cursor: pointer;
+          text-align: left; text-decoration: none; transition: background 0.15s;
+        }
+        #profile-dropdown a:hover, #profile-dropdown button:hover { background: #ffeadf; }
+        #profile-dropdown hr { border: none; border-top: 1px solid #ffd1ce; margin: 4px 0; }
+        #profile-dropdown .dropdown-header { padding: 14px 18px 10px; border-bottom: 1px solid #ffd1ce; }
+        #profile-dropdown .dropdown-header .user-name { font-weight: 700; color: #b4262f; font-size: 0.95rem; }
+        #profile-dropdown .dropdown-header .user-email { font-size: 0.75rem; color: #81746e; margin-top: 2px; }
+
+        /* ── Avatar button ──────────────────────────────────────────────────── */
+        #avatar-btn {
+          width: 38px; height: 38px; border-radius: 9999px; background: #b4262f;
+          color: #fff; font-weight: 700; font-size: 0.95rem; display: flex;
+          align-items: center; justify-content: center; cursor: pointer;
+          border: 2px solid #ffd1ce; transition: box-shadow 0.2s, transform 0.15s;
+          font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.02em;
+        }
+        #avatar-btn:hover { box-shadow: 0 0 0 4px #ffd1ce; transform: scale(1.05); }
+
+        /* ── Mobile menu ────────────────────────────────────────────────────── */
+        #mobile-menu {
+          display: none; flex-direction: column; gap: 0;
+          background: #fff8f5; border-top: 1px solid #ffd1ce; padding: 8px 0 16px;
+        }
+        #mobile-menu.open { display: flex; }
+        #mobile-menu a {
+          display: block; padding: 12px 24px; font-family: 'Newsreader', serif;
+          font-size: 1rem; font-weight: 500; color: #4f453f; text-decoration: none;
+          transition: background 0.15s, color 0.15s;
+        }
+        #mobile-menu a:hover { background: #ffeadf; color: #b4262f; }
+        #mobile-menu a.active { color: #b4262f; font-weight: 700; }
+        #mobile-menu-btn { display: none; }
+        @media (max-width: 767px) { #mobile-menu-btn { display: flex; } }
+
+        /* ── Bulletin product image: shorter on mobile ──────────────────────── */
+        .bulletin-img { height: 400px; }
+        @media (min-width: 1024px) { .bulletin-img { height: 600px; } }
     </style>
 </head>
 <body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
 <!-- TopAppBar -->
-<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md docked full-width top-0 sticky z-50 no-line-rule tonal-shift bg-[#fff1eb] dark:bg-stone-900 flat no shadows">
-<nav class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-<a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
-<!-- Desktop Nav -->
-<div class="hidden md:flex items-center gap-8">
-<a class="" href="#">Reviews</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
-<a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="trending.html">Trending</a>
-<a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="skintype.html">Skintype</a>
-</div>
-<div class="flex items-center gap-4">
-            <div class="flex items-center gap-3">
-                <a href="#" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Login</a>
-                <a href="#" class="px-4 py-2 border border-primary text-primary rounded-full font-bold text-sm hover:bg-primary/10">Sign up</a>
-            </div>
-<button class="md:hidden p-2 text-[#b4262f]">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-</div>
+<header class="bg-[#fff8f5] dark:bg-stone-950/80 backdrop-blur-md sticky top-0 z-50 bg-[#fff1eb] dark:bg-stone-900">
+<nav class="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-7xl mx-auto">
+  <a href="index.html" class="text-2xl font-serif font-black text-[#b4262f] dark:text-[#ffd1ce] cursor-pointer">deInfluence</a>
+
+  <!-- Desktop Nav -->
+  <div class="hidden md:flex items-center gap-8">
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="index.html">Reviews</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="blossom.html">Blossom</a>
+    <a class="text-[#b4262f] dark:text-[#ffd1ce] font-bold border-b-2 border-[#b4262f] pb-1 font-serif tracking-tight transition-colors duration-300" href="trending.html">Trending</a>
+    <a class="text-stone-600 dark:text-stone-400 font-medium font-serif tracking-tight hover:text-[#b4262f] transition-colors duration-300" href="skintype.html">Skintype</a>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <!-- AUTH: Guest buttons -->
+    <div id="auth-guest" class="hidden md:flex items-center gap-3">
+      <a href="login.html" class="px-4 py-2 bg-primary text-on-primary rounded-full font-bold text-sm hover:opacity-90">Sign up/in</a>
+    </div>
+
+    <!-- AUTH: User profile -->
+    <div id="auth-user" class="relative" style="display:none;">
+      <button id="avatar-btn" aria-label="Open profile menu" aria-expanded="false" aria-haspopup="true"></button>
+      <div id="profile-dropdown" role="menu" aria-label="Profile menu">
+        <div class="dropdown-header">
+          <div class="user-name" id="dropdown-name"></div>
+          <div class="user-email" id="dropdown-email"></div>
+        </div>
+        <hr/>
+        <button id="logout-btn" role="menuitem">
+          <span class="material-symbols-outlined" style="font-size:18px;color:#b4262f;">logout</span>
+          <span style="color:#b4262f;">Sign out</span>
+        </button>
+      </div>
+    </div>
+
+    <button id="mobile-menu-btn" class="md:hidden p-2 text-[#b4262f]" aria-label="Open navigation menu" aria-expanded="false">
+      <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+    </button>
+  </div>
 </nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <a href="index.html">Reviews</a>
+  <a href="blossom.html">Blossom</a>
+  <a class="active" href="trending.html">Trending</a>
+  <a href="skintype.html">Skintype</a>
+  <div id="mobile-auth" style="padding: 12px 24px 4px;"></div>
+</div>
 </header>
 <main class="max-w-7xl mx-auto px-6 lg:px-12 pb-24">
 <!-- Editorial Hero Header -->
 <section class="pt-20 pb-12 lg:pt-32 lg:pb-24 flex flex-col md:flex-row items-end gap-8 relative">
 <div class="flex-1">
 <span class="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">The Weekly Radar</span>
-<h1 class="text-5xl md:text-7xl lg:text-8xl serif-text font-bold text-primary italic leading-[0.9] tracking-tighter mb-8">
-                This Week in Skincare: What's In Hype, Is it good for you?
+<h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl serif-text font-bold text-primary italic leading-[0.9] tracking-tighter mb-8">
+                This Week in Skincare: What's Actually Worth the Hype
             </h1>
 <div class="max-w-2xl">
 <p class="text-lg md:text-xl font-body leading-relaxed text-on-surface-variant">
-                    This week, the skincare scene is abuzz with two products: the viral <strong>Danessa Myricks Yummy Skin Blurring Balm Powder</strong> and the new <strong>Glow Recipe Watermelon Milk Peptide Cushion Cream</strong>. We've stripped back the aesthetic packaging and influencer hype to see if these formulations actually deliver on their promises.
+                    This week, the skincare scene is abuzz with two products: the TikTok-viral <strong>Danessa Myricks Yummy Skin Blurring Balm Powder</strong> and the new <strong>Glow Recipe Watermelon Milk Peptide Cushion Cream</strong>. We've stripped back the aesthetic packaging and influencer hype to see if these formulations actually deliver on their promises.
                 </p>
 </div>
 </div>
@@ -133,7 +214,7 @@
 <!-- Bottom Line Section -->
 <section
   id="bottom-line"
-  class="mt-32 p-12 bg-primary-container/20 rounded-lg"
+  class="mt-32 p-6 md:p-12 bg-primary-container/20 rounded-lg"
 ></section>
 </main>
 <!-- Footer -->
@@ -156,126 +237,77 @@
   container.innerHTML = bulletins
     .map(
       (bulletin, index) => `
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
         ${
           index % 2 === 0
             ? `
-            <div class="lg:col-span-7 relative group sticky top-32">
-
+            <div class="lg:col-span-7 relative group lg:sticky lg:top-32">
               <img
-                src="${
-                  bulletin.image_url ||
-                  './bulletin-assets/products.jpg'
-                }"
+                src="${bulletin.image_url || './bulletin-assets/products.jpg'}"
                 alt="${bulletin.product_name}"
-                class="w-full h-[600px] object-cover rounded-lg shadow-2xl"
+                class="w-full h-64 sm:h-80 lg:h-[600px] object-cover rounded-lg shadow-2xl"
               />
             </div>
             `
             : ""
         }
 
-        <div class="lg:col-span-5 flex flex-col gap-8">
+        <div class="lg:col-span-5 flex flex-col gap-6 lg:gap-8">
 
           <div>
-            <span
-              class="inline-block py-1 px-4 bg-secondary-container rounded-full text-sm font-bold mb-4"
-            >
+            <span class="inline-block py-1 px-4 bg-secondary-container rounded-full text-sm font-bold mb-4">
               Trending #${index + 1}
             </span>
-
-            <h2
-              class="text-4xl md:text-5xl serif-text font-bold"
-            >
+            <h2 class="text-3xl md:text-4xl lg:text-5xl serif-text font-bold">
               ${bulletin.product_name}
             </h2>
           </div>
 
           <div>
-            <h3
-              class="font-label text-xs uppercase tracking-widest text-primary font-black mb-3"
-            >
+            <h3 class="font-label text-xs uppercase tracking-widest text-primary font-black mb-3">
               Why Everyone's Talking About It
             </h3>
-
             <p class="text-on-surface-variant leading-relaxed">
               ${bulletin.hype_summary}
             </p>
-
             <p class="mt-3 text-sm text-secondary">
               Source: ${bulletin.trend_source}
             </p>
           </div>
 
-          <div class="bg-surface-container-low p-6 rounded-lg">
-            <h3
-              class="font-label text-xs uppercase tracking-widest text-primary font-black mb-4"
-            >
+          <div class="bg-surface-container-low p-5 rounded-lg overflow-x-auto">
+            <h3 class="font-label text-xs uppercase tracking-widest text-primary font-black mb-4">
               What's Actually In It
             </h3>
-
             <table class="w-full text-sm">
               <tbody class="divide-y divide-outline-variant">
-
-                ${bulletin.key_ingredients
-                  .map(
-                    (ingredient) => `
-                    <tr>
-                      <td class="py-2 font-bold">
-                        ${ingredient.name}
-                      </td>
-
-                      <td class="py-2">
-                        ${ingredient.benefit}
-                      </td>
-                    </tr>
-                  `
-                  )
-                  .join("")}
-
+                ${bulletin.key_ingredients.map((ingredient) => `
+                  <tr>
+                    <td class="py-2 font-bold pr-3 align-top w-2/5">${ingredient.name}</td>
+                    <td class="py-2">${ingredient.benefit}</td>
+                  </tr>
+                `).join("")}
               </tbody>
             </table>
           </div>
 
           <div class="border-l-4 border-primary pl-6 py-2">
-            <h3
-              class="font-label text-xs uppercase tracking-widest text-primary font-black mb-2"
-            >
+            <h3 class="font-label text-xs uppercase tracking-widest text-primary font-black mb-2">
               Dermatologist's Take
             </h3>
-
-            <p class="italic">
-              ${bulletin.dermatologist_verdict}
-            </p>
+            <p class="italic">${bulletin.dermatologist_verdict}</p>
           </div>
 
           <div class="grid grid-cols-2 gap-4">
-
             <div class="bg-green-50 p-4 rounded-lg border">
-              <span
-                class="text-[10px] uppercase font-bold text-green-700 block mb-1"
-              >
-                Who Should Try
-              </span>
-
-              <p class="text-sm font-bold">
-                ${bulletin.good_for_skin_types.join(", ")}
-              </p>
+              <span class="text-[10px] uppercase font-bold text-green-700 block mb-1">Who Should Try</span>
+              <p class="text-sm font-bold">${bulletin.good_for_skin_types.join(", ")}</p>
             </div>
-
             <div class="bg-red-50 p-4 rounded-lg border">
-              <span
-                class="text-[10px] uppercase font-bold text-red-700 block mb-1"
-              >
-                Skip If
-              </span>
-
-              <p class="text-sm font-bold">
-                ${bulletin.avoid_if || "N/A"}
-              </p>
+              <span class="text-[10px] uppercase font-bold text-red-700 block mb-1">Skip If</span>
+              <p class="text-sm font-bold">${bulletin.avoid_if || "N/A"}</p>
             </div>
-
           </div>
 
         </div>
@@ -283,14 +315,11 @@
         ${
           index % 2 === 1
             ? `
-            <div class="lg:col-span-7 relative group sticky top-32">
+            <div class="lg:col-span-7 relative group lg:sticky lg:top-32">
               <img
-                src="${
-                  bulletin.image_url ||
-                  'bulletin-assets/cushion.jpg'
-                }"
+                src="${bulletin.image_url || 'bulletin-assets/cushion.jpg'}"
                 alt="${bulletin.product_name}"
-                class="w-full h-[600px] object-cover rounded-lg shadow-2xl"
+                class="w-full h-64 sm:h-80 lg:h-[600px] object-cover rounded-lg shadow-2xl"
               />
             </div>
             `
@@ -373,5 +402,124 @@ async function loadBulletins() {
 }
 
 document.addEventListener("DOMContentLoaded", loadBulletins);
+
+// ─── Auth helpers ─────────────────────────────────────────────────────────────
+function getUser() {
+  try { return JSON.parse(localStorage.getItem('di_user') || 'null'); } catch { return null; }
+}
+function getInitials(name) {
+  if (!name) return '?';
+  return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+}
+function renderNav() {
+  const user = getUser();
+
+  const guestEl = document.getElementById("auth-guest");
+  const userEl = document.getElementById("auth-user");
+  const mobileAuth = document.getElementById("mobile-auth");
+
+  if (user) {
+    // Desktop
+    guestEl.style.display = "none";
+    userEl.style.display = "block";
+
+    document.getElementById("avatar-btn").textContent =
+      getInitials(user.name || user.email);
+
+    document.getElementById("dropdown-name").textContent =
+      user.name || "My Account";
+
+    document.getElementById("dropdown-email").textContent =
+      user.email || "";
+
+    // Mobile
+    mobileAuth.innerHTML = `
+      <div class="text-center font-semibold text-[#b4262f] mb-4">
+        ${user.name || user.email}
+      </div>
+
+      <button
+        id="mobile-logout-btn"
+        class="w-full py-3 rounded-full border border-[#b4262f] text-[#b4262f] hover:bg-[#b4262f] hover:text-white transition">
+        Sign Out
+      </button>
+    `;
+
+    document.getElementById("mobile-logout-btn").onclick = () => {
+      document.getElementById("logout-btn").click();
+    };
+
+  } else {
+
+    // Desktop
+    guestEl.style.display = "";
+    userEl.style.display = "none";
+
+    // Mobile
+    mobileAuth.innerHTML = `
+      <div class="flex gap-3">
+        <a href="login.html"
+          class="flex-1 text-center py-2 rounded-full bg-[#b4262f] !text-white font-semibold">
+          Login
+        </a>
+
+        <a href="login.html"
+          class="flex-1 text-center py-2 rounded-full border border-[#b4262f] !text-[#b4262f] font-semibold">
+          Sign Up
+        </a>
+      </div>
+    `;
+  }
+}
+
+// ─── Avatar dropdown ──────────────────────────────────────────────────────────
+const avatarBtn = document.getElementById('avatar-btn');
+const dropdown  = document.getElementById('profile-dropdown');
+avatarBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = dropdown.classList.toggle('open');
+  avatarBtn.setAttribute('aria-expanded', String(isOpen));
+});
+document.addEventListener('click', () => {
+  dropdown?.classList.remove('open');
+  avatarBtn?.setAttribute('aria-expanded', 'false');
+});
+dropdown?.addEventListener('click', (e) => e.stopPropagation());
+
+// ─── Logout ───────────────────────────────────────────────────────────────────
+document.getElementById('logout-btn')?.addEventListener('click', async () => {
+  const user  = getUser();
+  const token = localStorage.getItem('di_token');
+  if (!user || !token) { localStorage.clear(); renderNav(); dropdown?.classList.remove('open'); return; }
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/logout`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email, token })
+    });
+    if (res.ok) console.log('Logout successful');
+  } catch (e) { console.error('Logout error:', e); }
+  localStorage.clear(); renderNav(); dropdown?.classList.remove('open');
+});
+
+// ─── Mobile menu ──────────────────────────────────────────────────────────────
+const mobileMenuBtn  = document.getElementById('mobile-menu-btn');
+const mobileMenu     = document.getElementById('mobile-menu');
+const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+mobileMenuBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = mobileMenu.classList.toggle('open');
+  mobileMenuIcon.textContent = isOpen ? 'close' : 'menu';
+  mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+});
+document.addEventListener('click', (e) => {
+  if (!mobileMenu?.contains(e.target) && e.target !== mobileMenuBtn) {
+    mobileMenu?.classList.remove('open');
+    if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+  }
+});
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+renderNav();
 </script>
 </body></html>
