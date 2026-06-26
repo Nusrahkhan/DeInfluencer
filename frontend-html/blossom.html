@@ -275,11 +275,11 @@
 </div>
 <!-- Left Column: Common Questions -->
 <aside class="w-full lg:w-[22%] flex flex-col lg:overflow-hidden" id="sidebar-left">
-<section class="bg-surface-container-low p-8 rounded-lg flex flex-col h-full">
+<section id="commonQuestions" class="bg-surface-container-lowest p-8 rounded-lg flex flex-col h-full">
 <h2 class="font-headline text-headline-sm font-bold text-primary mb-6 flex-shrink-0">Common Questions</h2>
 <div class="flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar">
 <button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
-<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Is snail mucin good for oily skin?</span>
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Is snail mucin good for my skin?</span>
 </button>
 <button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
 <span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Best retinol for beginners?</span>
@@ -297,7 +297,7 @@
 <span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Double cleansing for blackheads?</span>
 </button>
 <button class="text-left p-4 bg-surface-container-lowest rounded-lg hover:bg-primary-container transition-all group">
-<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">How to repair skin barrier?</span>
+<span class="text-body-md text-on-surface-variant group-hover:text-on-primary-container">Best products for detan?</span>
 </button>
 </div>
 </section>
@@ -901,7 +901,8 @@ input.addEventListener("keydown", (event) => {
 
 sendBtn.addEventListener("click", sendMessage);
 
-document.querySelectorAll("section.bg-surface-container-lowest button").forEach((button) => {
+
+document.querySelectorAll("#commonQuestions button").forEach((button) => {
     const question = button.querySelector("span");
     if (!question) return;
 
