@@ -426,7 +426,7 @@ def not_in_db(query: str) -> Dict:
         }
 
     except Exception as e:
-        print(f"NAgHI HORAHA BHAI: {e}")
+        print(f"NAHI HORAHA BHAI: {e}")
         return {"error": str(e)}
 
 
