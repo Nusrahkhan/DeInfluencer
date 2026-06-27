@@ -430,16 +430,16 @@ def summarize_product(
     final_summary = ai_summary if ai_summary else " ".join(summary_parts)
 
     return {
-        "Product": product_name,
-        "Review Count": review_count,
-        "Average Sentiment": round(average_score, 3),
-        "Score / 5": overall_score_5,
-        "Positive %": positive_share,
-        "Negative %": negative_share,
-        "Neutral %": neutral_share,
-        "Positive Themes": ", ".join(positive_themes),
-        "Negative Themes": ", ".join(negative_themes + (["white cast"] if has_white_cast_complaint(review_texts) else [])),
-        "Summary": final_summary,
+        "product": product_name,
+        "review_count": review_count,
+        "average_sentiment": round(average_score, 3),
+        "score_5": overall_score_5,
+        "positive_percentile": positive_share,
+        "negative_percentile": negative_share,
+        "neutral_percentile": neutral_share,
+        "positive_themes": ", ".join(positive_themes),
+        "negative_themes": ", ".join(negative_themes + (["white cast"] if has_white_cast_complaint(review_texts) else [])),
+        "summary": final_summary,
     }
 
 
