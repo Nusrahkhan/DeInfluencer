@@ -206,25 +206,26 @@ def search_product(query: str) -> Dict:
 @app.get("/not_in_db")
 def not_in_db(query: str) -> Dict:
     try:
-        #Step 0: Get product details from INCIDecoder
+        # Step 0: Get product details from INCIDecoder
         ing_details = scrape_product(query)
         brand_name = ing_details.get("brand", "Unknown")
         ingredients = ing_details.get("ingredients", "")
         comedogenic_score = ing_details.get("comedogenic_score", None)
         product_picture = ing_details.get("product_picture", None)
         source_url = ing_details.get("source_url", None)
-        product_id = product_id = ing_details.get("db_id")
+        # NOTE: this is the products.id, kept here only in case you need it
+        # elsewhere - it is NOT used as reddit_reviews.product_id since that FK
+        # points at product_sentiment.id, not products.id.
+        products_table_id = ing_details.get("db_id")
 
         print(ing_details.get("product_name", query))
 
         # Step 1: Scrape Reddit reviews
-
         print(f"🔍 Scraping Reddit for: {query}")
         raw_records = scraper.scrape_product_reviews(query, target=60)
-        
+
         if not raw_records:
             return {
-                # Products table fields
                 "product_name": query,
                 "brand_name": brand_name,
                 "ingredients": ingredients,
@@ -232,21 +233,21 @@ def not_in_db(query: str) -> Dict:
                 "product_picture": product_picture,
                 "source_url": source_url,
             }
-        
+
         print(f"✅ Scraped {len(raw_records)} raw reviews")
 
         prompt = f"""
         You are a review filter and cleaner for skincare/beauty products.
-        
+
         Product: {query}
-        
+
         Below are Reddit reviews/comments about this product. Your task:
         1. KEEP ONLY reviews that either PRAISE or CRITICIZE the product (strong sentiment)
         2. REMOVE generic comments, off-topic discussions, or neutral statements
         3. REMOVE spam or irrelevant content
         4. CLEAN up each review (fix typos, remove unnecessary punctuation, keep meaning intact)
         5. Return ONLY valid reviews in JSON format
-        
+
         For each valid review, include these exact fields:
         - source: "reddit_comment"
         - subreddit: the subreddit name
@@ -257,10 +258,10 @@ def not_in_db(query: str) -> Dict:
         - date: the date in YYYY-MM-DD format
         - url: the URL
         - product_name: {query}
-        
+
         Reviews to filter:
         {raw_records}
-        
+
         Return a valid JSON array starting with [ and ending with ]. Include ONLY the cleaned reviews.
         Do NOT include markdown code blocks or any explanations. Start directly with the JSON array.
         """
@@ -271,7 +272,6 @@ def not_in_db(query: str) -> Dict:
                 contents=prompt
             )
 
-            # Extract text safely
             response_text = ""
             if hasattr(response, "text") and response.text:
                 response_text = response.text.strip()
@@ -284,19 +284,16 @@ def not_in_db(query: str) -> Dict:
             if not response_text:
                 return {"error": "Gemini returned an empty response"}
 
-            # Strip markdown fences if present
             if response_text.startswith("```"):
                 response_text = re.sub(r"^```(?:json)?\n?", "", response_text)
                 response_text = re.sub(r"\n?```$", "", response_text)
                 response_text = response_text.strip()
 
-            # Parse JSON
             cleaned_records = json.loads(response_text)
 
         except Exception as e:
             print(f"❌ Error calling Gemini: {e}")
             return {
-                # Products table fields
                 "product_name": query,
                 "brand_name": brand_name,
                 "ingredients": ingredients,
@@ -304,56 +301,35 @@ def not_in_db(query: str) -> Dict:
                 "product_picture": product_picture,
                 "source_url": source_url,
             }
-        
-        # Step 4: Format records for reddit_reviews table
+
+        # Step 4: Format records (product_id is added LATER, once we know the
+        # product_sentiment row's id - see Step 5)
         print(f"📝 Formatting records for database...")
         formatted_records = []
-        
+
         for record in cleaned_records:
-            # Convert date string (YYYY-MM-DD) to Unix timestamp
             try:
-                from datetime import datetime
                 date_obj = datetime.strptime(record.get("date", "2024-01-01"), "%Y-%m-%d")
                 date_timestamp = int(date_obj.timestamp())
-            except:
+            except Exception:
                 date_timestamp = int(datetime.now().timestamp())
+
             formatted_record = {
-                "product_id": product_id,
-                "product": query,  # Insert the product name/query
+                "product": query,
                 "source": record.get("source", "reddit_comment"),
                 "subreddit": record.get("subreddit", ""),
-                "reviewer": record.get("reviewer", record.get("author", "[deleted]")),              
+                "reviewer": record.get("reviewer", record.get("author", "[deleted]")),
                 "title": record.get("title", ""),
                 "body": record.get("body", ""),
-                "date": date_timestamp,  # Unix timestamp as BIGINT
+                "date": date_timestamp,
                 "upvotes": record.get("upvotes", 0),
                 "url": record.get("url", ""),
-                # created_at is auto-generated by DEFAULT NOW()
             }
             print(f"Formatted record: {formatted_record}")
             formatted_records.append(formatted_record)
 
-        # Step 5: Insert into reddit_reviews table
-        try:
-            # Insert records into reddit_reviews table
-            response = supabase.table("reddit_reviews").insert(formatted_records).execute()
-            
-            print(f"✅ Successfully inserted {len(cleaned_records)} reviews into reddit_reviews!")
-            
-        except Exception as e:
-            print(f"❌ Error inserting into Supabase: {e}")
-            return {
-                "reddit_reviews": formatted_records.data if formatted_records.data else [],
-                # Products table fields
-                "product_name": query,
-                "brand_name": brand_name,
-                "ingredients": ingredients,
-                "comedogenic_score": comedogenic_score,
-                "product_picture": product_picture,
-                "source_url": source_url,
-            }
-        
-        # Step 6: Perform sentiment analysis
+        # Step 5: Run sentiment analysis BEFORE touching the DB, since
+        # product_sentiment must exist before reddit_reviews can reference it.
         print(f"📊 Performing sentiment analysis...")
         gemini_api_key = resolve_gemini_api_key()
         print(formatted_records[0] if formatted_records else "No records to analyze")
@@ -366,68 +342,91 @@ def not_in_db(query: str) -> Dict:
         )
 
         print(sentiment_report)
-
         print("✅ Sentiment analysis complete")
 
-        # Convert DataFrame to JSON response
         sentiment_data = sentiment_report.to_dict(orient="records")
         sentiment_raw = sentiment_data[0] if sentiment_data else {}
         print(f"Raw sentiment data: {sentiment_raw}")
 
-        # Normalize keys: "Average Sentiment" -> "average_sentiment"
         sentiment = {k.lower().replace(" ", "_"): v for k, v in sentiment_raw.items()}
 
-        try: 
+        # Step 6: Insert into product_sentiment FIRST, so we get an id that
+        # reddit_reviews.product_id can legally reference.
+        sentiment_row_id = None
+        try:
             print("💾 Inserting into product_sentiment...")
 
             sentiment_insert = {
                 "product": query,
                 "review_count": len(formatted_records),
                 "average_sentiment": sentiment.get("average_sentiment"),
-                "score": sentiment.get("score_5") or sentiment.get("score"),  # fallback safety
+                "score": sentiment.get("score_5") or sentiment.get("score"),
                 "positive_percentile": sentiment.get("positive_percentile"),
                 "negative_percentile": sentiment.get("negative_percentile"),
                 "neutral_percentile": sentiment.get("neutral_percentile"),
                 "positive_themes": sentiment.get("positive_themes"),
                 "negative_themes": sentiment.get("negative_themes"),
                 "summary": sentiment.get("summary"),
-                "reddit_reviews": formatted_records.data if formatted_records.data else []
             }
 
-            response = supabase.table("product_sentiment").insert(sentiment_insert).execute()
+            sentiment_response = supabase.table("product_sentiment").insert(sentiment_insert).execute()
+            if sentiment_response.data:
+                sentiment_row_id = sentiment_response.data[0]["id"]
 
-            print("✅ Inserted into product_sentiment")
+            print(f"✅ Inserted into product_sentiment, id={sentiment_row_id}")
 
         except Exception as e:
             print(f"❌ Error inserting product_sentiment: {e}")
 
-        print("Normalized keys:", list(sentiment.keys()))  # debug: confirm key names
+        # Step 7: Now attach product_id (the product_sentiment row id) to each
+        # review and insert into reddit_reviews.
+        for rec in formatted_records:
+            rec["product_id"] = sentiment_row_id
 
+        try:
+            reviews_response = supabase.table("reddit_reviews").insert(formatted_records).execute()
+            print(f"✅ Successfully inserted {len(formatted_records)} reviews into reddit_reviews!")
+        except Exception as e:
+            print(f"❌ Error inserting into Supabase: {e}")
+            return {
+                "reddit_reviews": formatted_records,
+                "product_name": query,
+                "brand_name": brand_name,
+                "ingredients": ingredients,
+                "comedogenic_score": comedogenic_score,
+                "product_picture": product_picture,
+                "source_url": source_url,
+                "average_sentiment": sentiment.get("average_sentiment"),
+                "positive_percentile": sentiment.get("positive_percentile"),
+                "negative_percentile": sentiment.get("negative_percentile"),
+                "positive_themes": sentiment.get("positive_themes"),
+                "negative_themes": sentiment.get("negative_themes"),
+                "summary": sentiment.get("summary"),
+            }
+
+        print("Normalized keys:", list(sentiment.keys()))
         print(sentiment.get("average_sentiment"))
         print(sentiment.get("positive_percentile"))
         print(sentiment.get("negative_percentile"))
 
-
         return {
-            # Products table fields
             "product_name": query,
             "brand_name": brand_name,
             "ingredients": ingredients,
             "comedogenic_score": comedogenic_score,
             "product_picture": product_picture,
             "source_url": source_url,
-            # Product sentiment table fields
             "average_sentiment": sentiment.get("average_sentiment"),
             "positive_percentile": sentiment.get("positive_percentile"),
             "negative_percentile": sentiment.get("negative_percentile"),
-            "positive_themes": sentiment.get("positive_themes") ,
+            "positive_themes": sentiment.get("positive_themes"),
             "negative_themes": sentiment.get("negative_themes"),
             "summary": sentiment.get("summary"),
-            "reddit_reviews": formatted_records.data if formatted_records.data else []
-        }    
-    
+            "reddit_reviews": formatted_records,
+        }
+
     except Exception as e:
-        print(f"NAHI HORAHA BHAI: {e}")  # also log the actual error!
+        print(f"NAgHI HORAHA BHAI: {e}")
         return {"error": str(e)}
 
 

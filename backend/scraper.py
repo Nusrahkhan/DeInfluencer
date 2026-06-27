@@ -15,7 +15,7 @@ BASE_URL = "https://arctic-shift.photon-reddit.com/api"
 
 SKINCARE_SUBREDDITS = [
     "IndianSkincareAddicts", "SkincareAddiction",
-    "MakeupAddiction", "Sephora", "AsianBeauty", "beauty",
+    "MakeupAddiction", "Sephora", "AsianBeauty", "beauty", "IndianMakeupAddicts"
 ]
 
 MAX_RETRIES = 3
